@@ -1,21 +1,24 @@
 "use strict";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-import Title from "./Title";
 import { works } from "@/data/works";
-import Card from "./Card";
+import Title from "./Title";
+import WorkCard from "./WorkCard";
 
 const Works = () => {
   return (
     <div>
       <Title title="Works" />
       <div className="flex gap-8 mx-auto">
-          {works.map((work) => {
-            return (
-              <Card id={work.id} image={work.image} title={work.title} description={work.description} technology={work.technology} />
-            );
-          })}
+        {works.map((work) => {
+          return (
+            <WorkCard
+              id={work.id}
+              image={work.image}
+              title={work.title}
+              description={work.description}
+              technology={work.technology}
+            />
+          );
+        })}
       </div>
     </div>
   );

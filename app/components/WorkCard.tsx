@@ -11,20 +11,15 @@ type WorkCardProps = {
   title: string;
   description: string;
   technology: string;
-  englishTranslation?: string;
-  appUrl?: string;
-  githubUrl?: string;
+
 };
 
-const Card: React.FC<WorkCardProps> = ({
+const WorkCard: React.FC<WorkCardProps> = ({
   id,
   title,
   image,
   description,
   technology,
-  englishTranslation,
-  appUrl,
-  githubUrl
 }) => {
   const query = works;
   return (
@@ -32,16 +27,6 @@ const Card: React.FC<WorkCardProps> = ({
       <Link
         href={{
           pathname: `/work/${id}`,
-          query: {
-            id: id,
-            title: title,
-            image: image,
-            description: description,
-            technology: technology,
-            englishTranslation: englishTranslation,
-            appUrl: appUrl,
-            githubUrl: githubUrl
-          }
         }}
       >
         <figure>
@@ -49,8 +34,8 @@ const Card: React.FC<WorkCardProps> = ({
             className="hover:scale-x-95"
             src={`/${image}.png`}
             alt="work-image"
-            width={200}
-            height={200}
+            width={300}
+            height={300}
           />
         </figure>
         <div className="card-body">
@@ -67,4 +52,4 @@ const Card: React.FC<WorkCardProps> = ({
   );
 };
 
-export default Card;
+export default WorkCard;

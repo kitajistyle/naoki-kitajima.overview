@@ -107,14 +107,6 @@ const Three: React.FC = () => {
         scene.add(box);
       }
 
-      const contentBboxGeometry = new THREE.BoxGeometry(0.4, 0.4, 0.4);
-      const contentBoxMaterial = new THREE.MeshStandardMaterial({ color: 0x99FF33 });
-      const contentBox = new THREE.Mesh(contentBboxGeometry, contentBoxMaterial);
-
-      contentBox.position.x = -2;
-      contentBox.position.y = -1;
-      contentBox.position.z = 0;
-      scene.add(contentBox);
 
       const animate = () => {
         controls.update();

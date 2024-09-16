@@ -1,11 +1,12 @@
 "use client";
-import Three from "./components/Three";
+import { useEffect, useState } from "react";
+import Active from "./components/Active";
+import Footer from "./components/Footer";
+import Loading from "./components/Loading";
 import Profile from "./components/Profile";
 import Skills from "./components/Skills";
+import Three from "./components/Three";
 import Works from "./components/Works";
-import Active from "./components/Active";
-import { useEffect, useState } from "react";
-import Loading from "./components/Loading";
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -27,18 +28,19 @@ const MainContent: React.FC = () => {
       <div className="mb-5">
         <Three />
       </div>
-      <div className="mx-5">
+      <div id="Profile" className="mx-5">
         <Profile />
       </div>
-      <div className="mx-5">
+      <div id="Skills" className="mx-5">
         <Skills />
       </div>
-      <div className="mx-5">
+      <div id="Works" className="mx-5">
         <Works />
       </div>
-      <div className="mx-5">
-        <Active />
+      <div id="Active" className="mx-5">
+        {/* <Active /> */}
       </div>
+      <Footer />
     </main>
   );
 };
