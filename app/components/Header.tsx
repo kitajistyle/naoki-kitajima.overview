@@ -14,12 +14,11 @@ export default function Header() {
         className="flex w-full items-center justify-between p-6 lg:px-8"
       >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          
             <span className="sr-only">Your Company</span>
             <Link href="/">
               <p className="font-bold text-lg text-white">Naoki Portfolio</p>
               </Link>
-          </a>
         </div>
         <div className="flex lg:hidden">
           <button
