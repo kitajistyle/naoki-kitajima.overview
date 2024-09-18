@@ -39,7 +39,7 @@ export const actives: Active[] = [
     id: "4",
     image: "kids",
     title: "kids party",
-    label: "kids party",
+    label: "イベント",
     description:
       "アルバイト先でkidspartyを開催しました。タスクアプリを作成して、イベントを円滑に進めました。",
     date: "8月15日、9月20日"

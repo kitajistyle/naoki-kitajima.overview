@@ -44,7 +44,7 @@ const WorkCard: React.FC<WorkCardProps> = ({
           <p className="font-bold">仕様技術</p>
           <p>{technology}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-success">詳しく見る</button>
+            <button className="btn text-white btn-success">詳しく見る</button>
           </div>
         </div>
       </Link>

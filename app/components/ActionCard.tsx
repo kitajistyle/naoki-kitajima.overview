@@ -49,7 +49,7 @@ export const ActiveCard: React.FC<ActiveCardProps> = ({
                 viewBox="0 0 1 20"
                 className="inline-block h-4 stroke-current"
               ></svg>
-              ハッカソン
+              {label}
             </div>
           </div>
           <p>{date}</p>

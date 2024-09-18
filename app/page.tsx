@@ -6,6 +6,7 @@ import Profile from "./components/Profile";
 import Skills from "./components/Skills";
 import Three from "./components/Three";
 import Works from "./components/Works";
+import Active from "./components/Active";
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
