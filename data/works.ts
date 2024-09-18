@@ -19,7 +19,7 @@ export const works: Work[] = [
   },
   {
     id: "2",
-    image: "naotech",
+    image: "naotech-academy",
     title: "Naotech Academy",
     description:
       "Naotech Academyは、オンライン学習プラットフォームです。学習者は、サブスクリプション決済後に学習を進めることができます。",
