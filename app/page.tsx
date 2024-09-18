@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import Active from "./components/Active";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
 import Profile from "./components/Profile";
@@ -38,7 +37,7 @@ const MainContent: React.FC = () => {
         <Works />
       </div>
       <div id="Active" className="mx-5">
-        {/* <Active /> */}
+        <Active />
       </div>
       <Footer />
     </main>

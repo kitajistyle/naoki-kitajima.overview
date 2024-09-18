@@ -1,34 +1,63 @@
 "use strict";
-import Link from "next/link";
-import React from "react";
-import Title from "./Title";
 
-const Active = () => {
-  return (
-    <main>
-      <Title title="Active" />
-      <div>
-        <h2>Hackathon</h2>
-        <div className="border-2 border-green-500 shadow-md rounded-lg hover:bg-gray-200">
-          <h3 className="text-2xl bg-green-500 text-white">
-            レコチョクハッカソン
-          </h3>
-          {/* <Image src='/rekotyoku.jpeg' alt='rekotyoku' width={200} height={200} /> */}
-          <article>
-            レコチョクハッカソン
-            <br />
-            開催日時：2024年7月6日(土) 〜 8月7日(日)
-            <br />
-          </article>
-        </div>
-        <div className="border-2 border-green-500 shadow-md rounded-lg hover:bg-gray-200">
-          <h3 className="text-2xl bg-green-500 text-white">
-            サポータズハッカソン
-          </h3>
-        </div>
-      </div>
-    </main>
-  );
+import { actives } from "@/data/actions";
+import Image from "next/image";
+import Link from "next/link";
+
+export type ActiveCardProps = {
+  id: string;
+  image: string;
+  title: string;
+  label: string;
+  description: string;
+  date: string;
 };
 
-export default Active;
+export const ActiveCard: React.FC<ActiveCardProps> = ({
+  id,
+  title,
+  label,
+  image,
+  description,
+  date
+}) => {
+  const query = actives;
+  return (
+    <div className="card card-compact bg-base-100 w-96 shadow-xl transition-transform transform hover:scale-95 flex-wrap">
+      <Link
+        href={{
+          pathname: `/active/${id}`
+        }}
+      >
+        <figure>
+          <Image
+            src={`/${image}.png`}
+            alt="active-image"
+            width={400}
+            height={400}
+          />
+        </figure>
+        <div className="card-body">
+          <h2 className="card-title">{title}</h2>
+          <article>{description}</article>
+          <div className="flex">
+            <p className="font-bold">日時</p>
+            <div className="badge badge-success gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 1 20"
+                className="inline-block h-4 stroke-current"
+              ></svg>
+              ハッカソン
+            </div>
+          </div>
+          <p>{date}</p>
+          <div className="card-actions justify-end">
+            <button className="btn btn-success text-white">詳しく見る</button>
+          </div>
+        </div>
+      </Link>
+    </div>
+  );
+};
