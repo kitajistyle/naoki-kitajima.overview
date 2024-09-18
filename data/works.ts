@@ -25,5 +25,5 @@ export const works: Work[] = [
     description:
       "よくあるSNSアプリです。アプリケーションの全体の知識をつけるために作成しました。実際に友人に使ってもらいフィードバックをもとに、UIの改善や機能の追加なども行いました。",
     technology: "Next.js, React, TypeScript, Prisma, PostgreSQL, Vercel"
-  },
+  }
 ];
