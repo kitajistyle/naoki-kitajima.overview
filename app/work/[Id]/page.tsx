@@ -1,6 +1,7 @@
 "use client";
 import { workDetailsArray } from "@/data/worksDetails";
 import Image from "next/image";
+import Link from "next/link";
 
 type WorkDetail = {
   id: string;
@@ -10,13 +11,11 @@ type WorkDetail = {
 };
 
 export default function WorkPage({ params }: { params: { id: string } }) {
-  console.log("params:", params.id);
 
   const work = workDetailsArray.find((work) => work.id === params.id);
   if (!work) {
     return <div>Work not found</div>;
   }
-  console.log(work);
 
   return (
     <div className="flex mt-20 p-4">
@@ -26,6 +25,11 @@ export default function WorkPage({ params }: { params: { id: string } }) {
         <div>
           <h2 className="text-lg font-semibold">使用技術</h2>
           <p>{work.technology}</p>
+          <Link href={"/"}>
+            <button className="px-8 mt-5 px-console text-white btn btn-success">
+              戻る
+            </button>
+          </Link>
         </div>
       </div>
       <div className="grid snap-none gap-3 w-1/3 mx-auto overflow-hidden rounded-xl p-4 h-full"></div>
