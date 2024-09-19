@@ -26,7 +26,7 @@ const WorkCard: React.FC<WorkCardProps> = ({
     <div className="card card-compact bg-base-100 w-96 shadow-xl transition-transform transform hover:scale-95">
       <Link
         href={{
-          pathname: `/work/${id}`,
+          pathname: `/working/${id}`,
         }}
       >
         <figure>
