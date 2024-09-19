@@ -10,8 +10,8 @@ type ActiveDetail = {
   // Add other fields here if necessary
 };
 
-export default function ActivePage({ params }: { params: { id: string } }) {
-  const active = ActiveDetailsArray.find((active) => active.id === params.id);
+export default async function ActivePage({ params }: { params: { id: string } }) {
+  const active = await ActiveDetailsArray.find((active) => active.id === params.id);
   if (!active) {
     return <div>Work not found</div>;
   }

@@ -10,9 +10,9 @@ type WorkDetail = {
   // Add other fields here if necessary
 };
 
-export default function WorkPage({ params }: { params: { id: string } }) {
+export default async function WorkPage({ params }: { params: { id: string } }) {
 
-  const work = workDetailsArray.find((work) => work.id === params.id);
+  const work = await workDetailsArray.find((work) => work.id === params.id);
   if (!work) {
     return <div>Work not found</div>;
   }
