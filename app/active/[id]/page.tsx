@@ -50,7 +50,7 @@ export default function ActivePage({ params }: { params: { id: string } }) {
           <article>{active?.reason4}</article>
           <h1 className="text-xl font-bold">・リンク</h1>
           <div className="flex">
-            <h1 className="font-bold">アプリのURL:　</h1>
+            <h1 className="font-bold">発表資料のURL:　</h1>
             <a className="text-blue-400" href={active?.announcementUrl}>
               {active?.announcementUrl}
             </a>

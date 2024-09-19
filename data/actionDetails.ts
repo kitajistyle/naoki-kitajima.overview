@@ -30,8 +30,9 @@ export const ActiveDetailsArray: ActiveDetails[] = [
     reasonTitle2: "ハッカソンに出て学んだこと",
     reason2:
       "アプリ開発は要件定義が一番大事なこと。普段は個人開発をしているので、改めて「チーム開発っていいよな」と感じました。今回はオンラインでのハッカソンで、みんな学生で隙間時間を利用しての制作だったため、進捗報告や各メンバーの開発時間管理（学業との兼ね合い）をミーティングで話し合い、計画的に進めることができました。これにより、マネージメントの勉強にもなりました。",
-    announcementUrl: "https://sns-next-js15.vercel.app/",
-    githubUrl: "https://github.com/Naoki-ganbarimasu/sns-next.js15"
+    announcementUrl:
+      "https://docs.google.com/presentation/d/18-M-SprnM7sVB8VQQQW8lc-uVFapTci5TkApmJQMZIA/edit?usp=sharing",
+    githubUrl: "https://github.com/diawel/hear-spot.git"
   },
   {
     id: "2",
@@ -39,7 +40,7 @@ export const ActiveDetailsArray: ActiveDetails[] = [
     title: "サポーターズハッカソンvol8",
     label: "ハッカソン",
     description:
-      "今回参加したのはサポーターズさん主催のハッカソン vol.8！　　　　　　　　作成物は自由。",
+      "今回参加したのはサポーターズさん主催のハッカソン vol.8！　作成物は自由。",
     technology: "Next.js, React, TypeScript, python, Docker, AWS",
     reasonTitle1: "制作物",
     reason1:
@@ -79,9 +80,6 @@ export const ActiveDetailsArray: ActiveDetails[] = [
     technology: "Next.js, React, TypeScript, Vercel",
     reasonTitle1: "内容",
     reason1: "",
-    reasonTitle2: "ハッカソンを通して学んだこと",
-    reason2:
-      "今回は既存のアプリを改善するという、めったにできない貴重な経験をさせていただきました。GMO様、ありがとうございます！この5日間でチームメンバーとも仲良くなり、最終日には徹夜で集まって改善点を議論し合いました。また、他のチームとも交流し、エンジニアとしてのつながりを持つことができました。特にチーム開発の良さを実感しました。",
     announcementUrl: "https://starbacks-kids-experience.vercel.app/",
     githubUrl: "https://github.com/Naoki-ganbarimasu/starbacks-kids-experience"
   }
