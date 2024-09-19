@@ -79,7 +79,7 @@ export const ActiveDetailsArray: ActiveDetails[] = [
       "アルバイト先でkidspartyを開催しました。タスクアプリを作成して、イベントを円滑に進めました。",
     technology: "Next.js, React, TypeScript, Vercel",
     reasonTitle1: "内容",
-    reason1: "",
+    reason1: "アルバイト先のスターバックスでキッズパーティーを開催しました。予約一杯になるぐらいたくさんのお客様が参加され、スターバックスのコーヒー豆の特徴やコーヒー豆ができるまでを講演し、コーヒーでお客様とつながりました。またお子さんにバリスタ体験会に参加していただき、バリスタの体験していただきました。",
     announcementUrl: "https://starbacks-kids-experience.vercel.app/",
     githubUrl: "https://github.com/Naoki-ganbarimasu/starbacks-kids-experience"
   }
