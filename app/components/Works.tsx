@@ -5,12 +5,13 @@ import WorkCard from "./WorkCard";
 
 const Works = () => {
   return (
-    <div>
+    <main className="justify-center items-center">
       <Title title="Works" />
-      <div className="flex gap-8 mx-auto">
+      <div className="flex flex-wrap gap-8 mx-auto">
         {works.map((work) => {
           return (
             <WorkCard
+              key={work.id}
               id={work.id}
               image={work.image}
               title={work.title}
@@ -20,7 +21,7 @@ const Works = () => {
           );
         })}
       </div>
-    </div>
+    </main>
   );
 };
 
