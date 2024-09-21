@@ -32,8 +32,8 @@ export default function WorkPage({ params }: { params: { id: string } }) {
           </Link>
         </div>
       </div>
-      <div className="grid snap-none gap-3 w-1/3 mx-auto overflow-hidden rounded-xl p-4 h-full"></div>
-
+      <div className="grid snap-none gap-3 w-1/3 mx-auto overflow-hidden rounded-xl p-4 h-full">
+      </div>
       <div className="justify-end items-end mr-auto inset-y-0 right-0 grid w-2/3 m-5 gap-8">
         <div className="grid gap-6">
           <Image
