@@ -86,30 +86,35 @@ export default function Header() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
+                 <button
+              type="button"
+                  onClick={() => setMobileMenuOpen(false)}>
+                  
                 <a
                   href="#Profile"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
+                  >
                   Profile
                 </a>
                 <a
                   href="#Skills"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
+                  >
                   Skills
                 </a>
                 <a
                   href="#Works"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
+                  >
                   Works
                 </a>
                 <a
                   href="#Active"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
+                  >
                   Active
                 </a>
+                  </button>
               </div>
               <div className="py-6">
                 <a className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
