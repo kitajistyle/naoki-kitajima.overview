@@ -17,7 +17,7 @@ const Footer = () => {
               width="50"
               height="50"
               viewBox="0 0 97.707 97.707"
-              className="fill-current hover:text-gray-300"
+              className="fill-current hover:text-gray-500"
             >
               <path
                 fillRule="evenodd"
