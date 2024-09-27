@@ -56,7 +56,10 @@ export default function Header() {
           </a>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="kitajimanaoki.0917@gmail.com" className="text-sm font-semibold leading-6 text-white">
+          <a
+            href="mailto:kitajimanaoki.0917@gmail.com"
+            className="text-sm font-semibold leading-6 text-white"
+          >
             Contact <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
@@ -114,7 +117,7 @@ export default function Header() {
               </div>
               <div className="py-6">
                 <a
-                  href="kitajimanaoki.0917@gmail.com"
+                  href="mailto:kitajimanaoki.0917@gmail.com"
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Contact
