@@ -14,11 +14,10 @@ export default function Header() {
         className="flex w-full items-center justify-between p-6 lg:px-8"
       >
         <div className="flex lg:flex-1">
-          
-            <span className="sr-only">Your Company</span>
-            <Link href="/">
-              <p className="font-bold text-lg text-white">Naoki Portfolio</p>
-              </Link>
+          <span className="sr-only">Your Company</span>
+          <Link href="/">
+            <p className="font-bold text-lg text-white">Naoki Portfolio</p>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -57,7 +56,7 @@ export default function Header() {
           </a>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-white">
+          <a href="kitajimanaoki.0917@gmail.com" className="text-sm font-semibold leading-6 text-white">
             Contact <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
@@ -86,37 +85,38 @@ export default function Header() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                 <button
-              type="button"
-                  onClick={() => setMobileMenuOpen(false)}>
-                <a
-                  href="#Profile"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                <button type="button" onClick={() => setMobileMenuOpen(false)}>
+                  <a
+                    href="#Profile"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                  Profile
-                </a>
-                <a
-                  href="#Skills"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    Profile
+                  </a>
+                  <a
+                    href="#Skills"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                  Skills
-                </a>
-                <a
-                  href="#Works"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    Skills
+                  </a>
+                  <a
+                    href="#Works"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                  Works
-                </a>
-                <a
-                  href="#Active"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    Works
+                  </a>
+                  <a
+                    href="#Active"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                  Active
-                </a>
-                  </button>
+                    Active
+                  </a>
+                </button>
               </div>
               <div className="py-6">
-                <a className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                <a
+                  href="kitajimanaoki.0917@gmail.com"
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
                   Contact
                 </a>
               </div>
