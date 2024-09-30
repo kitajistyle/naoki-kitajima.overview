@@ -24,7 +24,7 @@ export const workDetailsArray: WorkDetail[] = [
     image: "naotech-academy",
     title: "Naotech Academy",
     description:
-      "Naotech Academyは、オンライン学習プラットフォームです。学習者は、サブスクリプション決済後に学習を進めることができます。",
+      "Naotech Academyは、オンライン学習プラットフォームです。学習者は、サブスクリプション決済後に学習を進めることができます。\n email: testuser@example.com pass: 1234567890",
     technology:
       "Next.js, React, TypeScript, Supabase, Stripe, PostgreSQL, Vercel",
     reasonTitle1: "・なぜNext.jsなのか？",
@@ -45,7 +45,7 @@ export const workDetailsArray: WorkDetail[] = [
     image: "sns-app",
     title: "SNS App",
     description:
-      "よくあるSNSアプリです。アプリケーションの全体の知識をつけるために作成しました。実際に友人に使ってもらいフィードバックをもとに、UIの改善や機能の追加なども行いました。",
+      "よくあるSNSアプリです。アプリケーションの全体の知識をつけるために作成しました。実際に友人に使ってもらいフィードバックをもとに、UIの改善や機能の追加なども行いました。\n username:tester1 , password:tester10A",
     technology: "Next.js, React, TypeScript, Prisma, PostgreSQL, Vercel",
     reasonTitle1: "・なぜNext.jsなのか？",
     reasonTitle2: "・認証機能はClerkを使用",
