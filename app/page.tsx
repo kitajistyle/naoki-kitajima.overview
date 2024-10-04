@@ -7,6 +7,7 @@ import Profile from "./components/Profile";
 import Skills from "./components/Skills";
 import Three from "./components/Three";
 import Works from "./components/Works";
+import MyImage from "./components/MyImage";
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -37,12 +38,17 @@ const MainContent: React.FC = () => {
         <Skills />
       </div>
       <div className="bg-gray-200">
-        <div id="Works" className="mx-5">
+        <div id="Works" className="mx-5 mb-5">
           <Works />
         </div>
       </div>
       <div id="Active" className="mx-5 mb-5">
         <Active />
+      </div>
+      <div className="bg-gray-200">
+        <div id="MyImage" className="mx-5 mb-5">
+          <MyImage />
+        </div>
       </div>
       <Footer />
     </main>
