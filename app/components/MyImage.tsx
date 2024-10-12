@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
+import Title from "./Title";
 
 const MyImage: React.FC = () => {
   useEffect(() => {
@@ -18,9 +19,16 @@ const MyImage: React.FC = () => {
   }, []); // 空の依存配列でuseEffectが一度だけ実行される
 
   return (
-    <div className="m-10">
-      {/* SpeakerDeck埋め込みスクリプトを配置 */}
-      <div className="speakerdeck-embed-container"></div>
+    <div className="">
+      <Title title="My Image" />
+        <h2 className="text-xl font-bold ml-20">画像でわかる北島直樹</h2>
+        <h2 className="text-xl ml-24">
+          言葉だけでは私の印象が伝わらないような気がしましたので、大学生活で所属していたサークルとアルバイト先での写真を載せました。
+        </h2>
+      <main className="center-container ">
+        {/* SpeakerDeck埋め込みスクリプトを配置 */}
+        <div className="speakerdeck-embed-container small-speakerdeck"></div>
+      </main>
     </div>
   );
 };

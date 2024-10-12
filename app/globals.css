@@ -52,4 +52,24 @@ body {
   .flag {
     @apply text-lg font-bold m-0 p-0 pb-1;
   }
+
+  .center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+  .small-speakerdeck {
+  width: 900px;   
+  height: 600px;  
+  overflow: hidden;
+  position: relative;
+}
+
+.small-speakerdeck iframe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+
+}
 }
