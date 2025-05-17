@@ -9,7 +9,7 @@ const Profile = () => {
       <div className="flex justify-center items-center flex-col sm:flex-row">
         <Image
           className="rounded-full mx-5"
-          src="/profile.png"
+          src="/profile.jpg"
           alt="profile"
           width={200}
           height={200}
