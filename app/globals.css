@@ -2,6 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer components {
+  .cp_timeline03 {
+    @apply relative mx-auto;
+  }
+  .cp_timeline03::before {
+    @apply absolute top-0 w-1 h-full bg-green-600 left-8; /* left-30px を近似 */
+  }
+  .timeline_group {
+    @apply relative pt-14;
+  }
+  .timeline_group:not(:first-child) {
+    @apply mt-16;
+  }
+  .time_year {
+    @apply absolute top-0 left-0 py-2 px-6 bg-green-600 text-white w-full box-border;
+  }
+  .timeline_item {
+    @apply mb-4 relative pl-20;
+  }
+  .timeline_item:not(:last-child) {
+    @apply mb-8;
+  }
+  .timeline_item::before {
+    @apply absolute z-[-1] left-0 w-full h-px bg-green-600 top-1/2 -translate-y-1/2;
+  }
+  .time {
+    @apply absolute left-0 box-border min-w-16 min-h-16 p-2 text-center text-white bg-green-400 top-1/2 -mt-8 rounded-r-full;
+  }
+  .time_day {
+    @apply block text-lg font-bold;
+  }
+  .time_month {
+    @apply block uppercase text-sm;
+  }
+  .desc {
+    @apply py-2 px-4 border-l-4 border-green-400 rounded bg-white shadow-md text-sm;
+  }
+  .flag {
+    @apply text-lg font-bold m-0 p-0 pb-1;
+  }
+}
+
 html,
 body {
  padding: 0;

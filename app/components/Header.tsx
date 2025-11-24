@@ -54,6 +54,12 @@ export default function Header() {
           >
             Active
           </a>
+          <a
+            href="#MyImage"
+            className="text-sm font-semibold leading-6 text-white"
+          >
+            MyImage
+          </a>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a
@@ -112,6 +118,12 @@ export default function Header() {
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
                   >
                     Active
+                  </a>
+                  <a
+                    href="#MyImage"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
+                  >
+                    MyImage
                   </a>
                 </button>
               </div>
