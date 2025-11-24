@@ -1,4 +1,5 @@
 "use client";
+import ThreeBackground from "@/app/components/ThreeBackground";
 import { workDetailsArray } from "@/data/worksDetails";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,7 +19,9 @@ export default function WorkPage({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="flex mt-20 p-4">
+    <>
+      <ThreeBackground />
+      <div className="flex mt-20 p-4 relative z-10">
       <div className="fixed grid gap-3 w-1/3 mx-auto overflow-hidden p-4">
         <div className="font-bold">〜個人開発〜</div>
         <h1 className="text-3xl font-bold">{work.title}</h1>
@@ -26,7 +29,7 @@ export default function WorkPage({ params }: { params: { id: string } }) {
           <h2 className="text-lg font-semibold">使用技術</h2>
           <p>{work.technology}</p>
           <Link href={"/"}>
-            <button className="px-8 mt-5 px-console text-white btn btn-success">
+            <button className="px-8 mt-5 px-console text-white btn bg-gray-700 hover:bg-gray-600 border-gray-600">
               戻る
             </button>
           </Link>
@@ -65,6 +68,7 @@ export default function WorkPage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

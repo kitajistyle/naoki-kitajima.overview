@@ -8,7 +8,7 @@ import { useState } from "react";
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
-    <header className="fixed w-full items-center justify-between bg-[#189f43] transition-transform transform z-50">
+    <header className="fixed w-full items-center justify-between bg-black border-b border-gray-700 transition-transform transform z-50">
       <nav
         aria-label="Global"
         className="flex w-full items-center justify-between p-6 lg:px-8"
@@ -54,12 +54,6 @@ export default function Header() {
           >
             Active
           </a>
-          <a
-            href="#MyImage"
-            className="text-sm font-semibold leading-6 text-white"
-          >
-            MyImage
-          </a>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a
@@ -76,7 +70,7 @@ export default function Header() {
         className="lg:hidden"
       >
         <div className="fixed inset-0 z-10" />
-        <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-zinc-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-700">
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
@@ -97,40 +91,34 @@ export default function Header() {
                 <button type="button" onClick={() => setMobileMenuOpen(false)}>
                   <a
                     href="#Profile"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
                   >
                     Profile
                   </a>
                   <a
                     href="#Skills"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
                   >
                     Skills
                   </a>
                   <a
                     href="#Works"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
                   >
                     Works
                   </a>
                   <a
                     href="#Active"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
                   >
                     Active
-                  </a>
-                  <a
-                    href="#MyImage"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    MyImage
                   </a>
                 </button>
               </div>
               <div className="py-6">
                 <a
                   href="mailto:kitajimanaoki.0917@gmail.com"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800"
                 >
                   Contact
                 </a>

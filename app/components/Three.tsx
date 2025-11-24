@@ -26,7 +26,7 @@ const Three: React.FC = () => {
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0xdcdcdc);
+    renderer.setClearColor(0x000000);
     if (mountRef.current) {
       mountRef.current.appendChild(renderer.domElement);
     }
@@ -40,12 +40,20 @@ const Three: React.FC = () => {
     
 
     // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
     directionalLight.position.set(0, 3, 5);
     scene.add(directionalLight);
+
+    const pointLight1 = new THREE.PointLight(0xffffff, 1);
+    pointLight1.position.set(5, 5, 5);
+    scene.add(pointLight1);
+
+    const pointLight2 = new THREE.PointLight(0x888888, 1);
+    pointLight2.position.set(-5, -5, -5);
+    scene.add(pointLight2);
 
     // Fonts
     const fontLoader = new FontLoader();
@@ -63,12 +71,40 @@ const Three: React.FC = () => {
       });
       textGeometry.center();
 
-      const textMaterial = new THREE.MeshStandardMaterial({ color: 0x99FF33 }); // 黄緑色
+      const textMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff }); // 白色
       const text = new THREE.Mesh(textGeometry, textMaterial);
       scene.add(text);
 
-      const boxGeometry = new THREE.BoxGeometry(0.4, 0.4, 0.4);
-      const boxMaterial = new THREE.MeshStandardMaterial({ color: 0x008000 }); // 緑色
+      // パーティクルシステムの作成
+      const particlesGeometry = new THREE.BufferGeometry();
+      const particlesCount = 1000;
+      const posArray = new Float32Array(particlesCount * 3);
+
+      for (let i = 0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 15;
+      }
+
+      particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+      const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.02,
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending
+      });
+
+      const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+      scene.add(particlesMesh);
+
+      // 複数のジオメトリを追加
+      const geometries = [
+        new THREE.BoxGeometry(0.4, 0.4, 0.4),
+        new THREE.OctahedronGeometry(0.3),
+        new THREE.TetrahedronGeometry(0.3),
+        new THREE.TorusGeometry(0.3, 0.1, 16, 100)
+      ];
+
+      const meshes: THREE.Mesh[] = [];
 
       const getRandomPositionX = (): number => {
         const sign = Math.random() < 0.5 ? -0.8 : 0.8;
@@ -81,34 +117,58 @@ const Three: React.FC = () => {
       };
 
       for (let i = 0; i < 20; i++) {
-        const box = new THREE.Mesh(boxGeometry, boxMaterial);
+        const geometry = geometries[Math.floor(Math.random() * geometries.length)];
+        const material = new THREE.MeshStandardMaterial({ 
+          color: i % 2 === 0 ? 0xffffff : 0x808080,
+          wireframe: Math.random() > 0.5,
+          metalness: 0.5,
+          roughness: 0.3
+        });
+        const mesh = new THREE.Mesh(geometry, material);
 
-        box.position.x = getRandomPositionX();
-        box.position.y = getRandomPositionY();
+        mesh.position.x = getRandomPositionX();
+        mesh.position.y = getRandomPositionY();
+        mesh.position.z = (Math.random() - 0.5) * 3;
 
-        box.rotation.set(20, 20, 20);
-        box.rotation.x = Math.random() * Math.PI;
-        box.rotation.y = Math.random() * Math.PI;
+        mesh.rotation.x = Math.random() * Math.PI;
+        mesh.rotation.y = Math.random() * Math.PI;
 
-        const clock = new THREE.Clock();
+        const scale = Math.random() * 0.7 + 0.3;
+        mesh.scale.set(scale, scale, scale);
 
-        const tick = () => {
-          const elapsedTime = clock.getElapsedTime();
-          box.rotation.x = elapsedTime;
-          box.rotation.y = elapsedTime;
-          window.requestAnimationFrame(tick);
-          renderer.render(scene, camera);
-        };
-        tick();
-
-        const scale = Math.random();
-        box.scale.set(scale, scale, scale);
-
-        scene.add(box);
+        meshes.push(mesh);
+        scene.add(mesh);
       }
 
 
+      const clock = new THREE.Clock();
+
       const animate = () => {
+        const elapsedTime = clock.getElapsedTime();
+
+        // メッシュのアニメーション
+        meshes.forEach((mesh, index) => {
+          mesh.rotation.x = elapsedTime * 0.3 * (index % 2 === 0 ? 1 : -1);
+          mesh.rotation.y = elapsedTime * 0.5 * (index % 2 === 0 ? 1 : -1);
+          
+          // 浮遊効果
+          mesh.position.y += Math.sin(elapsedTime + index) * 0.001;
+        });
+
+        // パーティクルの回転
+        particlesMesh.rotation.y = elapsedTime * 0.05;
+        particlesMesh.rotation.x = elapsedTime * 0.03;
+
+        // テキストの微妙な動き
+        text.rotation.y = Math.sin(elapsedTime * 0.3) * 0.1;
+        text.position.y = Math.sin(elapsedTime * 0.5) * 0.05;
+
+        // ライトの動き
+        pointLight1.position.x = Math.sin(elapsedTime * 0.5) * 5;
+        pointLight1.position.z = Math.cos(elapsedTime * 0.5) * 5;
+        pointLight2.position.x = Math.cos(elapsedTime * 0.3) * 5;
+        pointLight2.position.z = Math.sin(elapsedTime * 0.3) * 5;
+
         controls.update();
         renderer.render(scene, camera);
         requestAnimationFrame(animate);
@@ -137,7 +197,7 @@ const Three: React.FC = () => {
     };
   }, []);
 
-  return <div ref={mountRef} className="flex-1 max-w-full max-h-full" />;
+  return <div ref={mountRef} className="fixed inset-0 w-full h-full -z-10" />;
 };
 
 export default Three;

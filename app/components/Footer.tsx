@@ -3,7 +3,7 @@ const Footer = () => {
     <footer className="footer bg-neutral text-neutral-content p-10 transition-transform transform z-50">
       <aside>
         <p>
-          Writenn by Naoki kitajima
+          Written by Naoki kitajima
           <br />
           Providing reliable tech since 2024
         </p>
@@ -11,7 +11,7 @@ const Footer = () => {
       <nav>
         <h6 className="footer-title">Social</h6>
         <div className="grid grid-flow-col gap-4">
-          <a href="https://github.com/Naoki-ganbarimasu">
+          <a href="https://github.com/kitajistyle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="50"
@@ -26,7 +26,7 @@ const Footer = () => {
               />
             </svg>
           </a>
-          <a href="https://qiita.com/Naoki_ganbarimasu">
+          <a href="https://qiita.com/kitajistyle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="50"
@@ -48,7 +48,7 @@ const Footer = () => {
               <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
             </svg>
           </a>
-          <a href="https://x.com/It_is_up_to_C">
+          <a href="https://x.com/kitajistyIe">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="50"

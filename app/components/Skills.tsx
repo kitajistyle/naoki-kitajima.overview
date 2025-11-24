@@ -7,8 +7,8 @@ const Skills = () => {
     <main className="mt-3">
       <Title title="Skills" />
       <div className="mx-3 p-3 flex flex-wrap">
-        <div className="border-2 shadow-md rounded-lg justify-center items-center border-green-500 m-3">
-          <h2 className="text-2xl text-white bg-green-500 border-b-2 mb-3">
+        <div className="border-2 shadow-md rounded-lg justify-center items-center border-gray-600 m-3">
+          <h2 className="text-2xl text-white bg-gray-700 border-b-2 mb-3">
             Languages
           </h2>
           <div className="flex mx-5 mb-5">
@@ -28,8 +28,8 @@ const Skills = () => {
             />
           </div>
         </div>
-        <div className="border-2 shadow-md rounded-lg justify-center items-center border-green-500 m-3">
-          <h2 className="text-2xl text-white bg-green-500 border-b-2 mb-3">
+        <div className="border-2 shadow-md rounded-lg justify-center items-center border-gray-600 m-3">
+          <h2 className="text-2xl text-white bg-gray-700 border-b-2 mb-3">
             Frontend Developement
           </h2>
           <div className="flex mx-5 mb-5">
@@ -63,8 +63,8 @@ const Skills = () => {
             />
           </div>
         </div>
-        <div className="border-2 shadow-md rounded-lg justify-center items-center border-green-500 m-3">
-          <h2 className="text-2xl text-white bg-green-500 border-b-2 mb-3">
+        <div className="border-2 shadow-md rounded-lg justify-center items-center border-gray-600 m-3">
+          <h2 className="text-2xl text-white bg-gray-700 border-b-2 mb-3">
             Backend Developement
           </h2>
           <div className="flex mx-5 mb-5">
@@ -98,8 +98,8 @@ const Skills = () => {
             />
           </div>
         </div>
-        <div className="border-2 shadow-md rounded-lg justify-center items-center border-green-500 m-3">
-          <h2 className="text-2xl text-white bg-green-500 border-b-2 mb-3">
+        <div className="border-2 shadow-md rounded-lg justify-center items-center border-gray-600 m-3">
+          <h2 className="text-2xl text-white bg-gray-700 border-b-2 mb-3">
             Database
           </h2>
           <div className="flex mx-5 mb-5">
@@ -112,8 +112,8 @@ const Skills = () => {
             />
           </div>
         </div>
-        <div className="border-2 shadow-md rounded-lg justify-center items-center border-green-500 m-3">
-          <h2 className="text-2xl text-white bg-green-500 border-b-2 mb-3">
+        <div className="border-2 shadow-md rounded-lg justify-center items-center border-gray-600 m-3">
+          <h2 className="text-2xl text-white bg-gray-700 border-b-2 mb-3">
             Other
           </h2>
           <div className="flex mx-5 mb-5 flex-wrap">

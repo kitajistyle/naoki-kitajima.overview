@@ -1,6 +1,5 @@
 "use strict";
 import Image from "next/image";
-import React from "react";
 
 // Propsの型定義
 type TitleProps = {

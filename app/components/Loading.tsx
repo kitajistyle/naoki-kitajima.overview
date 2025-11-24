@@ -42,7 +42,7 @@ const Loading: NextPage = () => {
     // ボックスジオメトリー
     const boxGeometry = new THREE.BoxGeometry(0.3, 0.3, 0.3);
     const boxMaterial = new THREE.MeshLambertMaterial({
-      color: "#2497f0"
+      color: "#808080"
     });
     const box = new THREE.Mesh(boxGeometry, boxMaterial);
     box.position.set(-1, 0, -3);
@@ -65,7 +65,7 @@ const Loading: NextPage = () => {
       });
       textGeometry.center();
 
-      const textMaterial = new THREE.MeshStandardMaterial({ color: 0x99ff33 });
+      const textMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
       const text = new THREE.Mesh(textGeometry, textMaterial);
       text.position.set(0, 0, -5);
 
@@ -101,7 +101,7 @@ const Loading: NextPage = () => {
     });
   }, []);
 
-  return <canvas ref={canvasRef} id="canvas"></canvas>;
+  return <canvas className="h-full" ref={canvasRef} id="canvas"></canvas>;
 };
 
 export default Loading;
