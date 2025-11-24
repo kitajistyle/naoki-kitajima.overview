@@ -1,6 +1,5 @@
 "use strict";
 
-import { actives } from "@/data/actions";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,7 +20,6 @@ export const ActiveCard: React.FC<ActiveCardProps> = ({
   description,
   date
 }) => {
-  const query = actives;
   return (
     <div className="card card-compact bg-base-100 w-96 shadow-xl transition-transform transform hover:scale-95 flex-wrap">
       <Link
@@ -42,7 +40,7 @@ export const ActiveCard: React.FC<ActiveCardProps> = ({
           <article>{description}</article>
           <div className="flex">
             <p className="font-bold">日時</p>
-            <div className="badge badge-success gap-2">
+            <div className="badge bg-gray-700 text-white gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -54,7 +52,7 @@ export const ActiveCard: React.FC<ActiveCardProps> = ({
           </div>
           <p>{date}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-success text-white">詳しく見る</button>
+            <button className="btn bg-gray-700 hover:bg-gray-600 text-white border-gray-600">詳しく見る</button>
           </div>
         </div>
       </Link>
