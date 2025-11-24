@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "./components/Header";
-import ThreeLayout from "./components/ThreeLayout";
+import ThreeBackgroundWrapper from "./components/ThreeBackgroundWrapper";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} text-white`}>
-        <ThreeLayout />
+        <ThreeBackgroundWrapper />
         <Header />
         <div className="relative z-10">
           {children}

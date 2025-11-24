@@ -58,7 +58,7 @@ const Three: React.FC = () => {
     // Fonts
     const fontLoader = new FontLoader();
     fontLoader.load('/fonts/helvetiker_regular.typeface.json', (font) => {
-      const textGeometry = new TextGeometry('naoki kitajima', {
+      const textGeometry = new TextGeometry('KITAJI', {
         font: font,
         size: 0.5,
         height: 0.2,
@@ -71,7 +71,7 @@ const Three: React.FC = () => {
       });
       textGeometry.center();
 
-      const textMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff }); // 白色
+      const textMaterial = new THREE.MeshStandardMaterial({ color: 0xfffff0 }); // 白色
       const text = new THREE.Mesh(textGeometry, textMaterial);
       scene.add(text);
 
@@ -100,8 +100,7 @@ const Three: React.FC = () => {
       const geometries = [
         new THREE.BoxGeometry(0.4, 0.4, 0.4),
         new THREE.OctahedronGeometry(0.3),
-        new THREE.TetrahedronGeometry(0.3),
-        new THREE.TorusGeometry(0.3, 0.1, 16, 100)
+        new THREE.TetrahedronGeometry(0.3)
       ];
 
       const meshes: THREE.Mesh[] = [];
