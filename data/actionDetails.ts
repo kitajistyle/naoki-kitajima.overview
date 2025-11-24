@@ -29,7 +29,7 @@ export const ActiveDetailsArray: ActiveDetails[] = [
       "[運動不足を解消]したい[通勤者]向けの、Hear Spotというプロダクトは、[ピンポイントな位置情報による選曲アプリ]です。これは[あえて遠回りをしてみたり、1駅前で降りてみる動機づけ]ができ、[Apple MusicやSpotify]とは違って、[場所ごとに異なる音楽を拾い集める機能]が備わっている。",
     reasonTitle2: "ハッカソンに出て学んだこと",
     reason2:
-      "アプリ開発は要件定義が一番大事なこと。普段は個人開発をしているので、改めて「チーム開発っていいよな」と感じました。今回はオンラインでのハッカソンで、みんな学生で隙間時間を利用しての制作だったため、進捗報告や各メンバーの開発時間管理（学業との兼ね合い）をミーティングで話し合い、計画的に進めることができました。これにより、マネージメントの勉強にもなりました。",
+      "アプリ開発は要件定義が一番大事なこと。要件がないと普段は個人開発をしているので、改めて「チーム開発っていいよな」と感じました。今回はオンラインでのハッカソンで、みんな学生で隙間時間を利用しての制作だったため、進捗報告や各メンバーの開発時間管理（学業との兼ね合い）をミーティングで話し合い、計画的に進めることができました。これにより、マネージメントの勉強にもなりました。",
     announcementUrl:
       "https://docs.google.com/presentation/d/18-M-SprnM7sVB8VQQQW8lc-uVFapTci5TkApmJQMZIA/edit?usp=sharing",
     githubUrl: "https://github.com/diawel/hear-spot.git"
@@ -47,7 +47,9 @@ export const ActiveDetailsArray: ActiveDetails[] = [
       "私たちが作ったのは『IT Words』というエンジニアを目指す人向けに毎日少しずつコンピュータサイエンスを学べるクイズアプリです。IT 用語がたくさんあってわかりにくいし、新しい単語も出るため、IT の単語アプリがあったら便利だろうという話になり、制作に至りました。",
     reasonTitle2: "ハッカソンを通して学んだこと",
     reason2:
-      "普段は個人開発をしているので、改めて「チーム開発っていいよな」と感じました。今回はオンラインでのハッカソンで、みんな学生で隙間時間を利用しての制作だったため、進捗報告や各メンバーの開発時間管理（学業との兼ね合い）をミーティングで話し合い、計画的に進めることができました。これにより、マネージメントの勉強にもなりました。",
+      "私はフロントエンドのリーダーとして開発に携わりました。チームで決めた要件の定義からFigmaで画面をデザインし、デザインの画面設計からバックエンドにデータベースの階層的なモデルを提案しました。",
+    reason3:
+      "今回はオンラインでのハッカソンで、みんな学生で隙間時間を利用しての制作だったため、進捗報告や各メンバーの開発時間管理（学業との兼ね合い）をミーティングで話し合い、計画的に進めることができました。これにより、マネージメントの勉強にもなりました。",
     announcementUrl:
       "https://www.canva.com/design/DAGK1ND_7kk/-ouyxV1VT2nvn2Cc0yi8rg/view?utm_content=DAGK1ND_7kk&utm_campaign=designshare&utm_medium=link&utm_source=editor",
     githubUrl: "https://github.com/Naoki-ganbarimasu/naotech-academy"
@@ -79,7 +81,8 @@ export const ActiveDetailsArray: ActiveDetails[] = [
       "アルバイト先でkidspartyを開催しました。タスクアプリを作成して、イベントを円滑に進めました。",
     technology: "Next.js, React, TypeScript, Vercel",
     reasonTitle1: "内容",
-    reason1: "アルバイト先のスターバックスでキッズパーティーを開催しました。予約一杯になるぐらいたくさんのお客様が参加され、スターバックスのコーヒー豆の特徴やコーヒー豆ができるまでを講演し、コーヒーでお客様とつながりました。またお子さんにバリスタ体験会に参加していただき、バリスタの体験していただきました。",
+    reason1:
+      "アルバイト先のスターバックスでキッズパーティーを開催しました。予約一杯になるぐらいたくさんのお客様が参加され、スターバックスのコーヒー豆の特徴やコーヒー豆ができるまでを講演し、コーヒーでお客様とつながりました。またお子さんにバリスタ体験会に参加していただき、バリスタの体験していただきました。",
     announcementUrl: "https://starbacks-kids-experience.vercel.app/",
     githubUrl: "https://github.com/Naoki-ganbarimasu/starbacks-kids-experience"
   }
