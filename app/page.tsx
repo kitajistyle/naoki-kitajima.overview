@@ -38,11 +38,17 @@ const MainContent: React.FC = () => {
       </div>
       <div className="bg-gray-200">
         <div id="Works" className="mx-5">
+
           <Works />
         </div>
       </div>
       <div id="Active" className="mx-5 mb-5">
         <Active />
+      </div>
+      <div className="bg-gray-200">
+        <div id="MyImage" className="mx-5 mb-5">
+          <MyImage />
+        </div>
       </div>
       <Footer />
     </main>

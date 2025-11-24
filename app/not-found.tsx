@@ -1,11 +1,17 @@
 // app/not-found.tsx
-import React from 'react';
+
+import Link from "next/link";
 
 const NotFound = () => {
   return (
-    <div>
+    <div className="mt-40">
       <h1>404 - Page Not Found</h1>
-      <p>Sorry, the page you are looking for does not exist.</p>
+      <p>検索したページは見つかりませんでした。</p>
+      <Link href="/">
+        <button className="px-12 mt-5 px-console text-white btn btn-success">
+          ホームに戻る
+        </button>
+      </Link>
     </div>
   );
 };
