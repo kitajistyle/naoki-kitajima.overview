@@ -1,48 +1,37 @@
-"use client";
-import { useEffect, useState } from "react";
 import Active from "./components/Active";
 import Footer from "./components/Footer";
-import Loading from "./components/Loading";
 import Profile from "./components/Profile";
 import Skills from "./components/Skills";
-import Three from "./components/Three";
 import Works from "./components/Works";
 
+
 const App: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1500); // 1.5秒後にローディングを解除
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  return <div className="App">{loading ? <Loading /> : <MainContent />}</div>;
-};
-
-const MainContent: React.FC = () => {
   return (
-    <main className="flex flex-col w-full h-screen">
-      <div>
-        <Three />
+    <main className="flex flex-col w-full relative">
+      {/* ファーストビュー - Three.jsが背景に表示される */}
+      <div className="h-screen flex items-center justify-center">
+        {/* 何も表示しない（Three.jsが背景として見える） */}
       </div>
-      <div className="bg-gray-200">
-        <div id="Profile" className="mx-5">
+      
+      {/* Profile セクション */}
+      <div className="bg-transparent backdrop-blur-sm relative min-h-screen">
+        <div id="Profile" className="mx-5 py-20">
           <Profile />
         </div>
       </div>
-      <div id="Skills" className="mx-5">
-        <Skills />
-      </div>
-      <div className="bg-gray-200">
-        <div id="Works" className="mx-5">
+
+      {/* Works セクション */}
+      <div className="bg-transparent backdrop-blur-sm relative min-h-screen">
+        <div id="Works" className="mx-5 py-20">
           <Works />
         </div>
       </div>
-      <div id="Active" className="mx-5 mb-5">
-        <Active />
+
+      {/* Active セクション */}
+      <div className="bg-transparent backdrop-blur-sm relative min-h-screen">
+        <div id="Active" className="mx-5 py-20">
+          <Active />
+        </div>
       </div>
       <Footer />
     </main>
