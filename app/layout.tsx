@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: "エンジニア 北島直樹 (Naoki Kitajima / きたじまなおき) のポートフォリオ。ユーザー目線で課題解決ができるエンジニアを目指し、Next.jsを用いたWeb開発やハッカソンでの個人開発に取り組んでいます。圧倒的な行動力で『なぜ実装するのか』を追求した制作実績をご覧ください。",
   keywords: [
     "北島直樹", "きたじまなおき", "Naoki Kitajima",
-    "エンジニア", "Web開発", "プログラミング", "Next.js", "個人開発", // Big Words
+    "エンジニア", "Web開発", "プログラミング", "Next.js", "個人開発", "ダンス", "dance", // Big Words
     "ユーザー目線", "課題解決", "ハッカソン", "行動力", "フロントエンド", "バックエンド" // Long Tail
   ],
   authors: [{ name: "Naoki Kitajima" }],
