@@ -3,12 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { MicroCMSImage } from "microcms-js-sdk";
+
 export type ActiveCardProps = {
   id: string;
-  image: string;
+  image?: MicroCMSImage;
   title: string;
-  label: string;
-  description: string;
+  label?: string;
+  description?: string;
   date: string;
 };
 
@@ -29,7 +31,7 @@ export const ActiveCard: React.FC<ActiveCardProps> = ({
       >
         <figure>
           <Image
-            src={`/${image}.png`}
+            src={image?.url || "/no-image.png"}
             alt="active-image"
             width={400}
             height={400}

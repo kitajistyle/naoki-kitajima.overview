@@ -3,13 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { MicroCMSImage } from "microcms-js-sdk";
+
 type WorkCardProps = {
   id: string;
-  image: string;
+  image?: MicroCMSImage;
   title: string;
   description: string;
-  technology: string;
-
+  technology?: string; // Made optional as it might not be in microCMS or named differently
+  url?: string;
 };
 
 const WorkCard: React.FC<WorkCardProps> = ({
@@ -29,7 +31,7 @@ const WorkCard: React.FC<WorkCardProps> = ({
         <figure>
           <Image
             className="hover:scale-x-95"
-            src={`/${image}.png`}
+            src={image?.url || "/no-image.png"} // Fallback image
             alt="work-image"
             width={300}
             height={300}
