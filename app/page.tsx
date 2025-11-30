@@ -4,6 +4,23 @@ import Profile from "./components/Profile";
 import Works from "./components/Works";
 import { getProfile, getWorks, getActive } from "@/libs/microcms";
 
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const profile = await getProfile();
+  const description = profile?.description?.replace(/<[^>]*>?/gm, '') || "エンジニア 北島直樹のポートフォリオ";
+
+  return {
+    title: `北島直樹 (Naoki Kitajima / きたじまなおき) - ${profile?.name || "Portfolio"}`,
+    description: description,
+    openGraph: {
+      title: `北島直樹 (Naoki Kitajima / きたじまなおき) - ${profile?.name || "Portfolio"}`,
+      description: description,
+      images: profile?.image?.url ? [profile.image.url] : [],
+    },
+  };
+}
+
 const App: React.FC = async () => {
   const profile = await getProfile();
   // const worksData = await getWorks();

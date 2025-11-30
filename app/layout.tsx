@@ -12,8 +12,8 @@ export const metadata: Metadata = {
     default: "北島直樹 (Naoki Kitajima) - Portfolio",
     template: "%s | 北島直樹 (Naoki Kitajima)",
   },
-  description: "エンジニア 北島直樹 (Naoki Kitajima) のポートフォリオサイトです。Web開発、フロントエンド、バックエンドのスキルや制作実績（Works）、活動記録（Active）を掲載しています。",
-  keywords: ["北島直樹", "Naoki Kitajima", "エンジニア", "ポートフォリオ", "Web開発", "フロントエンド", "バックエンド", "Next.js"],
+  description: "エンジニア 北島直樹 (Naoki Kitajima / きたじまなおき) のポートフォリオサイトです。Web開発、フロントエンド、バックエンドのスキルや制作実績（Works）、活動記録（Active）を掲載しています。",
+  keywords: ["北島直樹", "きたじまなおき", "Naoki Kitajima", "エンジニア", "ポートフォリオ", "Web開発", "フロントエンド", "バックエンド", "Next.js"],
   authors: [{ name: "Naoki Kitajima" }],
   creator: "Naoki Kitajima",
   metadataBase: new URL("https://naoki-kitajima.com"), // TODO: Replace with actual domain

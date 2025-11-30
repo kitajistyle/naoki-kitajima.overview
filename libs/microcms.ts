@@ -31,6 +31,14 @@ export type Work = {
     url?: string;
     image?: MicroCMSImage;
     technology?: string;
+    reasonTitle1?: string;
+    reason1?: string;
+    reasonTitle2?: string;
+    reason2?: string;
+    reason3?: string;
+    reason4?: string;
+    appUrl?: string;
+    githubUrl?: string;
 } & MicroCMSDate;
 
 export type Active = {
@@ -41,9 +49,17 @@ export type Active = {
     url?: string;
     label?: string;
     image?: MicroCMSImage;
+    technology?: string;
+    reasonTitle1?: string;
+    reason1?: string;
+    reasonTitle2?: string;
+    reason2?: string;
+    reason3?: string;
+    reason4?: string;
+    announcementUrl?: string;
+    githubUrl?: string;
 } & MicroCMSDate;
 
-// Fetch Functions
 // Fetch Functions
 export const getProfile = async (queries?: MicroCMSQueries) => {
     try {
@@ -64,11 +80,29 @@ export const getWorks = async (queries?: MicroCMSQueries) => {
     }
 };
 
+export const getWorkDetail = async (contentId: string, queries?: MicroCMSQueries) => {
+    try {
+        return await client.getListDetail<Work>({ endpoint: 'works', contentId, queries });
+    } catch (error) {
+        console.error("Error fetching Work Detail:", error);
+        throw error;
+    }
+};
+
 export const getActive = async (queries?: MicroCMSQueries) => {
     try {
         return await client.getList<Active>({ endpoint: 'active', queries });
     } catch (error) {
         console.error("Error fetching Active:", error);
+        throw error;
+    }
+};
+
+export const getActiveDetail = async (contentId: string, queries?: MicroCMSQueries) => {
+    try {
+        return await client.getListDetail<Active>({ endpoint: 'active', contentId, queries });
+    } catch (error) {
+        console.error("Error fetching Active Detail:", error);
         throw error;
     }
 };

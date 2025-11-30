@@ -18,6 +18,8 @@ const Profile: React.FC<Props> = ({ description, image }) => {
           alt="profile"
           width={200}
           height={200}
+          sizes="(max-width: 768px) 100vw, 200px"
+          priority
         />
         <article className="mt-5 mx-5" dangerouslySetInnerHTML={{ __html: description }} />
       </div>

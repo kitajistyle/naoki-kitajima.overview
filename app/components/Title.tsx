@@ -9,7 +9,7 @@ type TitleProps = {
 const Title: React.FC<TitleProps> = ({ title }) => {
   return (
     <div className="flex mx-5 gap-3">
-      <h1 className="text-3xl text-center mt-7 mb-3">{title}</h1>
+      <h2 className="text-3xl text-center mt-7 mb-3">{title}</h2>
     </div>
   );
 };
