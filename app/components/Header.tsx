@@ -16,7 +16,7 @@ export default function Header() {
         <div className="flex lg:flex-1">
           <span className="sr-only">Your Company</span>
           <Link href="/">
-            <p className="font-bold text-lg text-white">Naoki Portfolio</p>
+            <h1 className="font-bold text-lg text-white">Naoki Portfolio</h1>
           </Link>
         </div>
         <div className="flex lg:hidden">
