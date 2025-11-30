@@ -1,9 +1,13 @@
 "use strict";
-import { works } from "@/data/works";
+import { Work } from "@/libs/microcms";
 import Title from "./Title";
 import WorkCard from "./WorkCard";
 
-const Works = () => {
+type Props = {
+  works: Work[];
+};
+
+const Works: React.FC<Props> = ({ works }) => {
   return (
     <main className="justify-center items-center">
       <Title title="Works" />

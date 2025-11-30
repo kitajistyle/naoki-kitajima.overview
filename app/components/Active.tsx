@@ -1,9 +1,13 @@
 "use strict";
-import { actives } from "@/data/actions";
+import { Active as ActiveType } from "@/libs/microcms";
 import { ActiveCard } from "./ActionCard";
 import Title from "./Title";
 
-const Active = () => {
+type Props = {
+  actives: ActiveType[];
+};
+
+const Active: React.FC<Props> = ({ actives }) => {
   return (
     <main className="justify-center items-center ">
       <Title title="Active" />
