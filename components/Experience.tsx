@@ -46,7 +46,7 @@ export const Experience: React.FC = () => {
 
       // 初期スケールを即時設定
       book.scale.set(targetScale, targetScale, targetScale);
-      book.position.set(0, 0, 0);
+      book.position.set(-1, 0, 9);
       book.rotation.set(0, 0, 0);
 
       /**
@@ -89,10 +89,9 @@ export const Experience: React.FC = () => {
         ease: "power1.inOut"
       });
 
-      // Adjust rotation to better show the right page
+      // 傾きを少し戻す
       tl.current.to(book.rotation, {
-        x: 0.15,
-        y: Math.PI * 2 - 0.2,
+        x: 0.1,
         duration: 3,
         ease: "power1.inOut"
       }, "<");
@@ -116,18 +115,12 @@ export const Experience: React.FC = () => {
       /**
        * SECTION 5: Thank You (90% - 100%)
        */
-      tl.current.to(book.rotation, {
-        x: -0.2,
-        y: Math.PI * 2 + 0.3,
-        duration: 3,
-        ease: "power2.out"
-      });
       tl.current.to(book.position, {
-        z: isMobile ? -1 : 1.5, // Mobile needs to zoom out more
+        z: isMobile ? -1 : 1.5,
         x: 0,
         duration: 3,
         ease: "power2.out"
-      }, "<");
+      });
 
     }); // removed sceneRef
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, forwardRef, useImperativeHandle } from "react";
-import { useTexture } from "@react-three/drei";
+import { useTexture, Text } from "@react-three/drei";
 import { Vector3, Euler, DoubleSide, Group } from "three";
 import { BOOK_WIDTH, BOOK_HEIGHT, BOOK_THICKNESS, PAGE_THICKNESS, COVER_COLOR, PAGE_COLOR, IMAGES } from "../constants";
 
@@ -90,6 +90,30 @@ export const Book = forwardRef<BookRef, BookProps>((props, ref) => {
           <planeGeometry args={[BOOK_WIDTH * 0.6, BOOK_HEIGHT * 0.8]} />
           <meshStandardMaterial color="#8D6E63" />
         </mesh>
+
+        {/* Cover Title Text */}
+        <Text
+          position={[BOOK_WIDTH / 2, 0.8, 0.12]}
+          fontSize={0.42}
+          color="#FFF8E7"
+          anchorX="center"
+          anchorY="middle"
+          letterSpacing={0.08}
+          font="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2"
+        >
+          KITAJI
+        </Text>
+        <Text
+          position={[BOOK_WIDTH / 2, 0.2, 0.12]}
+          fontSize={0.18}
+          color="#D4A96A"
+          anchorX="center"
+          anchorY="middle"
+          letterSpacing={0.12}
+          font="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2"
+        >
+          Portfolio
+        </Text>
       </group>
 
       {/* Pages Group */}
