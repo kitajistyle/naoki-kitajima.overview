@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useLayoutEffect, useRef } from "react";
 import { useThree, useFrame } from "@react-three/fiber";
 import { Environment, ContactShadows, Float } from "@react-three/drei";
@@ -38,58 +40,33 @@ export const Experience: React.FC = () => {
       });
 
       /**
-       * SECTION 1: Book Pops Out (0% - 15%)
-       * Desktop Target Scale: 1
-       * Mobile Target Scale: 0.6
-       * Enhanced with dramatic bounce and rotation
+       * 初期状態の設定: 本を最初から表示
        */
       const targetScale = isMobile ? 0.6 : 1;
 
-      // Dramatic pop-out with stronger bounce
-      tl.current.fromTo(
-        book.position,
-        { z: -15, y: -8, x: 0 },
-        { z: 0, y: 0, x: 0, duration: 2.5, ease: "back.out(2.5)" }
-      );
-
-      // Scale with extra bounce
-      tl.current.fromTo(
-        book.scale,
-        { x: 0, y: 0, z: 0 },
-        { x: targetScale, y: targetScale, z: targetScale, duration: 2.5, ease: "back.out(2.5)" },
-        "<"
-      );
-
-      // Add spinning entrance
-      tl.current.fromTo(
-        book.rotation,
-        { y: Math.PI * 4, x: Math.PI },
-        { y: 0, x: 0, duration: 2.5, ease: "back.out(2)" },
-        "<"
-      );
+      // 初期スケールを即時設定
+      book.scale.set(targetScale, targetScale, targetScale);
+      book.position.set(0, 0, 0);
+      book.rotation.set(0, 0, 0);
 
       /**
-       * SECTION 2: Float, 360 Rotate, Open (15% - 35%)
+       * SECTION 1: 本が開く (0% - 35%)
+       * スクロールすると本が少し傾いて表紙が開く
        */
-      const sec2Duration = 4;
 
-      tl.current.to(book.rotation, {
-        y: Math.PI * 2,
-        duration: sec2Duration,
-        ease: "power2.inOut",
-      });
-
+      // 本を少し傾ける（開いているように見せる）
       tl.current.to(book.rotation, {
         x: 0.2,
-        duration: sec2Duration,
+        duration: 2,
         ease: "power1.inOut"
-      }, "<");
+      });
 
+      // 表紙を開く
       tl.current.to(cover.rotation, {
         y: -Math.PI + 0.1,
-        duration: 2,
+        duration: 3,
         ease: "power2.inOut"
-      }, "-=2");
+      }, "<");
 
       // Shift logic: Desktop shift right (x:1), Mobile stay center (x:0)
       tl.current.to(book.position, {

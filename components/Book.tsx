@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useMemo, forwardRef, useImperativeHandle } from "react";
 import { useTexture } from "@react-three/drei";
 import { Vector3, Euler, DoubleSide, Group } from "three";

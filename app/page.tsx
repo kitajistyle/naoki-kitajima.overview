@@ -1,38 +1,43 @@
-import React, { useEffect } from 'react';
-import { Canvas } from '@react-three/fiber';
+'use client';
+
+import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import gsap from 'gsap';
 import Lenis from 'lenis';
+import { UI } from '@/components/UI';
 
-import { Experience } from './components/Experience';
-import { UI } from './components/UI';
-import { PasswordGate } from './components/PasswordGate';
+// Dynamic import for Three.js components (client-side only)
+const Scene = dynamic(() => import('@/components/Scene'), {
+  ssr: false,
+  loading: () => (
+    <div className="fixed inset-0 z-0 bg-[#f3f4f6] flex items-center justify-center">
+      <div className="text-slate-600">Loading...</div>
+    </div>
+  ),
+});
 
-function App() {
-  const [cameraSettings, setCameraSettings] = React.useState({
+export default function Home() {
+  const [cameraSettings, setCameraSettings] = useState({
     position: [0, 0, 12] as [number, number, number],
-    fov: 35
+    fov: 35,
   });
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     // Set initial camera settings based on screen size
     const updateCameraSettings = () => {
       const isMobile = window.innerWidth < 768;
       setCameraSettings({
         position: isMobile ? [0, 0, 16] : [0, 0, 12],
-        fov: isMobile ? 45 : 35
+        fov: isMobile ? 45 : 35,
       });
     };
 
     updateCameraSettings();
     window.addEventListener('resize', updateCameraSettings);
 
-    return () => {
-      window.removeEventListener('resize', updateCameraSettings);
-    };
-  }, []);
-
-  useEffect(() => {
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
       duration: 1.2,
@@ -54,23 +59,16 @@ function App() {
     gsap.ticker.lagSmoothing(0);
 
     return () => {
-      // Cleanup
+      window.removeEventListener('resize', updateCameraSettings);
       lenis.destroy();
       gsap.ticker.remove(lenis.raf);
     };
   }, []);
 
   return (
-    <PasswordGate>
-      <div className="fixed inset-0 z-0 bg-[#f3f4f6]">
-        <Canvas shadows camera={{ position: cameraSettings.position, fov: cameraSettings.fov }}>
-          <Experience />
-        </Canvas>
-      </div>
-
+    <>
+      <Scene cameraSettings={cameraSettings} />
       <UI />
-    </PasswordGate>
+    </>
   );
 }
-
-export default App;
