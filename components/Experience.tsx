@@ -87,8 +87,8 @@ export const Experience: React.FC = () => {
        * Mobile: Strong zoom (z:6) and shift left (x:-1) to center the right page
        */
       tl.current.to(book.position, {
-        z: isMobile ? 8.5 : 3,
-        x: isMobile ? -1 : -1,
+        x: isMobile ? -1.2 : -1,
+        z: isMobile ? 11 : 3,
         duration: 3,
         ease: "power1.inOut"
       });
