@@ -1,0 +1,5 @@
+{
+  "name": "3D Memory Album",
+  "description": "An immersive 3D scroll-based photo album experience featuring a pop-up book effect, 360 rotation, and interactive page turning using React Three Fiber and GSAP.",
+  "requestFramePermissions": []
+}
