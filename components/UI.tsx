@@ -1,17 +1,24 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useSettings } from '@/contexts/SettingsContext';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Section = ({
   className,
   children,
   align = "center",
-  compact = false
+  compact = false,
+  id,
 }: {
   className?: string;
   children: React.ReactNode;
   align?: "left" | "center" | "right";
   compact?: boolean;
+  id?: string;
 }) => {
   let alignClass = "justify-center items-center text-center px-4";
 
@@ -23,8 +30,8 @@ const Section = ({
   }
 
   return (
-    <section className={`h-screen w-full flex ${alignClass} pointer-events-none relative ${className}`}>
-      <div className={`pointer-events-auto bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-white/10 ${compact ? 'max-w-[200px] md:max-w-xs' : 'max-w-[280px] md:max-w-sm'}`}>
+    <section id={id} className={`h-screen w-full flex ${alignClass} pointer-events-none relative ${className}`}>
+      <div className={`pointer-events-auto bg-white/20 dark:bg-slate-800/30 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-white/10 dark:border-slate-600/20 ${compact ? 'max-w-[200px] md:max-w-xs' : 'max-w-[280px] md:max-w-sm'}`}>
         {children}
       </div>
     </section>
@@ -32,39 +39,126 @@ const Section = ({
 };
 
 const SkillTag = ({ skill }: { skill: string }) => (
-  <span className="px-2 py-1 bg-slate-800/70 text-white text-xs rounded-full">
+  <span className="px-2 py-1 bg-slate-800/70 dark:bg-slate-600/70 text-white text-xs rounded-full">
     {skill}
   </span>
 );
 
+const TOC_ITEMS = [
+  { label: 'About', href: '#about', emoji: '👤' },
+  { label: 'Skills', href: '#skills', emoji: '⚡' },
+  { label: 'Contact', href: '#contact', emoji: '✉️' },
+];
+
+const TableOfContents = () => {
+  const tocRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = tocRef.current;
+    if (!el) return;
+
+    // 初期状態：非表示
+    gsap.set(el, { opacity: 0, y: 20, pointerEvents: 'none' });
+
+    // 本が開いた後にフェードイン
+    const trigger = ScrollTrigger.create({
+      trigger: 'body',
+      start: '15% top',
+      end: '92% top',
+      onEnter: () => gsap.to(el, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', pointerEvents: 'auto' }),
+      onLeave: () => gsap.to(el, { opacity: 0, y: 20, duration: 0.4, pointerEvents: 'none' }),
+      onEnterBack: () => gsap.to(el, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', pointerEvents: 'auto' }),
+      onLeaveBack: () => gsap.to(el, { opacity: 0, y: 20, duration: 0.4, pointerEvents: 'none' }),
+    });
+
+    return () => trigger.kill();
+  }, []);
+
+  const scrollTo = (href: string) => {
+    const sectionMap: Record<string, number> = {
+      '#about': 0.37,
+      '#skills': 0.55,
+      '#contact': 0.92,
+    };
+    const ratio = sectionMap[href] ?? 0;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    window.scrollTo({ top: maxScroll * ratio, behavior: 'smooth' });
+  };
+
+  return (
+    <div
+      ref={tocRef}
+      className={[
+        'fixed z-20',
+        // モバイル: 下部中央
+        'bottom-6 left-1/2 -translate-x-1/2',
+        // PC: 右側中央
+        'md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:right-6 md:left-auto md:translate-x-0',
+      ].join(' ')}
+    >
+      {/* モバイル: 横並び */}
+      <div className="flex md:hidden flex-row gap-3 bg-white/20 dark:bg-slate-800/40 backdrop-blur-sm px-5 py-2.5 rounded-full shadow-lg border border-white/20 dark:border-slate-600/20">
+        {TOC_ITEMS.map((item) => (
+          <button
+            key={item.href}
+            onClick={() => scrollTo(item.href)}
+            className="flex items-center gap-1 text-xs text-slate-700 dark:text-slate-200 hover:text-amber-700 dark:hover:text-amber-400 transition-colors whitespace-nowrap cursor-pointer"
+          >
+            <span>{item.emoji}</span>
+            <span>{item.label}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* PC: 縦並び */}
+      <div className="hidden md:flex flex-col gap-2 bg-white/20 dark:bg-slate-800/40 backdrop-blur-sm px-4 py-4 rounded-2xl shadow-lg border border-white/20 dark:border-slate-600/20">
+        <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium tracking-widest uppercase mb-1 text-center">Menu</p>
+        {TOC_ITEMS.map((item) => (
+          <button
+            key={item.href}
+            onClick={() => scrollTo(item.href)}
+            className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200 hover:text-amber-700 dark:hover:text-amber-400 transition-colors text-left cursor-pointer"
+          >
+            <span>{item.emoji}</span>
+            <span>{item.label}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 export const UI = () => {
+  const { t } = useSettings();
+
   return (
     <div className="relative w-full z-10">
       {/* SEO: Hidden but crawlable content */}
-      <h1 className="sr-only">北島直樹（きたじー/KITAJI）- フルスタックエンジニア・SRE ポートフォリオ</h1>
+      <h1 className="sr-only">{t('seo.h1')}</h1>
+
+      {/* 目次: 本が開いた後にフェードイン */}
+      <TableOfContents />
 
       {/* SECTION 1: Spacer - Book pops out and opens (0-35%) */}
       <div className="h-[200vh]"></div>
 
       {/* SECTION 3: About - Profile display (35-50%) */}
-      <Section align="right" className="h-[150vh]" compact>
-        <h2 className="text-lg md:text-xl text-slate-800 font-bold mb-2">About</h2>
-        <p className="text-xs text-amber-700 font-medium mb-2">Payment Infrastructure SRE</p>
-        <p className="text-xs md:text-sm text-slate-700 leading-relaxed">
-          メガベンチャーにて決済基盤のSREを担当。<br />
-          フロントからバックエンドまで<br />
-          一気通貫で開発可能。
+      <Section id="about" align="right" className="h-[150vh]" compact>
+        <h2 className="text-lg md:text-xl text-slate-800 dark:text-slate-100 font-bold mb-2">{t('about.title')}</h2>
+        <p className="text-xs text-amber-700 dark:text-amber-400 font-medium mb-2">{t('about.role')}</p>
+        <p className="text-xs md:text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
+          {t('about.description')}
         </p>
       </Section>
 
       {/* SECTION 4: Pages turning - Skills & Lifestyle (50-90%) */}
-      <div className="h-[400vh] w-full relative pointer-events-none">
-        <div className="sticky top-4 left-4 md:top-8 md:left-12 max-w-[180px] md:max-w-[220px] pointer-events-auto p-3 rounded-lg bg-white/20 backdrop-blur-sm shadow-lg border border-white/10">
-          <h3 className="text-lg text-slate-800 font-bold mb-2">Skills</h3>
-          <p className="text-xs text-slate-600 mb-3">スクロールでページをめくってね</p>
+      <div id="skills" className="h-[400vh] w-full relative pointer-events-none">
+        <div className="sticky top-4 left-4 md:top-8 md:left-12 max-w-[180px] md:max-w-[220px] pointer-events-auto p-3 rounded-lg bg-white/20 dark:bg-slate-800/30 backdrop-blur-sm shadow-lg border border-white/10 dark:border-slate-600/20">
+          <h3 className="text-lg text-slate-800 dark:text-slate-100 font-bold mb-2">{t('skills.title')}</h3>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">{t('skills.hint')}</p>
           <div className="space-y-2">
             <div>
-              <p className="text-xs text-amber-700 font-medium mb-1">SRE</p>
+              <p className="text-xs text-amber-700 dark:text-amber-400 font-medium mb-1">{t('skills.sre')}</p>
               <div className="flex flex-wrap gap-1">
                 <SkillTag skill="K8s" />
                 <SkillTag skill="GCP" />
@@ -72,7 +166,7 @@ export const UI = () => {
               </div>
             </div>
             <div>
-              <p className="text-xs text-amber-700 font-medium mb-1">Dev</p>
+              <p className="text-xs text-amber-700 dark:text-amber-400 font-medium mb-1">{t('skills.dev')}</p>
               <div className="flex flex-wrap gap-1">
                 <SkillTag skill="Go" />
                 <SkillTag skill="TypeScript" />
@@ -84,16 +178,16 @@ export const UI = () => {
       </div>
 
       {/* SECTION 5: Contact (90-100%) */}
-      <Section className="h-screen" compact>
-        <h2 className="text-xl md:text-2xl text-slate-800 font-bold mb-3">
-          Contact
+      <Section id="contact" className="h-screen" compact>
+        <h2 className="text-xl md:text-2xl text-slate-800 dark:text-slate-100 font-bold mb-3">
+          {t('contact.title')}
         </h2>
         <div className="flex flex-col gap-2">
           <a
             href="https://github.com/kitajistyle"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 bg-slate-800 text-white rounded-full hover:bg-slate-700 transition-colors pointer-events-auto text-xs inline-flex items-center justify-center gap-2"
+            className="px-4 py-2 bg-slate-800 dark:bg-slate-600 text-white rounded-full hover:bg-slate-700 dark:hover:bg-slate-500 transition-colors pointer-events-auto text-xs inline-flex items-center justify-center gap-2"
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
@@ -102,10 +196,10 @@ export const UI = () => {
           </a>
         </div>
         <button
-          className="mt-4 text-slate-500 hover:text-slate-700 transition-colors pointer-events-auto text-xs underline"
+          className="mt-4 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors pointer-events-auto text-xs underline cursor-pointer"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          Back to Top
+          {t('contact.backToTop')}
         </button>
       </Section>
     </div>

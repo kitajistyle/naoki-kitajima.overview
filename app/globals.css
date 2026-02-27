@@ -10,6 +10,13 @@ body {
   padding: 0;
   background-color: #f3f4f6;
   font-family: var(--font-sans);
+  transition: background-color 0.3s ease;
+}
+
+/* Dark mode */
+.dark body,
+html.dark body {
+  background-color: #1a1a2e;
 }
 
 h1, h2, h3, .serif {

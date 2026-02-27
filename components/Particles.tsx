@@ -82,21 +82,15 @@ export const Particles: React.FC<ParticlesProps> = ({ count = 100 }) => {
             <bufferGeometry>
                 <bufferAttribute
                     attach="attributes-position"
-                    count={count}
-                    array={particles.positions}
-                    itemSize={3}
+                    args={[particles.positions, 3]}
                 />
                 <bufferAttribute
                     attach="attributes-color"
-                    count={count}
-                    array={particles.colors}
-                    itemSize={3}
+                    args={[particles.colors, 3]}
                 />
                 <bufferAttribute
                     attach="attributes-size"
-                    count={count}
-                    array={particles.sizes}
-                    itemSize={1}
+                    args={[particles.sizes, 1]}
                 />
             </bufferGeometry>
             <pointsMaterial

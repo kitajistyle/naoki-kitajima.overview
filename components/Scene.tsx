@@ -2,6 +2,7 @@
 
 import { Canvas } from '@react-three/fiber';
 import { Experience } from './Experience';
+import { useSettings } from '@/contexts/SettingsContext';
 
 interface SceneProps {
   cameraSettings: {
@@ -11,8 +12,10 @@ interface SceneProps {
 }
 
 export default function Scene({ cameraSettings }: SceneProps) {
+  const { theme } = useSettings();
+
   return (
-    <div className="fixed inset-0 z-0 bg-[#f3f4f6]">
+    <div className={`fixed inset-0 z-0 transition-colors duration-300 ${theme === 'dark' ? 'bg-[#1a1a2e]' : 'bg-[#f3f4f6]'}`}>
       <Canvas
         shadows
         camera={{ position: cameraSettings.position, fov: cameraSettings.fov }}

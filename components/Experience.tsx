@@ -46,7 +46,11 @@ export const Experience: React.FC = () => {
 
       // 初期スケールを即時設定
       book.scale.set(targetScale, targetScale, targetScale);
-      book.position.set(-1, 0, 9);
+      book.position.set(
+        isMobile ? -1 : -1.5,   // x
+        0,                    // y
+        isMobile ? 9 : 2     // z
+      );
       book.rotation.set(0, 0, 0);
 
       /**
@@ -156,14 +160,7 @@ export const Experience: React.FC = () => {
       {/* Particle Effects */}
       <Particles count={150} />
 
-      <Float
-        speed={2}
-        rotationIntensity={0.2}
-        floatIntensity={0.5}
-        floatingRange={[-0.2, 0.2]}
-      >
-        <Book ref={bookRef} />
-      </Float>
+      <Book ref={bookRef} />
 
 
     </group>

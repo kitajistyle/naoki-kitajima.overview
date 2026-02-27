@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { SettingsProvider } from '@/contexts/SettingsContext';
 
 export const metadata: Metadata = {
   title: '北島直樹 (きたじー/KITAJI) | フルスタックエンジニア・SRE',
@@ -100,7 +101,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+          <SettingsProvider>{children}</SettingsProvider>
+        </body>
     </html>
   );
 }

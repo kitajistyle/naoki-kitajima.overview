@@ -6,13 +6,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import gsap from 'gsap';
 import Lenis from 'lenis';
 import { UI } from '@/components/UI';
+import { SettingsToggle } from '@/components/SettingsToggle';
 
 // Dynamic import for Three.js components (client-side only)
 const Scene = dynamic(() => import('@/components/Scene'), {
   ssr: false,
   loading: () => (
-    <div className="fixed inset-0 z-0 bg-[#f3f4f6] flex items-center justify-center">
-      <div className="text-slate-600">Loading...</div>
+    <div className="fixed inset-0 z-0 bg-[#f3f4f6] dark:bg-[#1a1a2e] flex items-center justify-center">
+      <div className="text-slate-600 dark:text-slate-400">Loading...</div>
     </div>
   ),
 });
@@ -67,6 +68,7 @@ export default function Home() {
 
   return (
     <>
+      <SettingsToggle />
       <Scene cameraSettings={cameraSettings} />
       <UI />
     </>
