@@ -117,14 +117,53 @@ export const Experience: React.FC = () => {
       });
 
       /**
-       * SECTION 5: Thank You (90% - 100%)
+       * SECTION 5: Back Cover Reveal (90% - 100%)
+       * ページを元に戻す → 表紙を閉じる → Y軸フリップ → 裏表紙を見せる
        */
+
+      // Step 5a: めくったページを逆順に元の位置へ戻す
+      [...pagesToTurn].reverse().forEach((page) => {
+        tl.current?.to(page.rotation, {
+          y: 0,
+          duration: 1.5,
+          ease: "power2.inOut",
+        }, `>-0.3`);
+      });
+
+      // Step 5b: 表紙を閉じる + 本を中央・手前に整列
+      tl.current.to(cover.rotation, {
+        y: 0,
+        duration: 3,
+        ease: "power2.inOut",
+      });
+
       tl.current.to(book.position, {
-        z: isMobile ? -1 : 1.5,
+        z: isMobile ? 10 : 3.5,
+        x: isMobile ? -1 : 0,
+        y: 0,
+        duration: 3,
+        ease: "power2.out",
+      }, "<");
+
+      tl.current.to(book.rotation, {
         x: 0,
         duration: 3,
-        ease: "power2.out"
+        ease: "power2.out",
+      }, "<");
+
+      // Step 5c: Y軸でフリップして裏表紙を正面に向ける（同時に中央へ移動）
+      tl.current.to(book.rotation, {
+        y: Math.PI,
+        duration: 4,
+        ease: "power2.inOut",
       });
+
+      tl.current.to(book.position, {
+        x: isMobile ? 1 : 1.5,
+        z: isMobile ? 10 : 3.0,
+        duration: 4,
+        ease: "power2.inOut",
+      }, "<");
 
     }); // removed sceneRef
 

@@ -2,7 +2,8 @@
 
 import React, { useMemo, forwardRef, useImperativeHandle } from "react";
 import { useTexture, Text } from "@react-three/drei";
-import { Vector3, Euler, DoubleSide, Group } from "three";
+import { DoubleSide } from "three";
+import { Vector3, Euler, Group } from "three";
 import { BOOK_WIDTH, BOOK_HEIGHT, BOOK_THICKNESS, PAGE_THICKNESS, COVER_COLOR, PAGE_COLOR, IMAGES } from "../constants";
 
 interface BookProps {
@@ -77,6 +78,38 @@ export const Book = forwardRef<BookRef, BookProps>((props, ref) => {
         <boxGeometry args={[BOOK_WIDTH, BOOK_HEIGHT, 0.1]} />
         <meshStandardMaterial color={COVER_COLOR} roughness={0.4} />
       </mesh>
+
+      {/* Back Cover Decoration: inner frame */}
+      <mesh position={[BOOK_WIDTH / 2, 0, -BOOK_THICKNESS / 2 - 0.06]}>
+        <planeGeometry args={[BOOK_WIDTH * 0.78, BOOK_HEIGHT * 0.82]} />
+        <meshStandardMaterial color="#8D6E63" side={DoubleSide} />
+      </mesh>
+
+      {/* Back Cover: "Thank you for reading" text */}
+      <Text
+        position={[BOOK_WIDTH / 2, 0.5, -BOOK_THICKNESS / 2 - 0.12]}
+        fontSize={0.22}
+        color="#FFF8E7"
+        anchorX="center"
+        anchorY="middle"
+        letterSpacing={0.06}
+        rotation={[0, Math.PI, 0]}
+      >
+        Thank you{"\n"}for reading
+      </Text>
+
+      {/* Back Cover: KITAJI label */}
+      <Text
+        position={[BOOK_WIDTH / 2, -1.2, -BOOK_THICKNESS / 2 - 0.12]}
+        fontSize={0.32}
+        color="#D4A96A"
+        anchorX="center"
+        anchorY="middle"
+        letterSpacing={0.1}
+        rotation={[0, Math.PI, 0]}
+      >
+        KITAJI
+      </Text>
 
       {/* Front Cover Group (Rotates) */}
       {/* Pivot is at 0,0,0 (spine edge) */}
