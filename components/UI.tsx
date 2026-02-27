@@ -40,6 +40,9 @@ const SkillTag = ({ skill }: { skill: string }) => (
 export const UI = () => {
   return (
     <div className="relative w-full z-10">
+      {/* SEO: Hidden but crawlable content */}
+      <h1 className="sr-only">北島直樹（きたじー/KITAJI）- フルスタックエンジニア・SRE ポートフォリオ</h1>
+
       {/* SECTION 1: Spacer - Book pops out and opens (0-35%) */}
       <div className="h-[200vh]"></div>
 

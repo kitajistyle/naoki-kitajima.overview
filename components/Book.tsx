@@ -99,7 +99,6 @@ export const Book = forwardRef<BookRef, BookProps>((props, ref) => {
           anchorX="center"
           anchorY="middle"
           letterSpacing={0.08}
-          font="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2"
         >
           KITAJI
         </Text>
@@ -110,7 +109,6 @@ export const Book = forwardRef<BookRef, BookProps>((props, ref) => {
           anchorX="center"
           anchorY="middle"
           letterSpacing={0.12}
-          font="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2"
         >
           Portfolio
         </Text>
