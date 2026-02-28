@@ -15,38 +15,66 @@ interface SettingsContextType {
 
 const translations = {
   ja: {
+    // Hero
+    'hero.catchphrase': 'コードで信頼を、\nダンスで個性を。',
+    'hero.tagline': 'SRE × フルスタック × クリエイティビティ',
+    'hero.scroll': 'スクロールして読む',
+
     // About
     'about.title': 'About',
-    'about.role': 'Payment Infrastructure SRE',
-    'about.description': 'メガベンチャーにて決済基盤のSREを担当。\nフロントからバックエンドまで\n一気通貫で開発可能。',
+    'about.role': 'Payment Infrastructure SRE / フルスタックエンジニア',
+    'about.description': 'メガベンチャーにて決済基盤のSRE（Site Reliability Engineering）を担当。システムの信頼性向上やインフラ構築に加え、フロントエンドからバックエンドまで一気通貫で開発が可能。',
+    'about.name': 'きたじー（KITAJI）',
 
     // Skills
     'skills.title': 'Skills',
     'skills.hint': 'スクロールでページをめくってね',
-    'skills.sre': 'SRE',
-    'skills.dev': 'Dev',
+    'skills.sre': '⚙️ SRE / Infra',
+    'skills.dev': '💻 Development',
+
+    // Hobbies
+    'hobbies.title': 'Lifestyle',
+    'hobbies.coffee.title': '☕ こだわりのコーヒー',
+    'hobbies.coffee.desc': 'コーヒー豆の産地・焙煎にこだわり、毎朝一杯を丁寧に淹れる。器具も道具も自分でセレクト。',
+    'hobbies.dance.title': '💃 ダンス',
+    'hobbies.dance.desc': 'ストリートダンスを嗜む。エンジニアとしての論理思考とリズム感覚を融合させた、もう一つの自己表現。',
 
     // Contact
     'contact.title': 'Contact',
+    'contact.message': 'お気軽にお声がけください 👋',
     'contact.backToTop': 'トップに戻る',
 
     // SEO
     'seo.h1': '北島直樹（きたじー/KITAJI）- フルスタックエンジニア・SRE ポートフォリオ',
   },
   en: {
+    // Hero
+    'hero.catchphrase': 'Reliability in Code,\nCreativity in Motion.',
+    'hero.tagline': 'SRE × Full-Stack × Creativity',
+    'hero.scroll': 'Scroll to explore',
+
     // About
     'about.title': 'About',
-    'about.role': 'Payment Infrastructure SRE',
-    'about.description': 'SRE at a mega-venture, managing payment infrastructure.\nFull-stack development from frontend to backend.',
+    'about.role': 'Payment Infrastructure SRE / Full-Stack Engineer',
+    'about.description': 'SRE at a mega-venture, managing payment infrastructure. Capable of full-stack development from frontend to backend, as well as infrastructure and reliability engineering.',
+    'about.name': 'KITAJI',
 
     // Skills
     'skills.title': 'Skills',
     'skills.hint': 'Scroll to turn pages',
-    'skills.sre': 'SRE',
-    'skills.dev': 'Dev',
+    'skills.sre': '⚙️ SRE / Infra',
+    'skills.dev': '💻 Development',
+
+    // Hobbies
+    'hobbies.title': 'Lifestyle',
+    'hobbies.coffee.title': '☕ Specialty Coffee',
+    'hobbies.coffee.desc': 'Passionate about coffee origins and roasting profiles. Carefully brewing a cup each morning with hand-selected equipment.',
+    'hobbies.dance.title': '💃 Dance',
+    'hobbies.dance.desc': 'Street dancer blending logical thinking with rhythm and expression. Another side of creativity beyond code.',
 
     // Contact
     'contact.title': 'Contact',
+    'contact.message': 'Feel free to reach out 👋',
     'contact.backToTop': 'Back to Top',
 
     // SEO

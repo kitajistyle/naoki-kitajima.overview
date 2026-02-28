@@ -7,46 +7,51 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// ─── Section wrapper ───────────────────────────────────────────────────────
 const Section = ({
   className,
   children,
-  align = "center",
+  align = 'center',
   compact = false,
   id,
 }: {
   className?: string;
   children: React.ReactNode;
-  align?: "left" | "center" | "right";
+  align?: 'left' | 'center' | 'right';
   compact?: boolean;
   id?: string;
 }) => {
-  let alignClass = "justify-center items-center text-center px-4";
-
-  if (align === "left") {
-    alignClass = "justify-center md:justify-start items-center px-4 md:pl-12 text-center md:text-left";
-  }
-  if (align === "right") {
-    alignClass = "justify-center md:justify-end items-center px-4 md:pr-12 text-center md:text-right";
-  }
+  let alignClass = 'justify-center items-center text-center px-4';
+  if (align === 'left') alignClass = 'justify-center md:justify-start items-center px-4 md:pl-12 text-center md:text-left';
+  if (align === 'right') alignClass = 'justify-center md:justify-end items-center px-4 md:pr-12 text-center md:text-right';
 
   return (
-    <section id={id} className={`h-screen w-full flex ${alignClass} pointer-events-none relative ${className}`}>
-      <div className={`pointer-events-auto bg-white/20 dark:bg-slate-800/30 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-white/10 dark:border-slate-600/20 ${compact ? 'max-w-[200px] md:max-w-xs' : 'max-w-[280px] md:max-w-sm'}`}>
+    <section
+      id={id}
+      className={`h-screen w-full flex ${alignClass} pointer-events-none relative ${className}`}
+    >
+      <div
+        className={`pointer-events-auto bg-white/20 dark:bg-slate-800/30 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-white/10 dark:border-slate-600/20 ${compact ? 'max-w-[200px] md:max-w-xs' : 'max-w-[280px] md:max-w-sm'
+          }`}
+      >
         {children}
       </div>
     </section>
   );
 };
 
+// ─── Skill badge ───────────────────────────────────────────────────────────
 const SkillTag = ({ skill }: { skill: string }) => (
   <span className="px-2 py-1 bg-slate-800/70 dark:bg-slate-600/70 text-white text-xs rounded-full">
     {skill}
   </span>
 );
 
+// ─── TOC ──────────────────────────────────────────────────────────────────
 const TOC_ITEMS = [
   { label: 'About', href: '#about', emoji: '👤' },
   { label: 'Skills', href: '#skills', emoji: '⚡' },
+  { label: 'Hobbies', href: '#hobbies', emoji: '🎨' },
   { label: 'Contact', href: '#contact', emoji: '✉️' },
 ];
 
@@ -57,14 +62,12 @@ const TableOfContents = () => {
     const el = tocRef.current;
     if (!el) return;
 
-    // 初期状態：非表示
     gsap.set(el, { opacity: 0, y: 20, pointerEvents: 'none' });
 
-    // 本が開いた後にフェードイン
     const trigger = ScrollTrigger.create({
       trigger: 'body',
       start: '15% top',
-      end: '92% top',
+      end: '97% top',
       onEnter: () => gsap.to(el, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', pointerEvents: 'auto' }),
       onLeave: () => gsap.to(el, { opacity: 0, y: 20, duration: 0.4, pointerEvents: 'none' }),
       onEnterBack: () => gsap.to(el, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', pointerEvents: 'auto' }),
@@ -76,9 +79,10 @@ const TableOfContents = () => {
 
   const scrollTo = (href: string) => {
     const sectionMap: Record<string, number> = {
-      '#about': 0.37,
-      '#skills': 0.55,
-      '#contact': 0.92,
+      '#about': 0.36,
+      '#skills': 0.52,
+      '#hobbies': 0.78,
+      '#contact': 0.95,
     };
     const ratio = sectionMap[href] ?? 0;
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -90,13 +94,11 @@ const TableOfContents = () => {
       ref={tocRef}
       className={[
         'fixed z-20',
-        // モバイル: 下部中央
         'bottom-6 left-1/2 -translate-x-1/2',
-        // PC: 右側中央
         'md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:right-6 md:left-auto md:translate-x-0',
       ].join(' ')}
     >
-      {/* モバイル: 横並び */}
+      {/* mobile: horizontal */}
       <div className="flex md:hidden flex-row gap-3 bg-white/20 dark:bg-slate-800/40 backdrop-blur-sm px-5 py-2.5 rounded-full shadow-lg border border-white/20 dark:border-slate-600/20">
         {TOC_ITEMS.map((item) => (
           <button
@@ -110,7 +112,7 @@ const TableOfContents = () => {
         ))}
       </div>
 
-      {/* PC: 縦並び */}
+      {/* desktop: vertical */}
       <div className="hidden md:flex flex-col gap-2 bg-white/20 dark:bg-slate-800/40 backdrop-blur-sm px-4 py-4 rounded-2xl shadow-lg border border-white/20 dark:border-slate-600/20">
         <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium tracking-widest uppercase mb-1 text-center">Menu</p>
         {TOC_ITEMS.map((item) => (
@@ -128,61 +130,174 @@ const TableOfContents = () => {
   );
 };
 
+// ─── Hero section ─────────────────────────────────────────────────────────
+const HeroSection = () => {
+  const { t } = useSettings();
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+
+    // フェードアウト while scrolling
+    const trigger = ScrollTrigger.create({
+      trigger: 'body',
+      start: '3% top',
+      end: '10% top',
+      scrub: true,
+      onUpdate: (self) => {
+        gsap.set(el, { opacity: 1 - self.progress, y: -self.progress * 30 });
+      },
+    });
+
+    return () => trigger.kill();
+  }, []);
+
+  return (
+    <div
+      id="hero"
+      className="fixed inset-0 z-10 flex flex-col items-center justify-center pointer-events-none select-none"
+    >
+      <div ref={heroRef} className="text-center px-6">
+        {/* Name badge */}
+        <p className="text-xs md:text-sm tracking-[0.25em] uppercase text-amber-700 dark:text-amber-400 font-medium mb-4 animate-fade-in-up">
+          KITAJI / きたじー
+        </p>
+
+        {/* Main catchphrase */}
+        <h1
+          className="text-3xl md:text-5xl lg:text-6xl font-bold text-slate-800 dark:text-slate-100 leading-tight mb-4 whitespace-pre-line animate-fade-in-up"
+          style={{ animationDelay: '0.1s', fontFamily: 'Playfair Display, serif' }}
+        >
+          {t('hero.catchphrase')}
+        </h1>
+
+        {/* Tagline */}
+        <p
+          className="text-sm md:text-base text-slate-600 dark:text-slate-400 tracking-wide mb-10 animate-fade-in-up"
+          style={{ animationDelay: '0.2s' }}
+        >
+          {t('hero.tagline')}
+        </p>
+
+        {/* Scroll hint */}
+        <div className="flex flex-col items-center gap-2 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <p className="text-xs text-slate-500 dark:text-slate-500 tracking-widest uppercase">
+            {t('hero.scroll')}
+          </p>
+          <div className="w-px h-8 bg-gradient-to-b from-slate-400 to-transparent dark:from-slate-500 mt-1 animate-bounce" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ─── Hobby card ────────────────────────────────────────────────────────────
+const HobbyCard = ({ title, desc }: { title: string; desc: string }) => (
+  <div className="hobby-card rounded-lg p-3 border border-white/20 dark:border-slate-600/30 bg-white/10 dark:bg-slate-700/20 transition-all duration-300 hover:bg-white/25 dark:hover:bg-slate-700/40">
+    <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-1">{title}</h3>
+    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{desc}</p>
+  </div>
+);
+
+// ─── Main UI ───────────────────────────────────────────────────────────────
 export const UI = () => {
   const { t } = useSettings();
 
   return (
     <div className="relative w-full z-10">
-      {/* SEO: Hidden but crawlable content */}
+      {/* SEO: Hidden but crawlable */}
       <h1 className="sr-only">{t('seo.h1')}</h1>
 
-      {/* 目次: 本が開いた後にフェードイン */}
+      {/* HERO: fixed overlay at top */}
+      <HeroSection />
+
+      {/* TOC */}
       <TableOfContents />
 
-      {/* SECTION 1: Spacer - Book pops out and opens (0-35%) */}
-      <div className="h-[200vh]"></div>
+      {/* SPACER: Book pops out and opens (0–35%) */}
+      <div className="h-[200vh]" />
 
-      {/* SECTION 3: About - Profile display (35-50%) */}
+      {/* ── ABOUT (35–50%) ─────────────────────────────────────────────── */}
       <Section id="about" align="right" className="h-[150vh]" compact>
-        <h2 className="text-lg md:text-xl text-slate-800 dark:text-slate-100 font-bold mb-2">{t('about.title')}</h2>
-        <p className="text-xs text-amber-700 dark:text-amber-400 font-medium mb-2">{t('about.role')}</p>
-        <p className="text-xs md:text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
+        <p className="text-[10px] tracking-widest uppercase text-amber-700 dark:text-amber-400 font-semibold mb-1">
+          {t('about.name')}
+        </p>
+        <h2 className="text-lg md:text-xl text-slate-800 dark:text-slate-100 font-bold mb-1">
+          {t('about.title')}
+        </h2>
+        <p className="text-xs text-amber-700 dark:text-amber-400 font-medium mb-2">
+          {t('about.role')}
+        </p>
+        <p className="text-xs md:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
           {t('about.description')}
         </p>
       </Section>
 
-      {/* SECTION 4: Pages turning - Skills & Lifestyle (50-90%) */}
+      {/* ── SKILLS (50–75%): sticky panel ──────────────────────────────── */}
       <div id="skills" className="h-[400vh] w-full relative pointer-events-none">
-        <div className="sticky top-4 left-4 md:top-8 md:left-12 max-w-[180px] md:max-w-[220px] pointer-events-auto p-3 rounded-lg bg-white/20 dark:bg-slate-800/30 backdrop-blur-sm shadow-lg border border-white/10 dark:border-slate-600/20">
-          <h3 className="text-lg text-slate-800 dark:text-slate-100 font-bold mb-2">{t('skills.title')}</h3>
-          <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">{t('skills.hint')}</p>
-          <div className="space-y-2">
-            <div>
-              <p className="text-xs text-amber-700 dark:text-amber-400 font-medium mb-1">{t('skills.sre')}</p>
-              <div className="flex flex-wrap gap-1">
-                <SkillTag skill="K8s" />
-                <SkillTag skill="GCP" />
-                <SkillTag skill="Terraform" />
-              </div>
+        <div className="sticky top-4 left-4 md:top-8 md:left-12 max-w-[200px] md:max-w-[240px] pointer-events-auto p-3 rounded-lg bg-white/20 dark:bg-slate-800/30 backdrop-blur-sm shadow-lg border border-white/10 dark:border-slate-600/20">
+          <h2 className="text-lg text-slate-800 dark:text-slate-100 font-bold mb-1">
+            {t('skills.title')}
+          </h2>
+          <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-3">
+            {t('skills.hint')}
+          </p>
+
+          {/* SRE / Infra */}
+          <div className="mb-3">
+            <p className="text-xs text-amber-700 dark:text-amber-400 font-semibold mb-1.5">
+              {t('skills.sre')}
+            </p>
+            <div className="flex flex-wrap gap-1">
+              <SkillTag skill="Kubernetes" />
+              <SkillTag skill="Terraform" />
+              <SkillTag skill="GCP" />
+              <SkillTag skill="Prometheus" />
+              <SkillTag skill="ArgoCD" />
+              <SkillTag skill="Datadog" />
             </div>
-            <div>
-              <p className="text-xs text-amber-700 dark:text-amber-400 font-medium mb-1">{t('skills.dev')}</p>
-              <div className="flex flex-wrap gap-1">
-                <SkillTag skill="Go" />
-                <SkillTag skill="TypeScript" />
-                <SkillTag skill="React" />
-              </div>
+          </div>
+
+          {/* Development */}
+          <div>
+            <p className="text-xs text-amber-700 dark:text-amber-400 font-semibold mb-1.5">
+              {t('skills.dev')}
+            </p>
+            <div className="flex flex-wrap gap-1">
+              <SkillTag skill="Go" />
+              <SkillTag skill="TypeScript" />
+              <SkillTag skill="React" />
+              <SkillTag skill="Next.js" />
+              <SkillTag skill="PostgreSQL" />
+              <SkillTag skill="Docker" />
             </div>
           </div>
         </div>
       </div>
 
-      {/* SECTION 5: Contact (90-100%) */}
+      {/* ── HOBBIES (75–85%) ───────────────────────────────────────────── */}
+      <Section id="hobbies" align="right" className="h-[120vh]">
+        <h2 className="text-lg md:text-xl text-slate-800 dark:text-slate-100 font-bold mb-3">
+          {t('hobbies.title')}
+        </h2>
+        <div className="space-y-2">
+          <HobbyCard title={t('hobbies.coffee.title')} desc={t('hobbies.coffee.desc')} />
+          <HobbyCard title={t('hobbies.dance.title')} desc={t('hobbies.dance.desc')} />
+        </div>
+      </Section>
+
+      {/* ── CONTACT (90–100%) ──────────────────────────────────────────── */}
       <Section id="contact" className="h-screen" compact>
-        <h2 className="text-xl md:text-2xl text-slate-800 dark:text-slate-100 font-bold mb-3">
+        <h2 className="text-xl md:text-2xl text-slate-800 dark:text-slate-100 font-bold mb-1">
           {t('contact.title')}
         </h2>
+        <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">
+          {t('contact.message')}
+        </p>
+
         <div className="flex flex-col gap-2">
+          {/* GitHub */}
           <a
             href="https://github.com/kitajistyle"
             target="_blank"
@@ -194,9 +309,23 @@ export const UI = () => {
             </svg>
             GitHub
           </a>
+
+          {/* X (Twitter) */}
+          <a
+            href="https://x.com/kitajistyle"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 bg-black dark:bg-slate-700 text-white rounded-full hover:bg-slate-900 dark:hover:bg-slate-600 transition-colors pointer-events-auto text-xs inline-flex items-center justify-center gap-2"
+          >
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+            X (Twitter)
+          </a>
         </div>
+
         <button
-          className="mt-4 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors pointer-events-auto text-xs underline cursor-pointer"
+          className="mt-5 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors pointer-events-auto text-xs underline cursor-pointer"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           {t('contact.backToTop')}

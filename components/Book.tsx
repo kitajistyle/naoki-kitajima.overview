@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useMemo, forwardRef, useImperativeHandle } from "react";
-import { useTexture, Text } from "@react-three/drei";
+import React, { forwardRef, useImperativeHandle } from "react";
+import { Text } from "@react-three/drei";
 import { DoubleSide } from "three";
-import { Vector3, Euler, Group } from "three";
+import { Group } from "three";
 import { BOOK_WIDTH, BOOK_HEIGHT, BOOK_THICKNESS, PAGE_THICKNESS, COVER_COLOR, PAGE_COLOR, IMAGES } from "../constants";
 
 interface BookProps {
@@ -17,35 +17,19 @@ export interface BookRef {
   pages: Group[];
 }
 
-const Page = ({ index, textureUrl }: { index: number; textureUrl: string }) => {
-  const texture = useTexture(textureUrl);
-
-  // Set texture to cover the square area (center crop)
-  texture.repeat.set(1, 1);
-  texture.center.set(0.5, 0.5);
-
-  // Z-offset to prevent z-fighting when pages are stacked
-  // We reverse the index for z-offset so the first page is on top
+// 画像なし・白紙（クリーム色）ページ
+const Page = ({ index }: { index: number }) => {
   const zOffset = (IMAGES.length - index) * 0.02;
-
-  // Square dimensions for the image
-  const imageSize = Math.min(BOOK_WIDTH - 0.4, BOOK_HEIGHT - 0.6);
 
   return (
     <group position={[0, 0, zOffset]}>
-      {/* Page mesh structure: Pivot is at x=0. The visual mesh is offset by width/2 */}
+      {/* Page front */}
       <mesh position={[BOOK_WIDTH / 2, 0, 0]}>
         <boxGeometry args={[BOOK_WIDTH, BOOK_HEIGHT - 0.2, PAGE_THICKNESS]} />
         <meshStandardMaterial color={PAGE_COLOR} />
       </mesh>
 
-      {/* Image Plane on the front of the page - Square */}
-      <mesh position={[BOOK_WIDTH / 2, 0, PAGE_THICKNESS / 2 + 0.001]} rotation={[0, 0, 0]}>
-        <planeGeometry args={[imageSize, imageSize]} />
-        <meshBasicMaterial map={texture} toneMapped={false} />
-      </mesh>
-
-      {/* Back of page (optional text or texture) */}
+      {/* Page back */}
       <mesh position={[BOOK_WIDTH / 2, 0, -PAGE_THICKNESS / 2 - 0.001]} rotation={[0, Math.PI, 0]}>
         <planeGeometry args={[BOOK_WIDTH - 0.4, BOOK_HEIGHT - 0.6]} />
         <meshStandardMaterial color="#f0f0f0" />
@@ -157,7 +141,7 @@ export const Book = forwardRef<BookRef, BookProps>((props, ref) => {
               if (el) pagesRefs.current[i] = el;
             }}
           >
-            <Page index={i} textureUrl={img} />
+            <Page index={i} />
           </group>
         ))}
       </group>
