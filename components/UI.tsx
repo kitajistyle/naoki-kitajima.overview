@@ -66,18 +66,22 @@ export const ContactSection = () => {
       setShown(progress >= 0.91);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // 初期チェック
+    onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <div
-      className={`fixed gap-10 bottom-50 right-75 z-[100] transition-all duration-700 ease-out ${shown
-        ? 'opacity-100 translate-y-0 pointer-events-auto'
-        : 'opacity-0 translate-y-4 pointer-events-none'
+      className={`fixed z-[100] transition-all duration-700 ease-out
+        bottom-6 left-1/2 -translate-x-1/2
+        md:bottom-auto md:left-auto md:translate-x-0 md:right-6 md:top-1/2 md:-translate-y-1/2
+        ${shown
+          ? 'opacity-100 translate-y-0 pointer-events-auto'
+          : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
     >
-      <div className="flex flex-col gap-10">
+      {/* モバイル: 横並び / デスクトップ: 縦並び */}
+      <div className="flex flex-row gap-4 md:flex-col md:gap-8">
         {CONTACT_LINKS.map(({ label, href, icon }) => (
           <a
             key={label}
@@ -85,7 +89,15 @@ export const ContactSection = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={label}
-            className="flex items-center justify-center w-25 h-25 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400 hover:scale-110 transition-all duration-200 shadow-sm"
+            className="flex items-center justify-center
+              w-10 h-10 md:w-12 md:h-12
+              rounded-full
+              bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm
+              border border-slate-200 dark:border-slate-700
+              text-slate-600 dark:text-slate-300
+              hover:text-amber-600 dark:hover:text-amber-400
+              hover:border-amber-400 hover:scale-110
+              transition-all duration-200 shadow-sm"
           >
             {icon}
           </a>
@@ -100,23 +112,21 @@ const TableOfContents = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // フェードイン（スクロール開始後）
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    gsap.set(el, { opacity: 0, x: 16, pointerEvents: 'none' });
+    gsap.set(el, { opacity: 0, pointerEvents: 'none' });
 
     const trigger = ScrollTrigger.create({
       trigger: 'body',
       start: '5% top',
       end: '98% top',
-      onEnter: () => gsap.to(el, { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out', pointerEvents: 'auto' }),
-      onLeave: () => gsap.to(el, { opacity: 0, x: 16, duration: 0.4, pointerEvents: 'none' }),
-      onEnterBack: () => gsap.to(el, { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out', pointerEvents: 'auto' }),
-      onLeaveBack: () => gsap.to(el, { opacity: 0, x: 16, duration: 0.4, pointerEvents: 'none' }),
+      onEnter: () => gsap.to(el, { opacity: 1, duration: 0.6, ease: 'power2.out', pointerEvents: 'auto' }),
+      onLeave: () => gsap.to(el, { opacity: 0, duration: 0.4, pointerEvents: 'none' }),
+      onEnterBack: () => gsap.to(el, { opacity: 1, duration: 0.6, ease: 'power2.out', pointerEvents: 'auto' }),
+      onLeaveBack: () => gsap.to(el, { opacity: 0, duration: 0.4, pointerEvents: 'none' }),
     });
 
-    // スクロール位置に応じてアクティブ項目を更新
     const updateActive = () => {
       const progress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
       let current = 0;
@@ -141,45 +151,65 @@ const TableOfContents = () => {
   return (
     <div
       ref={ref}
-      className="fixed right-6 top-1/2 -translate-y-1/2 z-50"
+      className={`fixed z-50
+        bottom-20 left-1/2 -translate-x-1/2
+        md:bottom-auto md:left-auto md:translate-x-0 md:right-6 md:top-1/2 md:-translate-y-1/2`}
     >
-      {/* ヘッダー */}
-      <p className="text-[11px] font-bold tracking-widest text-slate-500 dark:text-slate-400 mb-3 uppercase">
-        目次
-      </p>
-
-      {/* 縦ライン＋アイテム */}
-      <div className="relative flex flex-col gap-0">
-        {/* 縦の線 */}
-        <div className="absolute left-[5px] top-3 bottom-3 w-[1px] bg-slate-300 dark:bg-slate-600" />
-
+      {/* モバイル: ドットのみ横並び */}
+      <div className="flex flex-row gap-5 md:hidden">
         {TOC_ITEMS.map((item, i) => {
           const isActive = i === activeIndex;
           return (
             <button
               key={item.label}
               onClick={() => handleClick(item.ratio)}
-              className="relative flex items-center gap-3 py-2 text-left cursor-pointer group"
+              aria-label={item.label}
+              className="flex flex-col items-center gap-1"
             >
-              {/* ドット */}
               <span
-                className={`relative z-10 flex-shrink-0 w-[11px] h-[11px] rounded-full border-2 transition-all duration-300 ${isActive
-                  ? 'bg-blue-500 border-blue-500 scale-110'
-                  : 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 group-hover:border-blue-400'
+                className={`w-2 h-2 rounded-full border-2 transition-all duration-300 ${isActive
+                  ? 'bg-blue-500 border-blue-500 scale-125'
+                  : 'bg-white/70 dark:bg-slate-900/70 border-slate-400 dark:border-slate-500'
                   }`}
               />
-              {/* ラベル */}
-              <span
-                className={`text-[13px] transition-all duration-300 whitespace-nowrap ${isActive
-                  ? 'font-bold text-slate-800 dark:text-slate-100'
-                  : 'font-normal text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200'
-                  }`}
-              >
-                {item.label}
-              </span>
             </button>
           );
         })}
+      </div>
+
+      {/* デスクトップ: ドット＋ラベルの縦リスト */}
+      <div className="hidden md:block">
+        <p className="text-[11px] font-bold tracking-widest text-slate-500 dark:text-slate-400 mb-3 uppercase">
+          目次
+        </p>
+        <div className="relative flex flex-col gap-0">
+          <div className="absolute left-[5px] top-3 bottom-3 w-[1px] bg-slate-300 dark:bg-slate-600" />
+          {TOC_ITEMS.map((item, i) => {
+            const isActive = i === activeIndex;
+            return (
+              <button
+                key={item.label}
+                onClick={() => handleClick(item.ratio)}
+                className="relative flex items-center gap-3 py-2 text-left cursor-pointer group"
+              >
+                <span
+                  className={`relative z-10 flex-shrink-0 w-[11px] h-[11px] rounded-full border-2 transition-all duration-300 ${isActive
+                    ? 'bg-blue-500 border-blue-500 scale-110'
+                    : 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 group-hover:border-blue-400'
+                    }`}
+                />
+                <span
+                  className={`text-[13px] transition-all duration-300 whitespace-nowrap ${isActive
+                    ? 'font-bold text-slate-800 dark:text-slate-100'
+                    : 'font-normal text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200'
+                    }`}
+                >
+                  {item.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

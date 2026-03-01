@@ -49,7 +49,7 @@ export const Experience: React.FC = () => {
       book.position.set(
         isMobile ? -1 : -1.5,   // x
         0,                    // y
-        isMobile ? 9 : 2     // z
+        isMobile ? 3 : 2     // z
       );
       book.rotation.set(0, 0, 0);
 
@@ -87,8 +87,8 @@ export const Experience: React.FC = () => {
        * Mobile: Strong zoom (z:6) and shift left (x:-1) to center the right page
        */
       tl.current.to(book.position, {
-        x: isMobile ? -1.2 : -1,
-        z: isMobile ? 11 : 3,
+        x: isMobile ? -1.11 : -1,
+        z: isMobile ? 4.25 : 3,
         duration: 3,
         ease: "power1.inOut"
       });
