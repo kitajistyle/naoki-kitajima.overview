@@ -21,13 +21,13 @@ export const metadata: Metadata = {
     'GCP',
     'Terraform',
   ],
-  authors: [{ name: '北島直樹', url: 'https://kitaji.dev' }],
+  authors: [{ name: '北島直樹', url: 'https://kitajistyle.com' }],
   creator: '北島直樹',
   publisher: '北島直樹',
   openGraph: {
     title: '北島直樹 (きたじー) | フルスタックエンジニア・SRE',
     description: '北島直樹（きたじー）のポートフォリオ。決済基盤SRE・フルスタックエンジニアとして活動中。',
-    url: 'https://kitaji.dev',
+    url: 'https://kitajistyle.com',
     siteName: '北島直樹 Portfolio',
     locale: 'ja_JP',
     type: 'website',
@@ -49,11 +49,11 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://kitaji.dev',
+    canonical: 'https://kitajistyle.com',
   },
   verification: {
-    // Google Search Console verification (後で設定)
-    // google: 'your-verification-code',
+    // Google Search Consoleで発行された「HTMLタグ」のcontentの値を設定
+    google: 'your-verification-code',
   },
 };
 
@@ -63,7 +63,7 @@ const jsonLd = {
   '@type': 'Person',
   name: '北島直樹',
   alternateName: ['きたじー', 'KITAJI', 'Naoki Kitajima'],
-  url: 'https://kitaji.dev',
+  url: 'https://kitajistyle.com',
   jobTitle: 'フルスタックソフトウェアエンジニア',
   worksFor: {
     '@type': 'Organization',
@@ -102,8 +102,8 @@ export default function RootLayout({
         />
       </head>
       <body>
-          <SettingsProvider>{children}</SettingsProvider>
-        </body>
+        <SettingsProvider>{children}</SettingsProvider>
+      </body>
     </html>
   );
 }
