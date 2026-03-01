@@ -13,7 +13,7 @@ const Scene = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="fixed inset-0 z-0 flex items-center justify-center bg-[#f3f4f6] dark:bg-[#1a1a2e]">
+      <div className="fixed top-0 left-0 right-0 z-0 flex items-center justify-center bg-[#f3f4f6] dark:bg-[#1a1a2e]" style={{ height: '100svh' }}>
         <span className="text-4xl font-bold tracking-widest text-[#5D4037] animate-pulse select-none">
           KITAJI
         </span>
