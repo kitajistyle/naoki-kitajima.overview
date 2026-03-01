@@ -35,31 +35,48 @@ const Rule = ({ y }: { y: number }) => (
 // ─── Page 0  –  Hero ──────────────────────────────────────────────────────
 const HeroContent = () => (
   <>
-    <Text position={[CX, 2, TZ]} fontSize={0.34} color={DARK}
-      anchorX="center" anchorY="middle" letterSpacing={0.1}>
-      PROFILE
+    {/* ヘッダーラベル */}
+    <Text position={[CX, 2.15, TZ]} fontSize={0.13} color={ACC}
+      anchorX="center" anchorY="middle" letterSpacing={0.18}>
+      HERO
     </Text>
-    <Image url={IMAGES[1]} position={[CX - 1.0, 1.45, TZ]} scale={0.75} />
-    <Text position={[CX, 1.45, TZ]} fontSize={0.16} color={DARK}
-      anchorX="left" anchorY="middle" letterSpacing={0.1}>
-      {"Naoki Kitajima \n（きたじー）"}
+    <Rule y={1.95} />
+
+    {/* プロフィール画像（正方形、大きめ） */}
+    <Image url={IMAGES[1]} position={[CX, 1.2, TZ]} scale={1.5} />
+
+    {/* 名前 */}
+    <Text position={[CX, 0.3, TZ]} fontSize={0.38} color={DARK}
+      anchorX="center" anchorY="middle" letterSpacing={0.06}>
+      KITAJI
     </Text>
-    <Text position={[CX, 0.9, TZ]} fontSize={0.17} color={DARK}
-      anchorX="center" anchorY="middle" letterSpacing={0.06}
-      maxWidth={3.0} textAlign="center">
-      I am a Software Engineer!
+    <Text position={[CX, -0.05, TZ]} fontSize={0.16} color={MID}
+      anchorX="center" anchorY="middle" letterSpacing={0.05}>
+      Naoki Kitajima
     </Text>
-    <Rule y={0.78} />
-    <Text position={[CX, 0.3, TZ]} fontSize={0.155} color={DARK}
+
+    <Rule y={-0.28} />
+
+    {/* 肩書き */}
+    <Text position={[CX, -0.58, TZ]} fontSize={0.165} color={DARK}
       anchorX="center" anchorY="middle" textAlign="center"
-      maxWidth={3.0} lineHeight={1.8}>
-      {"Payment Infrastructure SRE\n& Full-Stack Developer\nat a Mega-Venture"}
+      maxWidth={3.1} lineHeight={1.7}>
+      {"Payment Infra SRE\n& Full-Stack Developer"}
     </Text>
-    <Rule y={-0.45} />
-    <Text position={[CX, -0.95, TZ]} fontSize={0.14} color={ACC}
-      anchorX="center" anchorY="middle" letterSpacing={0.05}
-      textAlign="center" maxWidth={3.0} lineHeight={1.8}>
-      {"SRE  x  Full-Stack x  Creativity"}
+
+    <Rule y={-1.1} />
+
+    {/* キーワードタグ */}
+    <Text position={[CX, -1.38, TZ]} fontSize={0.13} color={ACC}
+      anchorX="center" anchorY="middle" letterSpacing={0.08}>
+      {"SRE  ×  Full-Stack  ×  Creativity"}
+    </Text>
+
+    {/* フッター */}
+    <Rule y={-1.72} />
+    <Text position={[CX, -1.98, TZ]} fontSize={0.115} color={MID}
+      anchorX="center" anchorY="middle" letterSpacing={0.04}>
+      {"Tokyo / Japan  ·  2026"}
     </Text>
   </>
 );
@@ -67,56 +84,79 @@ const HeroContent = () => (
 // ─── Page 1  –  Career ────────────────────────────────────────────────────
 const AboutContent = () => (
   <>
-    <Text position={[CX, 1.75, TZ]} fontSize={0.34} color={DARK}
-      anchorX="center" anchorY="middle">
-      Career
+    {/* ヘッダー */}
+    <Text position={[CX, 2.15, TZ]} fontSize={0.36} color={DARK}
+      anchorX="center" anchorY="middle" letterSpacing={0.06}>
+      About
     </Text>
-    <Rule y={1.3} />
+    <Rule y={1.85} />
 
     {/* 東京理科大学 */}
-    <Text position={[CX - 0.1, 1.05, TZ]} fontSize={0.115} color={ACC}
-      anchorX="left" anchorY="middle" letterSpacing={0.02}>
-      {"2022.04"}
+    <Text position={[0.35, 1.52, TZ]} fontSize={0.115} color={ACC}
+      anchorX="left" anchorY="middle" letterSpacing={0.03}>
+      2022.04
     </Text>
-    <Text position={[CX - 0.1, 0.82, TZ]} fontSize={0.13} color={DARK}
-      anchorX="left" anchorY="middle" maxWidth={2.6} lineHeight={1.5}>
-      {"Tokyo University of Science\n— B.Eng."}
+    <Text position={[0.35, 1.28, TZ]} fontSize={0.155} color={DARK}
+      anchorX="left" anchorY="middle" maxWidth={2.9}>
+      Tokyo University of Science
+    </Text>
+    <Text position={[0.35, 1.06, TZ]} fontSize={0.125} color={MID}
+      anchorX="left" anchorY="middle">
+      B.Eng. — Information Science
     </Text>
 
-    <Rule y={0.55} />
+    <Rule y={0.82} />
 
     {/* TAIAN */}
-    <Text position={[CX - 0.1, 0.35, TZ]} fontSize={0.115} color={ACC}
-      anchorX="left" anchorY="middle" letterSpacing={0.02}>
-      {"2024.07 – 2025.03"}
+    <Text position={[0.35, 0.58, TZ]} fontSize={0.115} color={ACC}
+      anchorX="left" anchorY="middle" letterSpacing={0.03}>
+      2024.07 – 2025.03
     </Text>
-    <Text position={[CX - 0.1, 0.12, TZ]} fontSize={0.13} color={DARK}
-      anchorX="left" anchorY="middle" maxWidth={2.6} lineHeight={1.5}>
-      {"TAIAN Inc.\n— Frontend / BFF"}
+    <Text position={[0.35, 0.35, TZ]} fontSize={0.155} color={DARK}
+      anchorX="left" anchorY="middle">
+      TAIAN Inc.
+    </Text>
+    <Text position={[0.35, 0.13, TZ]} fontSize={0.125} color={MID}
+      anchorX="left" anchorY="middle" maxWidth={2.9}>
+      Frontend Engineer — BFF & UI
     </Text>
 
-    <Rule y={-0.15} />
+    <Rule y={-0.1} />
 
     {/* ZOZO */}
-    <Text position={[CX - 0.1, -0.35, TZ]} fontSize={0.115} color={ACC}
-      anchorX="left" anchorY="middle" letterSpacing={0.02}>
-      {"2025.07 – 2026.03"}
+    <Text position={[0.35, -0.34, TZ]} fontSize={0.115} color={ACC}
+      anchorX="left" anchorY="middle" letterSpacing={0.03}>
+      2025.07 – 2026.03
     </Text>
-    <Text position={[CX - 0.1, -0.58, TZ]} fontSize={0.13} color={DARK}
-      anchorX="left" anchorY="middle" maxWidth={2.6} lineHeight={1.5}>
-      {"ZOZO Inc.\n— Backend (Microservices)"}
+    <Text position={[0.35, -0.57, TZ]} fontSize={0.155} color={DARK}
+      anchorX="left" anchorY="middle">
+      ZOZO Inc.
+    </Text>
+    <Text position={[0.35, -0.79, TZ]} fontSize={0.125} color={MID}
+      anchorX="left" anchorY="middle" maxWidth={2.9}>
+      Backend Eng. — Microservices
     </Text>
 
-    <Rule y={-0.82} />
+    <Rule y={-1.02} />
 
     {/* TripX / EasyX */}
-    <Text position={[CX - 0.1, -1.02, TZ]} fontSize={0.115} color={ACC}
-      anchorX="left" anchorY="middle" letterSpacing={0.02}>
-      {"2025.07 – Present"}
+    <Text position={[0.35, -1.26, TZ]} fontSize={0.115} color={ACC}
+      anchorX="left" anchorY="middle" letterSpacing={0.03}>
+      2025.07 – Present
     </Text>
-    <Text position={[CX - 0.1, -1.25, TZ]} fontSize={0.13} color={DARK}
-      anchorX="left" anchorY="middle" maxWidth={2.6} lineHeight={1.5}>
-      {"TripX / EasyX\n— Full-Stack AI Products"}
+    <Text position={[0.35, -1.49, TZ]} fontSize={0.155} color={DARK}
+      anchorX="left" anchorY="middle">
+      TripX / EasyX
+    </Text>
+    <Text position={[0.35, -1.71, TZ]} fontSize={0.125} color={MID}
+      anchorX="left" anchorY="middle" maxWidth={2.9}>
+      Full-Stack — AI Products
+    </Text>
+
+    <Rule y={-1.95} />
+    <Text position={[CX, -2.15, TZ]} fontSize={0.105} color={MID}
+      anchorX="center" anchorY="middle" letterSpacing={0.04}>
+      4 experiences  ·  2022–present
     </Text>
   </>
 );
@@ -124,84 +164,173 @@ const AboutContent = () => (
 // ─── Page 2  –  Skills: SRE / Infra ──────────────────────────────────────
 const SkillsSREContent = () => (
   <>
-    <Text position={[CX, 1.75, TZ]} fontSize={0.34} color={DARK}
+    <Text position={[CX, 2.15, TZ]} fontSize={0.36} color={DARK}
       anchorX="center" anchorY="middle">
       Skills
     </Text>
-    <Rule y={1.3} />
-    <Text position={[CX, 0.92, TZ]} fontSize={0.18} color={ACC}
-      anchorX="center" anchorY="middle">
-      SRE / Infra
+    <Rule y={1.85} />
+    <Text position={[CX, 1.55, TZ]} fontSize={0.2} color={ACC}
+      anchorX="center" anchorY="middle" letterSpacing={0.04}>
+      SRE / Infrastructure
     </Text>
-    <Rule y={0.57} />
+    <Rule y={1.25} />
     {['Kubernetes', 'Terraform', 'GCP', 'Prometheus', 'ArgoCD', 'Datadog'].map((s, i) => (
       <Text key={s}
-        position={[CX, 0.22 - i * 0.33, TZ]}
-        fontSize={0.175} color={DARK}
-        anchorX="center" anchorY="middle" letterSpacing={0.03}>
+        position={[CX, 0.82 - i * 0.46, TZ]}
+        fontSize={0.21} color={DARK}
+        anchorX="center" anchorY="middle" letterSpacing={0.04}>
         {s}
       </Text>
     ))}
+    <Rule y={-1.95} />
+    <Text position={[CX, -2.15, TZ]} fontSize={0.105} color={MID}
+      anchorX="center" anchorY="middle" letterSpacing={0.04}>
+      → see also: Development
+    </Text>
   </>
 );
 
 // ─── Page 3  –  Skills: Development ──────────────────────────────────────
 const SkillsDevContent = () => (
   <>
-    <Text position={[CX, 1.75, TZ]} fontSize={0.34} color={DARK}
+    <Text position={[CX, 2.15, TZ]} fontSize={0.36} color={DARK}
       anchorX="center" anchorY="middle">
       Skills
     </Text>
-    <Rule y={1.3} />
-    <Text position={[CX, 0.92, TZ]} fontSize={0.18} color={ACC}
-      anchorX="center" anchorY="middle">
+    <Rule y={1.85} />
+    <Text position={[CX, 1.55, TZ]} fontSize={0.2} color={ACC}
+      anchorX="center" anchorY="middle" letterSpacing={0.04}>
       Development
     </Text>
-    <Rule y={0.57} />
+    <Rule y={1.25} />
     {['Go', 'TypeScript', 'React', 'Next.js', 'PostgreSQL', 'Docker'].map((s, i) => (
       <Text key={s}
-        position={[CX, 0.22 - i * 0.33, TZ]}
-        fontSize={0.175} color={DARK}
-        anchorX="center" anchorY="middle" letterSpacing={0.03}>
+        position={[CX, 0.82 - i * 0.46, TZ]}
+        fontSize={0.21} color={DARK}
+        anchorX="center" anchorY="middle" letterSpacing={0.04}>
         {s}
       </Text>
     ))}
+    <Rule y={-1.95} />
+    <Text position={[CX, -2.15, TZ]} fontSize={0.105} color={MID}
+      anchorX="center" anchorY="middle" letterSpacing={0.04}>
+      → see also: SRE / Infra
+    </Text>
   </>
 );
 
 // ─── Page 4  –  Lifestyle / Hobbies ──────────────────────────────────────
 const HobbiesContent = () => (
   <>
-    <Text position={[CX, 1.75, TZ]} fontSize={0.34} color={DARK}
+    <Text position={[CX, 2.15, TZ]} fontSize={0.36} color={DARK}
       anchorX="center" anchorY="middle">
       Lifestyle
     </Text>
-    <Rule y={1.3} />
+    <Rule y={1.85} />
 
-    {/* Coffee */}
-    <Text position={[CX, 0.95, TZ]} fontSize={0.22} color={ACC}
+    {/* Coffee セクション */}
+    <Text position={[CX, 1.55, TZ]} fontSize={0.22} color={ACC}
+      anchorX="center" anchorY="middle" letterSpacing={0.05}>
+      ☕  Coffee
+    </Text>
+    <Image url={IMAGES[2]} position={[CX, 0.78, TZ]} scale={1.2} />
+    <Text position={[CX, 0.05, TZ]} fontSize={0.12} color={MID}
+      anchorX="center" anchorY="middle" textAlign="center"
+      maxWidth={3.0} lineHeight={1.65}>
+      {"Specialty coffee enthusiast.\nHandcrafting one perfect cup every morning."}
+    </Text>
+
+    <Rule y={-0.3} />
+
+    {/* Dance セクション */}
+    <Text position={[CX, -0.6, TZ]} fontSize={0.22} color={ACC}
+      anchorX="center" anchorY="middle" letterSpacing={0.05}>
+      🕺  Dance
+    </Text>
+    <Image url={IMAGES[3]} position={[CX, -1.3, TZ]} scale={1.2} />
+    <Text position={[CX, -1.88, TZ]} fontSize={0.115} color={MID}
+      anchorX="center" anchorY="middle" textAlign="center"
+      maxWidth={3.0}>
+      {"Street dancer — logic meets rhythm."}
+    </Text>
+
+    <Rule y={-2.1} />
+
+    {/* Thank you */}
+    <Text position={[CX, -2.28, TZ]} fontSize={0.13} color={ACC}
+      anchorX="center" anchorY="middle" letterSpacing={0.06}>
+      {"Thank you for reading  ✦"}
+    </Text>
+  </>
+);
+
+
+// ─── Page 5  –  Contact ──────────────────────────────────────────────────
+const ContactContent = () => (
+  <>
+    <Text position={[CX, 2.15, TZ]} fontSize={0.36} color={DARK}
       anchorX="center" anchorY="middle">
-      Coffee
+      Contact
     </Text>
-    <Image url={IMAGES[2]} position={[CX - 0.85, 0.42, TZ]} scale={0.72} />
-    <Text position={[CX + 0.35, 0.42, TZ]} fontSize={0.12} color={MID}
-      anchorX="left" anchorY="middle" textAlign="left"
-      maxWidth={1.3} lineHeight={1.65}>
-      {"Specialty\ncoffee\nenthusiast.\nOne perfect\ncup every\nmorning."}
+    <Rule y={1.85} />
+
+    <Text position={[CX, 1.45, TZ]} fontSize={0.14} color={MID}
+      anchorX="center" anchorY="middle" textAlign="center" maxWidth={2.8}>
+      {"Feel free to reach out!"}
     </Text>
 
-    <Rule y={-0.12} />
+    <Rule y={1.1} />
 
-    {/* Dance */}
-    <Text position={[CX, -0.52, TZ]} fontSize={0.22} color={ACC}
-      anchorX="center" anchorY="middle">
-      Dance
+    {/* X */}
+    <Text position={[0.45, 0.7, TZ]} fontSize={0.17} color={ACC}
+      anchorX="left" anchorY="middle" letterSpacing={0.04}>
+      X (Twitter)
     </Text>
-    <Image url={IMAGES[3]} position={[CX - 0.85, -1.05, TZ]} scale={0.72} />
-    <Text position={[CX + 0.35, -1.05, TZ]} fontSize={0.12} color={MID}
-      anchorX="left" anchorY="middle" textAlign="left"
-      maxWidth={1.3} lineHeight={1.65}>
-      {"Street\ndancer —\nlogic meets\nrhythm.\nCreative\nexpression."}
+    <Text position={[0.45, 0.46, TZ]} fontSize={0.14} color={DARK}
+      anchorX="left" anchorY="middle">
+      @kitajistyle
+    </Text>
+
+    <Rule y={0.22} />
+
+    {/* GitHub */}
+    <Text position={[0.45, -0.02, TZ]} fontSize={0.17} color={ACC}
+      anchorX="left" anchorY="middle" letterSpacing={0.04}>
+      GitHub
+    </Text>
+    <Text position={[0.45, -0.26, TZ]} fontSize={0.14} color={DARK}
+      anchorX="left" anchorY="middle">
+      github.com/kitajistyle
+    </Text>
+
+    <Rule y={-0.5} />
+
+    {/* LinkedIn */}
+    <Text position={[0.45, -0.74, TZ]} fontSize={0.17} color={ACC}
+      anchorX="left" anchorY="middle" letterSpacing={0.04}>
+      LinkedIn
+    </Text>
+    <Text position={[0.45, -0.98, TZ]} fontSize={0.14} color={DARK}
+      anchorX="left" anchorY="middle" maxWidth={2.8}>
+      linkedin.com/in/kitajistyle
+    </Text>
+
+    <Rule y={-1.22} />
+
+    {/* Qiita */}
+    <Text position={[0.45, -1.46, TZ]} fontSize={0.17} color={ACC}
+      anchorX="left" anchorY="middle" letterSpacing={0.04}>
+      Qiita
+    </Text>
+    <Text position={[0.45, -1.7, TZ]} fontSize={0.14} color={DARK}
+      anchorX="left" anchorY="middle">
+      qiita.com/kitajistyle
+    </Text>
+
+    <Rule y={-1.95} />
+    <Text position={[CX, -2.2, TZ]} fontSize={0.12} color={MID}
+      anchorX="center" anchorY="middle" letterSpacing={0.04}>
+      {"↓ Click the icons below ↓"}
     </Text>
   </>
 );
@@ -212,6 +341,7 @@ const PAGE_CONTENTS = [
   SkillsSREContent,
   SkillsDevContent,
   HobbiesContent,
+  ContactContent,
 ];
 
 // ─── Page mesh ────────────────────────────────────────────────────────────
