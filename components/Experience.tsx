@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useLayoutEffect, useRef } from "react";
-import { useThree, useFrame } from "@react-three/fiber";
-import { Environment, ContactShadows, Float } from "@react-three/drei";
+import { Environment } from "@react-three/drei";
 import { Group } from "three";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

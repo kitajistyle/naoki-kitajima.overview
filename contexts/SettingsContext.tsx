@@ -16,33 +16,7 @@ interface SettingsContextType {
 const translations = {
   ja: {
     // Hero
-    'hero.catchphrase': 'コードで信頼を、\\nダンスで個性を。',
-    'hero.tagline': 'SRE × フルスタック × クリエイティビティ',
     'hero.scroll': 'スクロールして読む',
-
-    // About
-    'about.title': 'About',
-    'about.role': 'Payment Infrastructure SRE / フルスタックエンジニア',
-    'about.description': 'メガベンチャーにて決済基盤のSRE（Site Reliability Engineering）を担当。システムの信頼性向上やインフラ構築に加え、フロントエンドからバックエンドまで一気通貫で開発が可能。',
-    'about.name': 'きたじー（KITAJI）',
-
-    // Skills
-    'skills.title': 'Skills',
-    'skills.hint': 'スクロールでページをめくってね',
-    'skills.sre': '⚙️ SRE / Infra',
-    'skills.dev': '💻 Development',
-
-    // Hobbies
-    'hobbies.title': 'Lifestyle',
-    'hobbies.coffee.title': '☕ こだわりのコーヒー',
-    'hobbies.coffee.desc': '大学生ではバリスタをしていました。',
-    'hobbies.dance.title': '💃 ダンス',
-    'hobbies.dance.desc': 'ヒップホップが好きで、bboyとして活動しています。',
-
-    // Contact
-    'contact.title': 'Contact',
-    'contact.message': 'お気軽にお声がけください 👋',
-    'contact.backToTop': 'トップに戻る',
 
     // SEO
     'seo.h1': '北島直樹（きたじー/KITAJI）- フルスタックエンジニア・SRE ポートフォリオ',
@@ -77,18 +51,14 @@ const translations = {
 
     // Skills pages
     'book.skills.title': 'Skills',
-    'book.skills.sre.section': 'SRE / インフラ',
-    'book.skills.sre.see': '→ 開発スキルも見る',
     'book.skills.dev.section': 'Development',
-    'book.skills.dev.see': '→ インフラスキルも見る',
 
     // Lifestyle page
     'book.lifestyle.title': 'Lifestyle',
-    'book.lifestyle.coffee.title': '☕  コーヒー',
+    'book.lifestyle.coffee.title': '☕コーヒー',
     'book.lifestyle.coffee.desc': 'コーヒーが大好きで、大学時代はバリスタをしていました。',
-    'book.lifestyle.dance.title': '🕺  ダンス',
+    'book.lifestyle.dance.title': '🕺ダンス',
     'book.lifestyle.dance.desc': 'ヒップホップが好きで、bboyとして活動しています。',
-    'book.lifestyle.thankyou': '読んでくれてありがとう！',
 
     // Contact page
     'book.contact.title': 'Contact',
@@ -101,33 +71,7 @@ const translations = {
   },
   en: {
     // Hero
-    'hero.catchphrase': 'Reliability in Code,\\nCreativity in Motion.',
-    'hero.tagline': 'SRE × Full-Stack × Creativity',
     'hero.scroll': 'Scroll to explore',
-
-    // About
-    'about.title': 'About',
-    'about.role': 'Payment Infrastructure SRE / Full-Stack Engineer',
-    'about.description': 'SRE at a mega-venture, managing payment infrastructure. Capable of full-stack development from frontend to backend, as well as infrastructure and reliability engineering.',
-    'about.name': 'KITAJI',
-
-    // Skills
-    'skills.title': 'Skills',
-    'skills.hint': 'Scroll to turn pages',
-    'skills.sre': '⚙️ SRE / Infra',
-    'skills.dev': '💻 Development',
-
-    // Hobbies
-    'hobbies.title': 'Lifestyle',
-    'hobbies.coffee.title': '☕ Specialty Coffee',
-    'hobbies.coffee.desc': 'I worked as a barista during college.',
-    'hobbies.dance.title': '💃 Dance',
-    'hobbies.dance.desc': 'I love hip-hop and am active as a bboy.',
-
-    // Contact
-    'contact.title': 'Contact',
-    'contact.message': 'Feel free to reach out 👋',
-    'contact.backToTop': 'Back to Top',
 
     // SEO
     'seo.h1': 'Naoki Kitajima (KITAJI) - Full-Stack Engineer & SRE Portfolio',
@@ -162,10 +106,7 @@ const translations = {
 
     // Skills pages
     'book.skills.title': 'Skills',
-    'book.skills.sre.section': 'SRE / Infrastructure',
-    'book.skills.sre.see': '→ see also: Development',
     'book.skills.dev.section': 'Development',
-    'book.skills.dev.see': '→ see also: SRE / Infra',
 
     // Lifestyle page
     'book.lifestyle.title': 'Lifestyle',
@@ -173,7 +114,6 @@ const translations = {
     'book.lifestyle.coffee.desc': 'I worked as a barista during college.',
     'book.lifestyle.dance.title': '🕺  Dance',
     'book.lifestyle.dance.desc': 'I love hip-hop and am active as a bboy.',
-    'book.lifestyle.thankyou': 'Thank you for reading  ✦',
 
     // Contact page
     'book.contact.title': 'Contact',

@@ -1,4 +1,4 @@
-export const TOTAL_PAGES = 6;
+
 
 export const IMAGES = [
   "/images/top.jpg", // First page - uploaded photo
@@ -8,14 +8,7 @@ export const IMAGES = [
   "/images/4.jpg", // Fifth page (Contact)
 ];
 
-export const PAGE_TITLES = [
-  "Profile",
-  "Adventure",
-  "Memories",
-  "Friendship",
-  "Growth",
-  "Thank You"
-];
+
 
 // Aesthetic Constants
 export const BOOK_WIDTH = 3.5;
