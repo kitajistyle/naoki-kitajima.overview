@@ -226,6 +226,15 @@ const HobbiesContent = () => {
 // ─── Page 5  –  Contact ──────────────────────────────────────────────────
 const ContactContent = () => {
   const { t } = useSettings();
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <>
       <Text position={[CX, 2.15, TZ]} fontSize={0.36} color={DARK}
@@ -284,10 +293,12 @@ const ContactContent = () => {
       </Text>
 
       <Rule y={-1.95} />
-      <Text position={[CX, -2.2, TZ]} fontSize={0.12} color={MID}
-        anchorX="center" anchorY="middle" letterSpacing={0.04}>
-        {t('book.contact.hint')}
-      </Text>
+      {isMobile && (
+        <Text position={[CX, -2.2, TZ]} fontSize={0.12} color={MID}
+          anchorX="center" anchorY="middle" letterSpacing={0.04}>
+          {t('book.contact.hint')}
+        </Text>
+      )}
     </>
   );
 };

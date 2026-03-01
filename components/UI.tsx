@@ -75,7 +75,7 @@ export const ContactSection = () => {
     <div
       className={`fixed z-[100] transition-all duration-700 ease-out
         bottom-6 left-1/2 -translate-x-1/2
-        md:bottom-auto md:left-auto md:translate-x-0 md:right-6 md:top-1/2 md:-translate-y-1/2
+        md:bottom-auto md:left-auto md:translate-x-0 md:right-6 md:top-1/2 md:-translate-y-1/2 md:right-100 md:top-3/5
         ${shown
           ? 'opacity-100 translate-y-0 pointer-events-auto'
           : 'opacity-0 translate-y-4 pointer-events-none'
@@ -91,7 +91,7 @@ export const ContactSection = () => {
             rel="noopener noreferrer"
             aria-label={label}
             className="flex items-center justify-center
-              w-10 h-10 md:w-12 md:h-12
+              w-10 h-10 md:w-20 md:h-20
               rounded-full
               bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm
               border border-slate-200 dark:border-slate-700
