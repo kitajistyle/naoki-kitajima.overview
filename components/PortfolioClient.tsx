@@ -5,8 +5,7 @@ import dynamic from 'next/dynamic';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import gsap from 'gsap';
 import Lenis from 'lenis';
-import { UI } from '@/components/UI';
-import { ContactSection } from '@/components/UI';
+import { UI, ContactSection } from '@/components/UI';
 import { SettingsToggle } from '@/components/SettingsToggle';
 
 const Scene = dynamic(() => import('@/components/Scene'), {
@@ -38,6 +37,7 @@ export function PortfolioClient() {
     gsap.ticker.lagSmoothing(0);
 
     return () => {
+      lenis.off('scroll', ScrollTrigger.update);
       lenis.destroy();
       gsap.ticker.remove(rafCallback);
     };
