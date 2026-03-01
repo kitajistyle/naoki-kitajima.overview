@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import gsap from 'gsap';
 import Lenis from 'lenis';
 import { UI } from '@/components/UI';
+import { ContactSection } from '@/components/UI';
 import { SettingsToggle } from '@/components/SettingsToggle';
 
 // Three.js Scene は Hero の背景として固定表示（SSRなし）
@@ -49,6 +50,9 @@ export default function Home() {
 
       {/* HTML メインコンテンツ（通常スクロールページ） */}
       <UI />
+
+      {/* Contact アイコン: pointer-events-none の外に独立配置 */}
+      <ContactSection />
     </>
   );
 }
