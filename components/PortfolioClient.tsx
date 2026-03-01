@@ -8,12 +8,19 @@ import Lenis from 'lenis';
 import { UI, ContactSection } from '@/components/UI';
 import { SettingsToggle } from '@/components/SettingsToggle';
 
-const Scene = dynamic(() => import('@/components/Scene'), {
-  ssr: false,
-  loading: () => (
-    <div className="fixed inset-0 z-0 bg-[#f3f4f6] dark:bg-[#1a1a2e]" />
-  ),
-});
+const Scene = dynamic(
+  () => import(/* webpackPreload: true */ '@/components/Scene'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="fixed inset-0 z-0 flex items-center justify-center bg-[#f3f4f6] dark:bg-[#1a1a2e]">
+        <span className="text-4xl font-bold tracking-widest text-[#5D4037] animate-pulse select-none">
+          KITAJI
+        </span>
+      </div>
+    ),
+  }
+);
 
 export function PortfolioClient() {
   useEffect(() => {

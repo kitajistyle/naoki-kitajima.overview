@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useLayoutEffect, useRef } from "react";
-import { Environment } from "@react-three/drei";
 import { Group } from "three";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -145,7 +144,6 @@ export const Experience: React.FC = () => {
       {/* Rim light for depth */}
       <pointLight position={[-5, 3, -5]} intensity={1} color="#88ccff" />
 
-      <Environment preset="city" />
 
       {/* Particle Effects */}
       <Particles count={150} />
