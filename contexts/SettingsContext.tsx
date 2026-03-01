@@ -16,7 +16,7 @@ interface SettingsContextType {
 const translations = {
   ja: {
     // Hero
-    'hero.catchphrase': 'コードで信頼を、\nダンスで個性を。',
+    'hero.catchphrase': 'コードで信頼を、\\nダンスで個性を。',
     'hero.tagline': 'SRE × フルスタック × クリエイティビティ',
     'hero.scroll': 'スクロールして読む',
 
@@ -35,9 +35,9 @@ const translations = {
     // Hobbies
     'hobbies.title': 'Lifestyle',
     'hobbies.coffee.title': '☕ こだわりのコーヒー',
-    'hobbies.coffee.desc': 'コーヒー豆の産地・焙煎にこだわり、毎朝一杯を丁寧に淹れる。器具も道具も自分でセレクト。',
+    'hobbies.coffee.desc': '大学生ではバリスタをしていました。',
     'hobbies.dance.title': '💃 ダンス',
-    'hobbies.dance.desc': 'ストリートダンスを嗜む。エンジニアとしての論理思考とリズム感覚を融合させた、もう一つの自己表現。',
+    'hobbies.dance.desc': 'ヒップホップが好きで、bboyとして活動しています。',
 
     // Contact
     'contact.title': 'Contact',
@@ -46,10 +46,62 @@ const translations = {
 
     // SEO
     'seo.h1': '北島直樹（きたじー/KITAJI）- フルスタックエンジニア・SRE ポートフォリオ',
+
+    // UI
+    'toc.label': '目次',
+
+    // ── Book pages ──────────────────────────────────────────────
+    // Hero page
+    'book.hero.label': 'HERO',
+    'book.hero.name': 'KITAJI',
+    'book.hero.fullname': '北島直樹（きたじー）',
+    'book.hero.role': '決済基盤 SRE\n＆ フルスタックエンジニア',
+    'book.hero.tagline': 'SRE  ×  フルスタック  × クリエイティブ',
+    'book.hero.location': '東京 / 日本  ·  2026',
+
+    // About/Career page
+    'book.about.title': 'About',
+    'book.career.edu.date': '2022.04',
+    'book.career.edu.name': '東京理科大学',
+    'book.career.edu.dept': '理学部 — 物理学専攻',
+    'book.career.taian.date': '2024.07 – 2025.03',
+    'book.career.taian.name': 'TAIAN Inc.',
+    'book.career.taian.role': 'フロントエンドエンジニア — BFF & UI',
+    'book.career.zozo.date': '2025.07 – 2026.03',
+    'book.career.zozo.name': 'ZOZO Inc.',
+    'book.career.zozo.role': 'バックエンドエンジニア — マイクロサービス',
+    'book.career.tripx.date': '2025.07 – 現在',
+    'book.career.tripx.name': 'TripX / EasyX',
+    'book.career.tripx.role': 'フルスタック — AI プロダクト',
+    'book.career.summary': '4社 · 2022年〜現在',
+
+    // Skills pages
+    'book.skills.title': 'Skills',
+    'book.skills.sre.section': 'SRE / インフラ',
+    'book.skills.sre.see': '→ 開発スキルも見る',
+    'book.skills.dev.section': 'Development',
+    'book.skills.dev.see': '→ インフラスキルも見る',
+
+    // Lifestyle page
+    'book.lifestyle.title': 'Lifestyle',
+    'book.lifestyle.coffee.title': '☕  コーヒー',
+    'book.lifestyle.coffee.desc': 'コーヒーが大好きで、大学時代はバリスタをしていました。',
+    'book.lifestyle.dance.title': '🕺  ダンス',
+    'book.lifestyle.dance.desc': 'ヒップホップが好きで、bboyとして活動しています。',
+    'book.lifestyle.thankyou': '読んでくれてありがとう！',
+
+    // Contact page
+    'book.contact.title': 'Contact',
+    'book.contact.message': 'お気軽にどうぞ！',
+    'book.contact.hint': '↓ 下のアイコンをクリック ↓',
+    'book.contact.x': 'X (Twitter)',
+    'book.contact.github': 'GitHub',
+    'book.contact.linkedin': 'LinkedIn',
+    'book.contact.qiita': 'Qiita',
   },
   en: {
     // Hero
-    'hero.catchphrase': 'Reliability in Code,\nCreativity in Motion.',
+    'hero.catchphrase': 'Reliability in Code,\\nCreativity in Motion.',
     'hero.tagline': 'SRE × Full-Stack × Creativity',
     'hero.scroll': 'Scroll to explore',
 
@@ -68,9 +120,9 @@ const translations = {
     // Hobbies
     'hobbies.title': 'Lifestyle',
     'hobbies.coffee.title': '☕ Specialty Coffee',
-    'hobbies.coffee.desc': 'Passionate about coffee origins and roasting profiles. Carefully brewing a cup each morning with hand-selected equipment.',
+    'hobbies.coffee.desc': 'I worked as a barista during college.',
     'hobbies.dance.title': '💃 Dance',
-    'hobbies.dance.desc': 'Street dancer blending logical thinking with rhythm and expression. Another side of creativity beyond code.',
+    'hobbies.dance.desc': 'I love hip-hop and am active as a bboy.',
 
     // Contact
     'contact.title': 'Contact',
@@ -79,6 +131,58 @@ const translations = {
 
     // SEO
     'seo.h1': 'Naoki Kitajima (KITAJI) - Full-Stack Engineer & SRE Portfolio',
+
+    // UI
+    'toc.label': 'Contents',
+
+    // ── Book pages ──────────────────────────────────────────────
+    // Hero page
+    'book.hero.label': 'HERO',
+    'book.hero.name': 'KITAJI',
+    'book.hero.fullname': 'Naoki Kitajima',
+    'book.hero.role': 'Payment Infra SRE\n& Full-Stack Developer',
+    'book.hero.tagline': 'SRE  ×  Full-Stack  ×  Creativity',
+    'book.hero.location': 'Tokyo / Japan  ·  2026',
+
+    // About/Career page
+    'book.about.title': 'About',
+    'book.career.edu.date': '2022.04',
+    'book.career.edu.name': 'Tokyo University of Science',
+    'book.career.edu.dept': 'B.S. — Physics',
+    'book.career.taian.date': '2024.07 – 2025.03',
+    'book.career.taian.name': 'TAIAN Inc.',
+    'book.career.taian.role': 'Frontend Engineer — BFF & UI',
+    'book.career.zozo.date': '2025.07 – 2026.03',
+    'book.career.zozo.name': 'ZOZO Inc.',
+    'book.career.zozo.role': 'Backend Eng. — Microservices',
+    'book.career.tripx.date': '2025.07 – Present',
+    'book.career.tripx.name': 'TripX / EasyX',
+    'book.career.tripx.role': 'Full-Stack — AI Products',
+    'book.career.summary': '4 experiences  ·  2022–present',
+
+    // Skills pages
+    'book.skills.title': 'Skills',
+    'book.skills.sre.section': 'SRE / Infrastructure',
+    'book.skills.sre.see': '→ see also: Development',
+    'book.skills.dev.section': 'Development',
+    'book.skills.dev.see': '→ see also: SRE / Infra',
+
+    // Lifestyle page
+    'book.lifestyle.title': 'Lifestyle',
+    'book.lifestyle.coffee.title': '☕  Coffee',
+    'book.lifestyle.coffee.desc': 'I worked as a barista during college.',
+    'book.lifestyle.dance.title': '🕺  Dance',
+    'book.lifestyle.dance.desc': 'I love hip-hop and am active as a bboy.',
+    'book.lifestyle.thankyou': 'Thank you for reading  ✦',
+
+    // Contact page
+    'book.contact.title': 'Contact',
+    'book.contact.message': 'Feel free to reach out!',
+    'book.contact.hint': '↓ Click the icons below ↓',
+    'book.contact.x': 'X (Twitter)',
+    'book.contact.github': 'GitHub',
+    'book.contact.linkedin': 'LinkedIn',
+    'book.contact.qiita': 'Qiita',
   },
 };
 
@@ -86,7 +190,7 @@ const SettingsContext = createContext<SettingsContextType | undefined>(undefined
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light');
-  const [language, setLanguage] = useState<Language>('ja');
+  const [language, setLanguage] = useState<Language>('en');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -104,11 +208,12 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     if (savedLanguage) {
       setLanguage(savedLanguage);
     } else {
-      // Detect browser language
+      // Default to English; switch to Japanese only if browser is explicitly Japanese
       const browserLang = navigator.language.startsWith('ja') ? 'ja' : 'en';
       setLanguage(browserLang);
     }
   }, []);
+
 
   useEffect(() => {
     if (!mounted) return;

@@ -10,11 +10,12 @@ gsap.registerPlugin(ScrollTrigger);
 // ─── TOC items ─────────────────────────────────────────────────────────────
 const TOC_ITEMS = [
   { label: 'Hero', ratio: 0.0 },
-  { label: 'About', ratio: 0.43 },
-  { label: 'Skills', ratio: 0.61 },
-  { label: 'Lifestyle', ratio: 0.82 },
-  { label: 'Contact', ratio: 0.93 },
+  { label: 'About', ratio: 0.48 },
+  { label: 'Skills', ratio: 0.68 },
+  { label: 'Lifestyle', ratio: 0.80 },
+  { label: 'Contact', ratio: 0.94 },
 ];
+
 
 // ─── Contact links ──────────────────────────────────────────────────────────
 const CONTACT_LINKS = [
@@ -111,6 +112,7 @@ export const ContactSection = () => {
 const TableOfContents = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const { t } = useSettings();
 
   useEffect(() => {
     const el = ref.current;
@@ -180,7 +182,7 @@ const TableOfContents = () => {
       {/* デスクトップ: ドット＋ラベルの縦リスト */}
       <div className="hidden md:block">
         <p className="text-[11px] font-bold tracking-widest text-slate-500 dark:text-slate-400 mb-3 uppercase">
-          目次
+          {t('toc.label')}
         </p>
         <div className="relative flex flex-col gap-0">
           <div className="absolute left-[5px] top-3 bottom-3 w-[1px] bg-slate-300 dark:bg-slate-600" />

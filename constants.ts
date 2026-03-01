@@ -5,8 +5,7 @@ export const IMAGES = [
   "/images/1.jpg", // Second page
   "/images/2.jpg", // Third page
   "/images/3.jpg", // Fourth page
-  "/images/4.jpg", // Fifth page
-  "/images/4.jpg", // Sixth page (Contact)
+  "/images/4.jpg", // Fifth page (Contact)
 ];
 
 export const PAGE_TITLES = [
