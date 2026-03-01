@@ -217,6 +217,37 @@ const TableOfContents = () => {
   );
 };
 
+// ─── Scroll Hint ───────────────────────────────────────────────────────
+const ScrollHint = () => {
+  const { t } = useSettings();
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY < 80);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <div
+      className={`fixed bottom-10 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2
+        transition-all duration-700
+        ${visible ? 'opacity-100 translate-y-0 pointer-events-none' : 'opacity-0 translate-y-4 pointer-events-none'}`}
+    >
+      <span className="text-xs font-medium tracking-[0.2em] uppercase text-slate-500 dark:text-slate-400">
+        {t('hero.scroll')}
+      </span>
+      {/* 矢印（バウンスアニメーション） */}
+      <svg
+        className="w-5 h-5 text-slate-400 dark:text-slate-500 animate-bounce"
+        fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+  );
+};
+
 // ─── Main ──────────────────────────────────────────────────────────────────
 export const UI = () => {
   const { t } = useSettings();
@@ -225,6 +256,7 @@ export const UI = () => {
     <div className="relative w-full z-10 pointer-events-none">
       <h1 className="sr-only">{t('seo.h1')}</h1>
       <div className="pointer-events-auto">
+        <ScrollHint />
         <TableOfContents />
       </div>
       {/* ブックアニメーション全体が再生できるスクロール領域 */}
