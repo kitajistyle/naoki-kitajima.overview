@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import gsap from 'gsap';
@@ -8,38 +8,19 @@ import Lenis from 'lenis';
 import { UI } from '@/components/UI';
 import { SettingsToggle } from '@/components/SettingsToggle';
 
-// Dynamic import for Three.js components (client-side only)
+// Three.js Scene は Hero の背景として固定表示（SSRなし）
 const Scene = dynamic(() => import('@/components/Scene'), {
   ssr: false,
   loading: () => (
-    <div className="fixed inset-0 z-0 bg-[#f3f4f6] dark:bg-[#1a1a2e] flex items-center justify-center">
-      <div className="text-slate-600 dark:text-slate-400">Loading...</div>
-    </div>
+    <div className="fixed inset-0 z-0 bg-[#f3f4f6] dark:bg-[#1a1a2e]" />
   ),
 });
 
 export default function Home() {
-  const [cameraSettings, setCameraSettings] = useState({
-    position: [0, 0, 12] as [number, number, number],
-    fov: 35,
-  });
-
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Set initial camera settings based on screen size
-    const updateCameraSettings = () => {
-      const isMobile = window.innerWidth < 768;
-      setCameraSettings({
-        position: isMobile ? [0, 0, 16] : [0, 0, 12],
-        fov: isMobile ? 45 : 35,
-      });
-    };
-
-    updateCameraSettings();
-    window.addEventListener('resize', updateCameraSettings);
-
-    // Initialize Lenis for smooth scrolling
+    // Lenis スムーススクロールの初期化
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -48,19 +29,11 @@ export default function Home() {
       smoothWheel: true,
     });
 
-    // Synchronize Lenis with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
-
-    // Add Lenis's requestAnimationFrame to GSAP's ticker for performance
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-
-    // Disable GSAP's default lag smoothing to prevent stuttering
+    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
 
     return () => {
-      window.removeEventListener('resize', updateCameraSettings);
       lenis.destroy();
       gsap.ticker.remove(lenis.raf);
     };
@@ -68,8 +41,13 @@ export default function Home() {
 
   return (
     <>
+      {/* 設定トグル（ライト/ダーク・言語） */}
       <SettingsToggle />
-      <Scene cameraSettings={cameraSettings} />
+
+      {/* Three.js 3Dブック: Hero の背景として固定表示 */}
+      <Scene cameraSettings={{ position: [0, 0, 12], fov: 35 }} />
+
+      {/* HTML メインコンテンツ（通常スクロールページ） */}
       <UI />
     </>
   );
