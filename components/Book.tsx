@@ -1,7 +1,7 @@
 'use client';
 
 import React, { forwardRef, useImperativeHandle } from "react";
-import { Text } from "@react-three/drei";
+import { Text, Image } from "@react-three/drei";
 import { DoubleSide } from "three";
 import { Group } from "three";
 import {
@@ -35,14 +35,19 @@ const Rule = ({ y }: { y: number }) => (
 // ─── Page 0  –  Hero ──────────────────────────────────────────────────────
 const HeroContent = () => (
   <>
-    <Text position={[CX, 1.65, TZ]} fontSize={0.44} color={ACC}
+    <Text position={[CX, 2, TZ]} fontSize={0.34} color={DARK}
       anchorX="center" anchorY="middle" letterSpacing={0.1}>
-      KITAJI
+      PROFILE
     </Text>
-    <Text position={[CX, 1.18, TZ]} fontSize={0.17} color={DARK}
+    <Image url={IMAGES[1]} position={[CX - 1.0, 1.45, TZ]} scale={0.75} />
+    <Text position={[CX, 1.45, TZ]} fontSize={0.16} color={DARK}
+      anchorX="left" anchorY="middle" letterSpacing={0.1}>
+      {"Naoki Kitajima \n（きたじー）"}
+    </Text>
+    <Text position={[CX, 0.9, TZ]} fontSize={0.17} color={DARK}
       anchorX="center" anchorY="middle" letterSpacing={0.06}
       maxWidth={3.0} textAlign="center">
-      Full-Stack Software Engineer
+      I am a Software Engineer!
     </Text>
     <Rule y={0.78} />
     <Text position={[CX, 0.3, TZ]} fontSize={0.155} color={DARK}
@@ -54,28 +59,64 @@ const HeroContent = () => (
     <Text position={[CX, -0.95, TZ]} fontSize={0.14} color={ACC}
       anchorX="center" anchorY="middle" letterSpacing={0.05}
       textAlign="center" maxWidth={3.0} lineHeight={1.8}>
-      {"SRE  x  Full-Stack\nx  Creativity"}
+      {"SRE  x  Full-Stack x  Creativity"}
     </Text>
   </>
 );
 
-// ─── Page 1  –  About ─────────────────────────────────────────────────────
+// ─── Page 1  –  Career ────────────────────────────────────────────────────
 const AboutContent = () => (
   <>
     <Text position={[CX, 1.75, TZ]} fontSize={0.34} color={DARK}
       anchorX="center" anchorY="middle">
-      About
+      Career
     </Text>
     <Rule y={1.3} />
-    <Text position={[CX, 0.92, TZ]} fontSize={0.17} color={ACC}
-      anchorX="center" anchorY="middle" textAlign="center" maxWidth={3.0}>
-      Payment Infrastructure SRE
+
+    {/* 東京理科大学 */}
+    <Text position={[CX - 0.1, 1.05, TZ]} fontSize={0.115} color={ACC}
+      anchorX="left" anchorY="middle" letterSpacing={0.02}>
+      {"2022.04"}
     </Text>
+    <Text position={[CX - 0.1, 0.82, TZ]} fontSize={0.13} color={DARK}
+      anchorX="left" anchorY="middle" maxWidth={2.6} lineHeight={1.5}>
+      {"Tokyo University of Science\n— B.Eng."}
+    </Text>
+
     <Rule y={0.55} />
-    <Text position={[CX, -0.22, TZ]} fontSize={0.138} color={MID}
-      anchorX="center" anchorY="middle" textAlign="center"
-      maxWidth={3.0} lineHeight={1.75}>
-      {"SRE at a major tech company,\nensuring payment infrastructure\nreliability & security.\n\nFull-stack from frontend\nto backend."}
+
+    {/* TAIAN */}
+    <Text position={[CX - 0.1, 0.35, TZ]} fontSize={0.115} color={ACC}
+      anchorX="left" anchorY="middle" letterSpacing={0.02}>
+      {"2024.07 – 2025.03"}
+    </Text>
+    <Text position={[CX - 0.1, 0.12, TZ]} fontSize={0.13} color={DARK}
+      anchorX="left" anchorY="middle" maxWidth={2.6} lineHeight={1.5}>
+      {"TAIAN Inc.\n— Frontend / BFF"}
+    </Text>
+
+    <Rule y={-0.15} />
+
+    {/* ZOZO */}
+    <Text position={[CX - 0.1, -0.35, TZ]} fontSize={0.115} color={ACC}
+      anchorX="left" anchorY="middle" letterSpacing={0.02}>
+      {"2025.07 – 2026.03"}
+    </Text>
+    <Text position={[CX - 0.1, -0.58, TZ]} fontSize={0.13} color={DARK}
+      anchorX="left" anchorY="middle" maxWidth={2.6} lineHeight={1.5}>
+      {"ZOZO Inc.\n— Backend (Microservices)"}
+    </Text>
+
+    <Rule y={-0.82} />
+
+    {/* TripX / EasyX */}
+    <Text position={[CX - 0.1, -1.02, TZ]} fontSize={0.115} color={ACC}
+      anchorX="left" anchorY="middle" letterSpacing={0.02}>
+      {"2025.07 – Present"}
+    </Text>
+    <Text position={[CX - 0.1, -1.25, TZ]} fontSize={0.13} color={DARK}
+      anchorX="left" anchorY="middle" maxWidth={2.6} lineHeight={1.5}>
+      {"TripX / EasyX\n— Full-Stack AI Products"}
     </Text>
   </>
 );
@@ -136,24 +177,31 @@ const HobbiesContent = () => (
       Lifestyle
     </Text>
     <Rule y={1.3} />
-    <Text position={[CX, 0.9, TZ]} fontSize={0.22} color={ACC}
+
+    {/* Coffee */}
+    <Text position={[CX, 0.95, TZ]} fontSize={0.22} color={ACC}
       anchorX="center" anchorY="middle">
       Coffee
     </Text>
-    <Text position={[CX, 0.52, TZ]} fontSize={0.135} color={MID}
-      anchorX="center" anchorY="middle" textAlign="center"
-      maxWidth={2.8} lineHeight={1.65}>
-      {"Specialty coffee enthusiast.\nHandcrafting one perfect cup\nevery morning."}
+    <Image url={IMAGES[2]} position={[CX - 0.85, 0.42, TZ]} scale={0.72} />
+    <Text position={[CX + 0.35, 0.42, TZ]} fontSize={0.12} color={MID}
+      anchorX="left" anchorY="middle" textAlign="left"
+      maxWidth={1.3} lineHeight={1.65}>
+      {"Specialty\ncoffee\nenthusiast.\nOne perfect\ncup every\nmorning."}
     </Text>
-    <Rule y={0.02} />
-    <Text position={[CX, -0.42, TZ]} fontSize={0.22} color={ACC}
+
+    <Rule y={-0.12} />
+
+    {/* Dance */}
+    <Text position={[CX, -0.52, TZ]} fontSize={0.22} color={ACC}
       anchorX="center" anchorY="middle">
       Dance
     </Text>
-    <Text position={[CX, -0.88, TZ]} fontSize={0.135} color={MID}
-      anchorX="center" anchorY="middle" textAlign="center"
-      maxWidth={2.8} lineHeight={1.65}>
-      {"Street dancer — logic meets rhythm.\nAnother form of creative\nexpression beyond code."}
+    <Image url={IMAGES[3]} position={[CX - 0.85, -1.05, TZ]} scale={0.72} />
+    <Text position={[CX + 0.35, -1.05, TZ]} fontSize={0.12} color={MID}
+      anchorX="left" anchorY="middle" textAlign="left"
+      maxWidth={1.3} lineHeight={1.65}>
+      {"Street\ndancer —\nlogic meets\nrhythm.\nCreative\nexpression."}
     </Text>
   </>
 );

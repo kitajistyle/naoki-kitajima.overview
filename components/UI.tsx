@@ -84,15 +84,15 @@ const TableOfContents = () => {
               {/* ドット */}
               <span
                 className={`relative z-10 flex-shrink-0 w-[11px] h-[11px] rounded-full border-2 transition-all duration-300 ${isActive
-                    ? 'bg-blue-500 border-blue-500 scale-110'
-                    : 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 group-hover:border-blue-400'
+                  ? 'bg-blue-500 border-blue-500 scale-110'
+                  : 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 group-hover:border-blue-400'
                   }`}
               />
               {/* ラベル */}
               <span
                 className={`text-[13px] transition-all duration-300 whitespace-nowrap ${isActive
-                    ? 'font-bold text-slate-800 dark:text-slate-100'
-                    : 'font-normal text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200'
+                  ? 'font-bold text-slate-800 dark:text-slate-100'
+                  : 'font-normal text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200'
                   }`}
               >
                 {item.label}
@@ -115,6 +115,8 @@ export const UI = () => {
       <div className="pointer-events-auto">
         <TableOfContents />
       </div>
+      {/* ブックアニメーション全体が再生できるスクロール領域 */}
+      <div className="h-[800vh]" />
     </div>
   );
 };
