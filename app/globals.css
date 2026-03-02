@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Lato', sans-serif;
-  --font-serif: 'Playfair Display', serif;
+  --font-sans: var(--font-lato), sans-serif;
+  --font-serif: var(--font-playfair), serif;
 }
 
 body {
@@ -19,7 +19,10 @@ html.dark body {
   background-color: #1a1a2e;
 }
 
-h1, h2, h3, .serif {
+h1,
+h2,
+h3,
+.serif {
   font-family: var(--font-serif);
 }
 
@@ -48,6 +51,7 @@ h1, h2, h3, .serif {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -68,4 +72,3 @@ h1, h2, h3, .serif {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
-

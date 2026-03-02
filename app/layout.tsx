@@ -1,6 +1,22 @@
 import type { Metadata } from 'next';
+import { Lato, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { SettingsProvider } from '@/contexts/SettingsContext';
+
+const lato = Lato({
+  subsets: ['latin'],
+  weight: ['300', '400', '700'],
+  variable: '--font-lato',
+  display: 'swap',
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-playfair',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: '北島直樹 (きたじー/KITAJI) | フルスタックエンジニア・SRE',
@@ -31,11 +47,20 @@ export const metadata: Metadata = {
     siteName: '北島直樹 Portfolio',
     locale: 'ja_JP',
     type: 'website',
+    images: [
+      {
+        url: 'https://kitajistyle.com/images/1.jpg',
+        width: 1200,
+        height: 630,
+        alt: '北島直樹 (きたじー) | フルスタックエンジニア・SRE',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: '北島直樹 (きたじー) | フルスタックエンジニア',
     description: '決済基盤SRE・フルスタックエンジニア 北島直樹のポートフォリオ',
+    images: ['https://kitajistyle.com/images/1.jpg'],
   },
   robots: {
     index: true,
@@ -92,16 +117,12 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
-          rel="stylesheet"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body>
+      <body className={`${lato.variable} ${playfair.variable} font-sans`}>
         <SettingsProvider>{children}</SettingsProvider>
       </body>
     </html>
