@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation'
 import { hasLocale, getDictionary } from './dictionaries'
 import { Header } from '../components/ui/Header'
-import { Footer } from '../components/ui/Footer'
 
 export async function generateStaticParams() {
   return [{ lang: 'en' }, { lang: 'ja' }]
@@ -29,7 +28,6 @@ export default async function LocaleLayout({
       <div className="pt-16 flex-1 flex flex-col">
         {children}
       </div>
-      <Footer />
     </>
   )
 }

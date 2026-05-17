@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getDictionary, hasLocale } from '../dictionaries'
+import { getDictionary, hasLocale } from '../../dictionaries'
 import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = { title: 'Contact' }

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getDictionary, hasLocale } from '../dictionaries'
-import { getBlogPosts } from '../../../lib/data'
+import { getDictionary, hasLocale } from '../../dictionaries'
+import { getBlogPosts } from '../../../../lib/data'
 import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = { title: 'Blog' }
@@ -13,7 +13,7 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: str
   const posts = getBlogPosts(lang)
 
   return (
-    <main className="min-h-screen bg-[#050814] text-white px-6 py-20 sm:px-12">
+    <main className="px-6 sm:px-12">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-4xl font-black tracking-tight mb-12">{dict.nav.blog}</h1>
         <ul className="flex flex-col gap-10">

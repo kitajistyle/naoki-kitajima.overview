@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import { hasLocale } from '../../dictionaries'
-import { getWorkBySlug, getWorks } from '../../../../lib/data'
+import { hasLocale } from '../../../dictionaries'
+import { getWorkBySlug, getWorks } from '../../../../../lib/data'
 import { notFound } from 'next/navigation'
 
 export async function generateStaticParams() {

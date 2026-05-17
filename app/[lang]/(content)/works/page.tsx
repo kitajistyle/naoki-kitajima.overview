@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import { getDictionary, hasLocale } from '../dictionaries'
-import { getWorks } from '../../../lib/data'
+import { getDictionary, hasLocale } from '../../dictionaries'
+import { getWorks } from '../../../../lib/data'
 import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = { title: 'Works' }

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getDictionary, hasLocale } from './dictionaries'
 import { notFound } from 'next/navigation'
+import { Footer } from '../components/ui/Footer'
 
 export async function generateMetadata({ params }: PageProps<'/[lang]'>): Promise<Metadata> {
   return {
@@ -19,6 +20,7 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
   const dict = await getDictionary(lang)
 
   return (
+    <>
     <main className="relative flex-1 flex items-center justify-center overflow-hidden">
       {/* Decorative pixel earth */}
       <div className="fixed inset-y-0 left-[-40%] md:left-[-20%] w-[140%] md:w-[80%] pointer-events-none -z-10">
@@ -61,5 +63,7 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
         </div>
       </div>
     </main>
+    <Footer fixed />
+    </>
   )
 }

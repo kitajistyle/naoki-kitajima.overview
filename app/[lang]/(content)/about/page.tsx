@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getDictionary, hasLocale } from '../dictionaries'
-import { getProfile } from '../../../lib/data'
+import { getDictionary, hasLocale } from '../../dictionaries'
+import { getProfile } from '../../../../lib/data'
 import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = { title: 'About' }
@@ -13,7 +13,7 @@ export default async function AboutPage({ params }: PageProps<'/[lang]/about'>) 
   const profile = getProfile(lang)
 
   return (
-    <main className="max-w-2xl mx-auto px-4 py-16 space-y-12">
+    <main className="max-w-2xl mx-auto px-6 sm:px-12 space-y-12">
       <section>
         <h1 className="text-3xl font-bold">{profile.name}</h1>
         <p className="text-sm text-gray-500 mt-1">{profile.role} · {profile.location}</p>

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { hasLocale } from '../../dictionaries'
-import { getBlogPosts, getBlogPostBySlug } from '../../../../lib/data'
+import { hasLocale } from '../../../dictionaries'
+import { getBlogPosts, getBlogPostBySlug } from '../../../../../lib/data'
 import { notFound } from 'next/navigation'
 
 export async function generateStaticParams() {
@@ -26,7 +26,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
   if (!post) notFound()
 
   return (
-    <main className="min-h-screen bg-[#050814] text-white px-6 py-20 sm:px-12">
+    <main className="px-6 sm:px-12">
       <div className="max-w-2xl mx-auto">
         <Link
           href={`/${lang}/blog`}

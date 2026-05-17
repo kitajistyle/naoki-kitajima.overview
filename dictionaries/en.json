@@ -18,5 +18,15 @@
     "career": "Career",
     "interests": "Interests",
     "links": "Links"
+  },
+  "like": {
+    "heading": "What I Love",
+    "bboy_title": "Bboying",
+    "bboy_paragraphs": [
+      "Breakdancing — or bboying — is more than dance. It's a language. Each move is a word, each set is a sentence, and the cypher is the conversation. I've been throwing down at jams and cyphers across Japan, always chasing that electric moment when the music locks in and your body just goes.",
+      "A cypher is the soul of hip-hop culture: a circle of bboys and bgirls taking turns, feeding off each other's energy in real time. No judges, no scores — just raw expression, mutual respect, and the vibe of the moment. There's nothing quite like stepping into a late-night cypher when the floor is hot and the bass is heavy.",
+      "For me, bboying and coding come from the same place. Find the problem, break it down, make it yours."
+    ],
+    "cypher_label": "Cypher"
   }
 }
