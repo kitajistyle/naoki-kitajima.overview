@@ -16,7 +16,24 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!hasLocale(lang)) notFound()
   const post = getBlogPostBySlug(lang, slug)
   if (!post) notFound()
-  return { title: post.title }
+  const isJa = lang === 'ja'
+  return {
+    title: post.title,
+    description: post.excerpt,
+    keywords: isJa
+      ? ['北島直樹', 'きたじー', 'KITAJI', 'ブログ', ...post.tags]
+      : ['Naoki Kitajima', 'KITAJI', 'Blog', ...post.tags],
+    alternates: {
+      canonical: `/${lang}/blog/${slug}`,
+      languages: { en: `/en/blog/${slug}`, ja: `/ja/blog/${slug}` },
+    },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: 'article',
+      publishedTime: post.date,
+    },
+  }
 }
 
 export default async function BlogPostPage({ params }: { params: Params }) {

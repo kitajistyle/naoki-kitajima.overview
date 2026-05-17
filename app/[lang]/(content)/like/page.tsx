@@ -3,7 +3,23 @@ import Image from 'next/image'
 import { getDictionary, hasLocale } from '../../dictionaries'
 import { notFound } from 'next/navigation'
 
-export const metadata: Metadata = { title: 'Like' }
+export async function generateMetadata({ params }: PageProps<'/[lang]/like'>): Promise<Metadata> {
+  const { lang } = await params
+  const isJa = lang === 'ja'
+  return {
+    title: isJa ? 'お気に入り' : 'Like',
+    description: isJa
+      ? '北島直樹（きたじー / KITAJI）の好きなこと。Bboy / ブレイクダンス、コーヒー・バリスタ。'
+      : 'Things Naoki Kitajima (KITAJI) loves — Bboy / Breakdancing, Coffee & Barista.',
+    keywords: isJa
+      ? ['北島直樹', 'KITAJI', 'Bboy', 'ブレイクダンス', 'コーヒー', 'バリスタ']
+      : ['Naoki Kitajima', 'KITAJI', 'Bboy', 'Breakdancing', 'Coffee', 'Barista'],
+    alternates: {
+      canonical: `/${lang}/like`,
+      languages: { en: '/en/like', ja: '/ja/like' },
+    },
+  }
+}
 
 export default async function LikePage({ params }: PageProps<'/[lang]/like'>) {
   const { lang } = await params

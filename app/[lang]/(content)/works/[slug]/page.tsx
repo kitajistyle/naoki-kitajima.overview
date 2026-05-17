@@ -13,7 +13,22 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/works/[slu
   if (!hasLocale(lang)) notFound()
   const work = getWorkBySlug(lang, slug)
   if (!work) notFound()
-  return { title: work.title }
+  const isJa = lang === 'ja'
+  return {
+    title: work.title,
+    description: work.description,
+    keywords: isJa
+      ? ['北島直樹', 'KITAJI', '制作物', ...work.tags]
+      : ['Naoki Kitajima', 'KITAJI', 'Works', ...work.tags],
+    alternates: {
+      canonical: `/${lang}/works/${slug}`,
+      languages: { en: `/en/works/${slug}`, ja: `/ja/works/${slug}` },
+    },
+    openGraph: {
+      title: work.title,
+      description: work.description,
+    },
+  }
 }
 
 export default async function WorkDetailPage({ params }: PageProps<'/[lang]/works/[slug]'>) {

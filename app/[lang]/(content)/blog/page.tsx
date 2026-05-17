@@ -4,7 +4,23 @@ import { getDictionary, hasLocale } from '../../dictionaries'
 import { getBlogPosts } from '../../../../lib/data'
 import { notFound } from 'next/navigation'
 
-export const metadata: Metadata = { title: 'Blog' }
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params
+  const isJa = lang === 'ja'
+  return {
+    title: isJa ? 'ブログ' : 'Blog',
+    description: isJa
+      ? '北島直樹（きたじー / KITAJI）のブログ。ソフトウェアエンジニアリング、テクノロジー、日々の思いを発信。'
+      : 'Blog by Naoki Kitajima (KITAJI) — writing about software engineering, technology, and life.',
+    keywords: isJa
+      ? ['北島直樹', 'きたじー', 'KITAJI', 'ブログ', 'ソフトウェアエンジニアリング', '技術']
+      : ['Naoki Kitajima', 'KITAJI', 'Blog', 'Software Engineering', 'Technology'],
+    alternates: {
+      canonical: `/${lang}/blog`,
+      languages: { en: '/en/blog', ja: '/ja/blog' },
+    },
+  }
+}
 
 export default async function BlogPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params

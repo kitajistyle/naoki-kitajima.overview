@@ -4,7 +4,23 @@ import { getDictionary, hasLocale } from '../../dictionaries'
 import { getProfile } from '../../../../lib/data'
 import { notFound } from 'next/navigation'
 
-export const metadata: Metadata = { title: 'About' }
+export async function generateMetadata({ params }: PageProps<'/[lang]/about'>): Promise<Metadata> {
+  const { lang } = await params
+  const isJa = lang === 'ja'
+  return {
+    title: isJa ? 'プロフィール' : 'About',
+    description: isJa
+      ? '北島直樹（きたじー / KITAJI）のプロフィール。東京理科大学理学部物理学科卒、ソフトウェアエンジニア / SRE。Bboy。'
+      : 'Profile of Naoki Kitajima (KITAJI) — Software Engineer / SRE. Physics graduate from Tokyo University of Science. Bboy.',
+    keywords: isJa
+      ? ['北島直樹', 'きたじー', 'KITAJI', 'プロフィール', 'ソフトウェアエンジニア', 'SRE', '経歴']
+      : ['Naoki Kitajima', 'KITAJI', 'About', 'Software Engineer', 'SRE', 'Profile'],
+    alternates: {
+      canonical: `/${lang}/about`,
+      languages: { en: '/en/about', ja: '/ja/about' },
+    },
+  }
+}
 
 export default async function AboutPage({ params }: PageProps<'/[lang]/about'>) {
   const { lang } = await params

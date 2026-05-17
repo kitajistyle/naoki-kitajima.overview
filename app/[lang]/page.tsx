@@ -5,11 +5,42 @@ import { getDictionary, hasLocale } from './dictionaries'
 import { notFound } from 'next/navigation'
 import { Footer } from '../components/ui/Footer'
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Naoki Kitajima',
+  alternateName: ['北島直樹', 'きたじー', 'KITAJI', 'kitajistyle'],
+  jobTitle: 'Software Engineer / SRE',
+  url: 'https://kitajistyle.com',
+  sameAs: [
+    'https://github.com/kitajistyle',
+    'https://x.com/kitajistyle',
+    'https://zenn.dev/kitajistyle',
+    'https://linkedin.com/in/kitajistyle',
+  ],
+}
+
 export async function generateMetadata({ params }: PageProps<'/[lang]'>): Promise<Metadata> {
+  const { lang } = await params
+  const isJa = lang === 'ja'
   return {
-    title: 'Naoki Kitajima',
+    title: isJa ? '北島直樹 | KITAJI' : 'Naoki Kitajima | KITAJI',
+    description: isJa
+      ? '北島直樹（きたじー / KITAJI）のポートフォリオ。ソフトウェアエンジニア / SRE。東京理科大学卒。Bboy。'
+      : 'Portfolio of Naoki Kitajima (KITAJI) — Software Engineer / SRE based in Japan. Physics graduate from Tokyo University of Science. Bboy.',
+    keywords: isJa
+      ? ['北島直樹', 'きたじー', 'KITAJI', 'kitajistyle', 'ポートフォリオ', 'ソフトウェアエンジニア', 'SRE', 'Bboy']
+      : ['Naoki Kitajima', 'KITAJI', 'kitajistyle', 'Portfolio', 'Software Engineer', 'SRE', 'Bboy', 'Breakdancing'],
     alternates: {
+      canonical: `/${lang}`,
       languages: { en: '/en', ja: '/ja' },
+    },
+    openGraph: {
+      url: `/${lang}`,
+      title: isJa ? '北島直樹 | KITAJI' : 'Naoki Kitajima | KITAJI',
+      description: isJa
+        ? '北島直樹（きたじー / KITAJI）のポートフォリオ。ソフトウェアエンジニア / SRE。'
+        : 'Portfolio of Naoki Kitajima (KITAJI) — Software Engineer / SRE based in Japan.',
     },
   }
 }
@@ -21,6 +52,10 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
 
   return (
     <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
     <main className="relative flex-1 flex items-center justify-center overflow-hidden">
       {/* Decorative pixel earth */}
       <div className="fixed inset-y-0 left-[-40%] md:left-[-20%] w-[140%] md:w-[80%] pointer-events-none -z-10">
