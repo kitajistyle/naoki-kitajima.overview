@@ -1,0 +1,22 @@
+{
+  "nav": {
+    "home": "Home",
+    "works": "Works",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact",
+    "like": "Like"
+  },
+  "home": {
+    "role": "Software Engineer / SRE",
+    "tagline": "I live doing what I love.",
+    "cta_works": "View Works",
+    "cta_about": "About Me"
+  },
+  "about": {
+    "skills": "Skills",
+    "career": "Career",
+    "interests": "Interests",
+    "links": "Links"
+  }
+}

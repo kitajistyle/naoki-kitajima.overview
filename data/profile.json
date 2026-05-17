@@ -1,0 +1,37 @@
+{
+  "links": [
+    { "label": "GitHub", "url": "https://github.com/kitajistyle" },
+    { "label": "X", "url": "https://x.com/kitajistyle" },
+    { "label": "Zenn", "url": "https://zenn.dev/kitajistyle" },
+    { "label": "LinkedIn", "url": "https://linkedin.com/in/kitajistyle" }
+  ],
+  "skills": ["React", "TypeScript", "Next.js", "Go"],
+  "en": {
+    "name": "Naoki Kitajima",
+    "role": "Software Engineer / SRE",
+    "location": "Japan",
+    "bio": "I'm a Bboy! I live doing what I love. Graduated from Tokyo University of Science with a degree in Physics, then started my career as a software engineer. After working as a contractor for several startups, I'm currently working as an SRE at a major tech company.",
+    "career": [
+      { "org": "Tokyo University of Science", "desc": "B.S. in Physics" },
+      { "org": "TAIAN Inc.", "desc": "Engineer (Contract)" },
+      { "org": "TripX Inc.", "desc": "Engineer (Contract)" },
+      { "org": "EasyX Inc.", "desc": "Engineer (Contract)" },
+      { "org": "Mega-venture", "desc": "SRE (Current)" }
+    ],
+    "interests": ["Bboy / Breakdancing", "Coffee & Barista"]
+  },
+  "ja": {
+    "name": "北島直樹",
+    "role": "ソフトウェアエンジニア / SRE",
+    "location": "日本",
+    "bio": "Bboyです! 好きなことをして生きています。東京理科大学理学部物理学科を卒業後、ソフトウェアエンジニアとしてのキャリアをスタートしました。複数のスタートアップでの業務委託を経て、現在はメガベンチャーでSREとして働いています。",
+    "career": [
+      { "org": "株式会社TAIAN", "desc": "エンジニア（業務委託）" },
+      { "org": "株式会社TripX", "desc": "エンジニア（業務委託）" },
+      { "org": "株式会社EasyX", "desc": "エンジニア（業務委託）" },
+      { "org": "東京理科大学 理学部物理学科", "desc": "卒業" },
+      { "org": "メガベンチャー", "desc": "SRE（現職）" }
+    ],
+    "interests": ["Bboy / ブレイクダンス", "コーヒー・バリスタ"]
+  }
+}

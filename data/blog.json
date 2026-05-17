@@ -1,0 +1,23 @@
+[
+  {
+    "slug": "getting-started",
+    "date": "2026-05-17",
+    "tags": ["General"],
+    "en": {
+      "title": "Getting Started",
+      "excerpt": "Welcome to my blog — a place to share thoughts on software engineering, design, and the things I build.",
+      "body": [
+        "This is where I share thoughts on software engineering, design, and the things I build.",
+        "Stay tuned for more posts."
+      ]
+    },
+    "ja": {
+      "title": "はじめに",
+      "excerpt": "ブログへようこそ。ソフトウェアエンジニアリングやデザイン、制作物について発信していきます。",
+      "body": [
+        "ソフトウェアエンジニアリングやデザイン、制作物について発信していきます。",
+        "更新をお楽しみに。"
+      ]
+    }
+  }
+]

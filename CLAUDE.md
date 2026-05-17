@@ -1,68 +1,65 @@
 @AGENTS.md
 
-# Portfolio Rules
+# Portfolio Development Rules
 
-## SEO・パフォーマンス（`/` を軽く保つ）
-- `app/page.tsx` は Server Component のまま — `'use client'` 禁止
-- ルートレベルで `cookies()` / `searchParams` を使わない（Dynamic Rendering に強制されるため）
-- インタラクティブ要素は子コンポーネントに切り出し、そこだけ `'use client'`
+## アーキテクチャ
+- Next.js 16 App Router + TypeScript + Tailwind CSS v4
+- 多言語対応: `app/[lang]/`（`en` / `ja`）、`proxy.ts` で Accept-Language 検出
+- コンテンツ: `data/` の JSON ファイルで管理（CMS不使用）
+- React / Next.js コードは必ず `vercel-react-best-practices` スキルに従う
 
 ## ディレクトリ構成
 ```
+proxy.ts                     # ロケール検出 → /en or /ja にリダイレクト
 app/
-  [locale]/           # en / ja
-    layout.tsx
-    page.tsx          # / ルート（Server Component・静的・軽量）
-    works/
-      page.tsx
-      [slug]/
-        page.tsx
-    about/
-      page.tsx
-  components/
-    ui/               # 再利用可能な純粋UIコンポーネント
+  layout.tsx                 # Geist フォント・デフォルトメタデータ
+  page.tsx                   # /ja へリダイレクト（フォールバック）
+  [lang]/                    # en / ja
+    layout.tsx               # ロケールバリデーション・generateStaticParams
+    dictionaries.ts          # UI文字列ローダー（server-only）
+    page.tsx                 # Home
+    works/page.tsx
+    works/[slug]/page.tsx
+    about/page.tsx
+    contact/page.tsx
+    like/page.tsx
+  components/ui/             # 再利用可能な純粋UIコンポーネント
   globals.css
+dictionaries/
+  en.json                    # ナビ等のUI文字列（英語）
+  ja.json                    # ナビ等のUI文字列（日本語）
 data/
-  en/                 # 英語コンテンツ
-    works.json
-    profile.json
-  ja/                 # 日本語コンテンツ
-    works.json
-    profile.json
+  works.json                 # 作品データ（slug・tags は共通、en/ja キーで翻訳）
+  profile.json               # プロフィール（en/ja キーで翻訳）
 lib/
-  data.ts             # JSONを読み込むデータ取得関数
-public/               # 静的アセット
+  data.ts                    # JSON読み込み・型定義
+public/                      # 静的アセット
 ```
 
 ## コンテンツ管理
-- コンテンツは `data/` 以下の JSON ファイルで管理する（CMS不使用）
-- 多言語対応は `data/en/` と `data/ja/` でファイルを分けて管理する
-- `app/[locale]/` ルーティングで英語・日本語を切り替える
-- `lib/data.ts` でJSONを読み込み、各ページに渡す
+- `data/*.json` は1ファイルに en/ja をネストする（`slug` / `tags` / `image` / `url` は共通）
+- UI文字列（ナビラベル等）は `dictionaries/` で管理する
+- `lib/data.ts` でデータを読み込み、各ページに渡す
 
-## 開発方針
-- React / Next.js のコードを書く際は必ず `vercel-react-best-practices` スキルに従う
+## SEO・レンダリング
+- `app/[lang]/` 配下のページは Server Component のまま — `'use client'` を付けない
+- `cookies()` / `searchParams` をルートレベルで使わない（Dynamic Rendering になるため）
+- 全ページに `export const metadata: Metadata` を定義する
+- インタラクティブな要素は末端の子コンポーネントに切り出し、そこだけ `'use client'`
 
 ## スタイリング
-- CSS は Tailwind CSS のみ使用（CSS Modules・styled-components 等は使わない）
-- フォントは `app/layout.tsx` で定義済みの Geist / Geist Mono を使う（新たに追加しない）
-- インラインスタイル（`style={}` 属性）は使わない
-- `globals.css` は最小限に保つ — カラー等のCSS変数定義のみ、コンポーネント固有のスタイルは書かない
-
-## 依存関係
-- 外部ライブラリを安易に追加しない — `npm install` 前に標準 API・Tailwind・React で代替できないか検討する
-- アニメーションは CSS Transition / Tailwind のみ（Framer Motion 等の重いライブラリは原則使わない）
+- Tailwind CSS のみ使用（CSS Modules・インラインスタイル禁止）
+- フォントは `app/layout.tsx` の Geist / Geist Mono のみ（新規追加禁止）
+- `globals.css` はCSS変数定義のみ — コンポーネント固有のスタイルは書かない
+- アニメーションは CSS Transition / Tailwind のみ（Framer Motion 等は使わない）
 
 ## コーディング規約
-- 全ページに `export const metadata: Metadata` を定義する
 - 画像は `next/image`、リンクは `next/link` のみ使用
-- `'use client'` は末端コンポーネントにのみ付ける（境界を最小化）
 - TypeScript の `any` 禁止 — 型を明示する
-- コンポーネントは1ファイル1コンポーネント、200行を超えたら分割を検討する
-
-## アクセシビリティ
-- `<Image>` の `alt` は必須、空文字は装飾画像のみ許可
-- 見出し階層（`h1` → `h2` → `h3`）を正しく使う — ページ内に `h1` は1つのみ
+- 1ファイルに export する関数は1つのみ（複数コンポーネントを同居させない）
+- `<Image>` の `alt` は必須（空文字は装飾画像のみ許可）
+- 見出し階層（`h1` → `h2` → `h3`）を守る — `h1` はページに1つのみ
+- 外部ライブラリは代替手段を検討してから追加する
 
 ## コミット
-- Conventional Commits 形式を使う（`feat:`, `fix:`, `perf:`, `style:`, `refactor:` など）
+- Conventional Commits 形式（`feat:`, `fix:`, `perf:`, `style:`, `refactor:` など）

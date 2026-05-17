@@ -1,0 +1,16 @@
+[
+  {
+    "slug": "example-project",
+    "tags": ["React", "Next.js", "TypeScript"],
+    "url": "https://example.com",
+    "image": "",
+    "en": {
+      "title": "Example Project",
+      "description": "A sample project description."
+    },
+    "ja": {
+      "title": "サンプルプロジェクト",
+      "description": "サンプルのプロジェクト説明です。"
+    }
+  }
+]
