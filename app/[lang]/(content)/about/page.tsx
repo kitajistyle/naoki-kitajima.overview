@@ -40,7 +40,7 @@ export default async function AboutPage({ params }: PageProps<'/[lang]/about'>) 
         <h2 className="text-lg font-semibold mb-3">{dict.about.skills}</h2>
         <ul className="flex flex-wrap gap-2">
           {profile.skills.map((skill) => (
-            <li key={skill} className="px-3 py-1 bg-gray-100 rounded-full text-sm">
+            <li key={skill} className="px-3 py-1 bg-white/10 border border-white/20 rounded-full text-sm">
               {skill}
             </li>
           ))}
