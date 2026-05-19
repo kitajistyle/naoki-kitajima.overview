@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "ホーム",
-    "works": "制作物",
+    "works": "作品",
     "blog": "ブログ",
     "about": "プロフィール",
     "contact": "お問い合わせ",
@@ -10,7 +10,7 @@
   "home": {
     "role": "ソフトウェアエンジニア / SRE",
     "tagline": "好きなことをして生きています。",
-    "cta_works": "制作物を見る",
+    "cta_works": "作品を見る",
     "cta_about": "プロフィール"
   },
   "about": {

@@ -2,7 +2,7 @@
 
 import { Suspense, useRef, useState, useCallback } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Stars } from '@react-three/drei'
+import { Stars, RoundedBox, Text } from '@react-three/drei'
 import * as THREE from 'three'
 import { FaGithub, FaXTwitter, FaLinkedin } from 'react-icons/fa6'
 import { SiZenn } from 'react-icons/si'
@@ -14,25 +14,20 @@ type LinkItem = {
   id: string
   href: string
   label: string
+  pos: Pos3
   Icon: React.ComponentType<{ size?: number | string }>
 }
 
+const ICON_Y = 1.4
+
 const LINKS: LinkItem[] = [
-  { id: 'github',   href: 'https://github.com/kitajistyle',    label: 'GitHub',   Icon: FaGithub },
-  { id: 'twitter',  href: 'https://x.com/kitajistyle',          label: 'X',        Icon: FaXTwitter },
-  { id: 'zenn',     href: 'https://zenn.dev/kitajistyle',        label: 'Zenn',     Icon: SiZenn },
-  { id: 'linkedin', href: 'https://linkedin.com/in/kitajistyle', label: 'LinkedIn', Icon: FaLinkedin },
+  { id: 'github',   href: 'https://github.com/kitajistyle',    label: 'GitHub',   pos: [-2.1, ICON_Y, 0], Icon: FaGithub },
+  { id: 'twitter',  href: 'https://x.com/kitajistyle',          label: 'X',        pos: [-0.7, ICON_Y, 0], Icon: FaXTwitter },
+  { id: 'zenn',     href: 'https://zenn.dev/kitajistyle',        label: 'Zenn',     pos: [ 0.7, ICON_Y, 0], Icon: SiZenn },
+  { id: 'linkedin', href: 'https://linkedin.com/in/kitajistyle', label: 'LinkedIn', pos: [ 2.1, ICON_Y, 0], Icon: FaLinkedin },
 ]
 
-// キャンバス上端を突き抜けてアイコン方向へ飛ぶターゲット（各アイコンの x オフセットに対応）
-const FLY_TARGET: Record<string, Pos3> = {
-  github:   [-1.5, 5.5, 0],
-  twitter:  [-0.5, 5.5, 0],
-  zenn:     [ 0.5, 5.5, 0],
-  linkedin: [ 1.5, 5.5, 0],
-}
-
-const FLY_DURATION = 0.82
+const FLY_DURATION = 0.85
 
 // ── Exhaust flame ──────────────────────────────────────────────────────────
 function Flame() {
@@ -102,7 +97,7 @@ function Rocket({ phase, targetPos }: { phase: Phase; targetPos: Pos3 | null }) 
         progress.current = 0
       }
       if (phase === 'resetting') {
-        g.position.set(0, 0, 0)
+        g.position.set(0, -2.5, 0)
         g.scale.setScalar(1)
       }
       prevPhase.current = phase
@@ -110,7 +105,7 @@ function Rocket({ phase, targetPos }: { phase: Phase; targetPos: Pos3 | null }) 
 
     if (phase === 'idle') {
       const t = state.clock.elapsedTime
-      g.position.set(0, Math.sin(t * 0.75) * 0.13, 0)
+      g.position.set(0, Math.sin(t * 0.75) * 0.13 - 2.5, 0)
       g.rotation.y += delta * 0.28
       g.scale.setScalar(1)
     } else if (phase === 'flying' && targetPos) {
@@ -125,22 +120,100 @@ function Rocket({ phase, targetPos }: { phase: Phase; targetPos: Pos3 | null }) 
   })
 
   return (
-    <group ref={group}>
-      <RocketGeometry />
-      <Flame />
+    <group ref={group} position={[0, -2.5, 0]}>
+      <group scale={0.55}>
+        <RocketGeometry />
+        <Flame />
+      </group>
     </group>
   )
 }
 
-function SceneContents({ phase, targetPos }: { phase: Phase; targetPos: Pos3 | null }) {
+// ── 3D icon card — Html/Float を使わず純粋な 3D メッシュのみ ──────────────
+function Icon3D({
+  link,
+  isActive,
+  disabled,
+  onIconClick,
+}: {
+  link: LinkItem
+  isActive: boolean
+  disabled: boolean
+  onIconClick: (link: LinkItem) => void
+}) {
+  const groupRef = useRef<THREE.Group>(null)
+  const [hovered, setHovered] = useState(false)
+
+  useFrame(({ clock }) => {
+    if (!groupRef.current) return
+    // 各カードで位相をずらした bob アニメーション
+    groupRef.current.position.y =
+      link.pos[1] + Math.sin(clock.elapsedTime * 1.4 + link.pos[0]) * 0.055
+  })
+
+  return (
+    <group ref={groupRef} position={link.pos}>
+      <RoundedBox
+        args={[0.58, 0.58, 0.13]}
+        radius={0.09}
+        smoothness={4}
+        onClick={() => { if (!disabled) onIconClick(link) }}
+        onPointerEnter={() => {
+          if (!disabled) { document.body.style.cursor = 'pointer'; setHovered(true) }
+        }}
+        onPointerLeave={() => { document.body.style.cursor = 'auto'; setHovered(false) }}
+      >
+        <meshStandardMaterial
+          color={hovered ? '#1e1e40' : '#111128'}
+          roughness={0.22}
+          metalness={0.85}
+          emissive={isActive ? '#3355ff' : hovered ? '#1a2288' : '#080818'}
+          emissiveIntensity={isActive ? 2.8 : hovered ? 0.7 : 0.2}
+        />
+      </RoundedBox>
+      {/* 純粋な 3D テキスト — DOM 要素なのでクリックを奪わない */}
+      <Text
+        position={[0, 0, 0.075]}
+        fontSize={0.1}
+        color={isActive ? '#ffffff' : hovered ? '#e4e4e7' : '#a1a1aa'}
+        anchorX="center"
+        anchorY="middle"
+        letterSpacing={0.05}
+      >
+        {link.label}
+      </Text>
+    </group>
+  )
+}
+
+function SceneContents({
+  phase,
+  targetPos,
+  activeId,
+  onIconClick,
+}: {
+  phase: Phase
+  targetPos: Pos3 | null
+  activeId: string | null
+  onIconClick: (link: LinkItem) => void
+}) {
   return (
     <>
       <color attach="background" args={['#09090b']} />
       <Stars radius={100} depth={60} count={2500} factor={4} fade speed={0.8} />
       <ambientLight intensity={0.45} />
       <directionalLight position={[5, 8, 5]} intensity={1.2} />
-      <pointLight position={[0, -1.6, 0.8]} color="#f97316" intensity={3} distance={4} decay={2} />
+      <pointLight position={[0, -3, 0.8]} color="#f97316" intensity={3} distance={4} decay={2} />
       <Rocket phase={phase} targetPos={targetPos} />
+      {LINKS.map((link) => (
+        <Icon3D
+          key={link.id}
+          link={link}
+          isActive={activeId === link.id}
+          disabled={phase !== 'idle'}
+          onIconClick={onIconClick}
+        />
+      ))}
     </>
   )
 }
@@ -154,10 +227,19 @@ export function ContactScene({ title }: { title: string }) {
   const handleIconClick = useCallback(
     (link: LinkItem) => {
       if (phase !== 'idle') return
-      window.open(link.href, '_blank', 'noopener,noreferrer')
-      setTargetPos(FLY_TARGET[link.id])
+
+      setTargetPos(link.pos)
       setActiveId(link.id)
       setPhase('flying')
+
+      // Chrome はクリックから 1000ms 以内なら user activation が有効
+      // FLY_DURATION(850ms) 後に window.open を呼んでも popup blocker に引っかからない
+      const flyMs = Math.round(FLY_DURATION * 1000)
+
+      setTimeout(() => {
+        window.open(link.href, '_blank', 'noopener,noreferrer')
+      }, flyMs)
+
       setTimeout(() => {
         setPhase('resetting')
         setTargetPos(null)
@@ -165,7 +247,7 @@ export function ContactScene({ title }: { title: string }) {
           setPhase('idle')
           setActiveId(null)
         }, 80)
-      }, Math.round(FLY_DURATION * 1000) + 120)
+      }, flyMs + 120)
     },
     [phase],
   )
@@ -176,34 +258,18 @@ export function ContactScene({ title }: { title: string }) {
       <div className="fixed top-16 inset-x-0 bottom-0 z-0">
         <Canvas camera={{ position: [0, 0, 7], fov: 50 }} gl={{ antialias: true }}>
           <Suspense fallback={null}>
-            <SceneContents phase={phase} targetPos={targetPos} />
+            <SceneContents
+              phase={phase}
+              targetPos={targetPos}
+              activeId={activeId}
+              onIconClick={handleIconClick}
+            />
           </Suspense>
         </Canvas>
       </div>
 
-      {/* オーバーレイ — 見出し + アイコン行 */}
-      <div className="relative z-10 flex flex-col items-center gap-10 pt-16 sm:pt-24">
-        <h1 className="text-3xl md:text-5xl font-bold tracking-wider">{title}</h1>
-
-        <div className="flex items-end gap-10">
-          {LINKS.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => handleIconClick(link)}
-              disabled={phase !== 'idle'}
-              aria-label={link.label}
-              className={[
-                'flex flex-col items-center gap-1.5 transition-all duration-200',
-                phase === 'idle' ? 'cursor-pointer hover:text-white hover:scale-110' : 'cursor-default',
-                activeId === link.id ? 'text-white scale-125' : 'text-zinc-400',
-              ].join(' ')}
-            >
-              <link.Icon size={40} />
-              <span className="text-[10px] font-medium tracking-widest">{link.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
+      {/* タイトル — 左上に固定 */}
+      <h1 className="fixed top-20 left-4 z-10 text-xs font-medium tracking-widest text-zinc-500">{title}</h1>
     </>
   )
 }

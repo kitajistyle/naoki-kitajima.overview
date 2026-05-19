@@ -7,12 +7,12 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/works'>): 
   const { lang } = await params
   const isJa = lang === 'ja'
   return {
-    title: isJa ? '制作物' : 'Works',
+    title: isJa ? '作品' : 'Works',
     description: isJa
-      ? '北島直樹（きたじー / KITAJI）の制作物一覧。React・TypeScript・Next.js・Go を使ったプロジェクト。'
+      ? '北島直樹（きたじー / KITAJI）の作品一覧。React・TypeScript・Next.js・Go を使ったプロジェクト。'
       : 'Works and projects by Naoki Kitajima (KITAJI) — React, TypeScript, Next.js, Go.',
     keywords: isJa
-      ? ['北島直樹', 'KITAJI', '制作物', 'ポートフォリオ', 'React', 'TypeScript', 'Next.js', 'Go']
+      ? ['北島直樹', 'KITAJI', '作品', 'ポートフォリオ', 'React', 'TypeScript', 'Next.js', 'Go']
       : ['Naoki Kitajima', 'KITAJI', 'Works', 'Portfolio', 'React', 'TypeScript', 'Next.js', 'Go'],
     alternates: {
       canonical: `/${lang}/works`,
