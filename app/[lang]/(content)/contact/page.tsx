@@ -24,11 +24,8 @@ export default async function ContactPage({ params }: PageProps<'/[lang]/contact
   const dict = await getDictionary(lang)
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-[calc(100vh-200px)] px-6 py-12">
-      <h1 className="text-3xl md:text-5xl font-bold mb-16 tracking-wider">{dict.nav.contact}</h1>
-
-      <ContactScene />
+    <main>
+      <ContactScene title={dict.nav.contact} />
     </main>
   )
 }
-
