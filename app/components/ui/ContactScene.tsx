@@ -1,7 +1,7 @@
 'use client'
 
 import { Suspense, useRef, useState, useCallback } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Stars, RoundedBox, Text } from '@react-three/drei'
 import * as THREE from 'three'
 import { FaGithub, FaXTwitter, FaLinkedin } from 'react-icons/fa6'
@@ -14,17 +14,14 @@ type LinkItem = {
   id: string
   href: string
   label: string
-  pos: Pos3
   Icon: React.ComponentType<{ size?: number | string }>
 }
 
-const ICON_Y = 1.4
-
 const LINKS: LinkItem[] = [
-  { id: 'github',   href: 'https://github.com/kitajistyle',    label: 'GitHub',   pos: [-2.1, ICON_Y, 0], Icon: FaGithub },
-  { id: 'twitter',  href: 'https://x.com/kitajistyle',          label: 'X',        pos: [-0.7, ICON_Y, 0], Icon: FaXTwitter },
-  { id: 'zenn',     href: 'https://zenn.dev/kitajistyle',        label: 'Zenn',     pos: [ 0.7, ICON_Y, 0], Icon: SiZenn },
-  { id: 'linkedin', href: 'https://linkedin.com/in/kitajistyle', label: 'LinkedIn', pos: [ 2.1, ICON_Y, 0], Icon: FaLinkedin },
+  { id: 'github',   href: 'https://github.com/kitajistyle',    label: 'GitHub',   Icon: FaGithub },
+  { id: 'twitter',  href: 'https://x.com/kitajistyle',          label: 'X',        Icon: FaXTwitter },
+  { id: 'zenn',     href: 'https://zenn.dev/kitajistyle',        label: 'Zenn',     Icon: SiZenn },
+  { id: 'linkedin', href: 'https://linkedin.com/in/kitajistyle', label: 'LinkedIn', Icon: FaLinkedin },
 ]
 
 const FLY_DURATION = 0.85
@@ -132,11 +129,13 @@ function Rocket({ phase, targetPos }: { phase: Phase; targetPos: Pos3 | null }) 
 // ── 3D icon card — Html/Float を使わず純粋な 3D メッシュのみ ──────────────
 function Icon3D({
   link,
+  pos,
   isActive,
   disabled,
   onIconClick,
 }: {
   link: LinkItem
+  pos: Pos3
   isActive: boolean
   disabled: boolean
   onIconClick: (link: LinkItem) => void
@@ -148,11 +147,11 @@ function Icon3D({
     if (!groupRef.current) return
     // 各カードで位相をずらした bob アニメーション
     groupRef.current.position.y =
-      link.pos[1] + Math.sin(clock.elapsedTime * 1.4 + link.pos[0]) * 0.055
+      pos[1] + Math.sin(clock.elapsedTime * 1.4 + pos[0]) * 0.055
   })
 
   return (
-    <group ref={groupRef} position={link.pos}>
+    <group ref={groupRef} position={pos}>
       <RoundedBox
         args={[0.58, 0.58, 0.13]}
         radius={0.09}
@@ -195,8 +194,31 @@ function SceneContents({
   phase: Phase
   targetPos: Pos3 | null
   activeId: string | null
-  onIconClick: (link: LinkItem) => void
+  onIconClick: (link: LinkItem, pos: Pos3) => void
 }) {
+  const { viewport } = useThree()
+  const isMobile = viewport.width < 4.8
+
+  const getIconPos = (index: number): Pos3 => {
+    if (isMobile) {
+      // 2x2 Grid for mobile
+      const cols = 2
+      const xSpacing = 1.3
+      const ySpacing = 1.4
+      const row = Math.floor(index / cols)
+      const col = index % cols
+      const x = (col - (cols - 1) / 2) * xSpacing
+      const y = 2.0 - row * ySpacing
+      return [x, y, 0]
+    } else {
+      // Row of 4 for desktop
+      const cols = 4
+      const xSpacing = Math.min(1.4, viewport.width / 4)
+      const x = (index - (cols - 1) / 2) * xSpacing
+      return [x, 1.4, 0]
+    }
+  }
+
   return (
     <>
       <color attach="background" args={['#09090b']} />
@@ -205,13 +227,14 @@ function SceneContents({
       <directionalLight position={[5, 8, 5]} intensity={1.2} />
       <pointLight position={[0, -3, 0.8]} color="#f97316" intensity={3} distance={4} decay={2} />
       <Rocket phase={phase} targetPos={targetPos} />
-      {LINKS.map((link) => (
+      {LINKS.map((link, i) => (
         <Icon3D
           key={link.id}
           link={link}
+          pos={getIconPos(i)}
           isActive={activeId === link.id}
           disabled={phase !== 'idle'}
-          onIconClick={onIconClick}
+          onIconClick={(l) => onIconClick(l, getIconPos(i))}
         />
       ))}
     </>
@@ -225,10 +248,10 @@ export function ContactScene({ title }: { title: string }) {
   const [activeId, setActiveId]   = useState<string | null>(null)
 
   const handleIconClick = useCallback(
-    (link: LinkItem) => {
+    (link: LinkItem, pos: Pos3) => {
       if (phase !== 'idle') return
 
-      setTargetPos(link.pos)
+      setTargetPos(pos)
       setActiveId(link.id)
       setPhase('flying')
 
