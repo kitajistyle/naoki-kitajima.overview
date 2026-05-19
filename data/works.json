@@ -1,16 +1,17 @@
 [
   {
-    "slug": "example-project",
-    "tags": ["React", "Next.js", "TypeScript"],
-    "url": "https://example.com",
+    "slug": "cypher-map",
+    "tags": ["React", "TypeScript", "Next.js", "Go"],
+    "url": "",
     "image": "",
+    "comingSoon": true,
     "en": {
-      "title": "Example Project",
-      "description": "A sample project description."
+      "title": "Cypher Map",
+      "description": "A platform to discover and share Bboy/Bgirl cyphers and jams happening around Japan and the world."
     },
     "ja": {
-      "title": "サンプルプロジェクト",
-      "description": "サンプルのプロジェクト説明です。"
+      "title": "Cypher Map",
+      "description": "日本や世界各地で開催されているBboy/Bgirlのサイファーやジャムを探して共有できるプラットフォーム。"
     }
   }
 ]

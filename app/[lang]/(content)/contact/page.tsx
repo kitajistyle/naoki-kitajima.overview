@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getDictionary, hasLocale } from '../../dictionaries'
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
+import { Rocket } from '../../../components/ui/Rocket'
 
 export async function generateMetadata({ params }: PageProps<'/[lang]/contact'>): Promise<Metadata> {
   const { lang } = await params
@@ -28,16 +28,8 @@ export default async function ContactPage({ params }: PageProps<'/[lang]/contact
       <h1 className="text-3xl md:text-5xl font-bold mb-16 tracking-wider">{dict.nav.contact}</h1>
       
       <div className="relative w-80 h-80 sm:w-96 sm:h-96 flex items-center justify-center">
-        {/* Earth (not rotating) */}
         <div className="absolute w-56 h-56 sm:w-72 sm:h-72">
-          <Image 
-            src="/hero.png" 
-            alt="Earth" 
-            fill 
-            sizes="(max-width: 640px) 14rem, 18rem"
-            className="object-contain" 
-            priority 
-          />
+          <Rocket />
         </div>
         
         {/* Social Links revolving */}
