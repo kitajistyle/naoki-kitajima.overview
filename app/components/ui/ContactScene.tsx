@@ -2,7 +2,7 @@
 
 import { Suspense, useRef, useState, useCallback } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Stars, RoundedBox, Text } from '@react-three/drei'
+import { Stars, RoundedBox, Html } from '@react-three/drei'
 import * as THREE from 'three'
 import { FaGithub, FaXTwitter, FaLinkedin } from 'react-icons/fa6'
 import { SiZenn } from 'react-icons/si'
@@ -156,11 +156,6 @@ function Icon3D({
         args={[0.58, 0.58, 0.13]}
         radius={0.09}
         smoothness={4}
-        onClick={() => { if (!disabled) onIconClick(link) }}
-        onPointerEnter={() => {
-          if (!disabled) { document.body.style.cursor = 'pointer'; setHovered(true) }
-        }}
-        onPointerLeave={() => { document.body.style.cursor = 'auto'; setHovered(false) }}
       >
         <meshStandardMaterial
           color={hovered ? '#1e1e40' : '#111128'}
@@ -170,17 +165,41 @@ function Icon3D({
           emissiveIntensity={isActive ? 2.8 : hovered ? 0.7 : 0.2}
         />
       </RoundedBox>
-      {/* 純粋な 3D テキスト — DOM 要素なのでクリックを奪わない */}
-      <Text
-        position={[0, 0, 0.075]}
-        fontSize={0.1}
-        color={isActive ? '#ffffff' : hovered ? '#e4e4e7' : '#a1a1aa'}
-        anchorX="center"
-        anchorY="middle"
-        letterSpacing={0.05}
+      {/* Icon rendered as HTML over the 3D mesh */}
+      <Html
+        position={[0, 0, 0.08]}
+        transform
+        center
       >
-        {link.label}
-      </Text>
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center transition-colors duration-200"
+          style={{ 
+            color: isActive ? '#ffffff' : hovered ? '#e4e4e7' : '#a1a1aa',
+            width: '64px',
+            height: '64px',
+            cursor: disabled ? 'default' : 'pointer'
+          }}
+          onClick={(e) => {
+            if (!disabled) {
+              e.preventDefault()
+              onIconClick(link)
+            } else {
+              e.preventDefault()
+            }
+          }}
+          onPointerEnter={() => {
+            if (!disabled) setHovered(true)
+          }}
+          onPointerLeave={() => {
+            if (!disabled) setHovered(false)
+          }}
+        >
+          <link.Icon size={24} />
+        </a>
+      </Html>
     </group>
   )
 }

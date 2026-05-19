@@ -67,24 +67,6 @@ export default async function AboutPage({ params }: PageProps<'/[lang]/about'>) 
           ))}
         </ul>
       </section>
-
-      <section>
-        <h2 className="text-lg font-semibold mb-3">{dict.about.links}</h2>
-        <ul className="flex flex-wrap gap-4">
-          {profile.links.map((link) => (
-            <li key={link.label}>
-              <Link
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm underline underline-offset-2 hover:opacity-60 transition-opacity"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
     </main>
   )
 }
