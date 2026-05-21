@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { getDictionary, hasLocale } from '../../dictionaries'
 import { notFound } from 'next/navigation'
+import { VinylScene } from '../../../components/ui/VinylScene'
 
 export async function generateMetadata({ params }: PageProps<'/[lang]/like'>): Promise<Metadata> {
   const { lang } = await params
@@ -44,6 +45,8 @@ export default async function LikePage({ params }: PageProps<'/[lang]/like'>) {
             {like.cypher_label}
           </span>
         </div>
+
+        <VinylScene />
 
         <h2 className="text-2xl font-bold">{like.bboy_title}</h2>
 

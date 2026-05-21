@@ -5,33 +5,33 @@
     { "label": "Zenn", "url": "https://zenn.dev/kitajistyle" },
     { "label": "LinkedIn", "url": "https://linkedin.com/in/kitajistyle" }
   ],
-  "skills": ["React", "TypeScript", "Next.js", "Go"],
+  "skills": ["Go", "TypeScript", "React", "Next.js", "AWS", "Kubernetes", "Docker", "Terraform"],
   "en": {
     "name": "Naoki Kitajima",
-    "role": "Software Engineer / SRE",
+    "role": "Full-Stack Engineer / SRE",
     "location": "Japan",
-    "bio": "I'm a Bboy! I live doing what I love. Graduated from Tokyo University of Science with a degree in Physics, then started my career as a software engineer. After working as a contractor for several startups, I'm currently working as an SRE at a major tech company.",
+    "bio": "I'm a Bboy! A full-stack engineer covering everything from frontend (React/Next.js/TypeScript) to cloud infrastructure and SRE for payment platforms at a major tech company. I graduated from Tokyo University of Science with a degree in Physics, then built experience across multiple startups before joining my current role on a payment infrastructure team. Outside of code, coffee and street dance fuel my creativity.",
     "career": [
       { "org": "Tokyo University of Science", "desc": "B.S. in Physics" },
       { "org": "TAIAN Inc.", "desc": "Engineer (Contract)" },
       { "org": "TripX Inc.", "desc": "Engineer (Contract)" },
       { "org": "EasyX Inc.", "desc": "Engineer (Contract)" },
-      { "org": "Mega-venture", "desc": "SRE (Current)" }
+      { "org": "Mega-venture", "desc": "SRE — Payment Infrastructure (Current)" }
     ],
-    "interests": ["Bboy / Breakdancing", "Coffee & Barista"]
+    "interests": ["Bboy / Breakdancing", "Coffee & Barista", "Street dance culture"]
   },
   "ja": {
     "name": "北島直樹",
-    "role": "ソフトウェアエンジニア / SRE",
+    "role": "フルスタックエンジニア / SRE",
     "location": "日本",
-    "bio": "Bboyです! 好きなことをして生きています。東京理科大学理学部物理学科を卒業後、ソフトウェアエンジニアとしてのキャリアをスタートしました。複数のスタートアップでの業務委託を経て、現在はメガベンチャーでSREとして働いています。",
+    "bio": "Bboyです！フロントエンド（React/Next.js/TypeScript）からAWS/Kubernetesを中心としたクラウドインフラ・SREまで、幅広い領域をカバーするフルスタックエンジニアです。東京理科大学理学部物理学科卒業後、複数のスタートアップでの業務委託を経て、現在はメガベンチャーの決済基盤チームでSREとして働いています。コーヒーとストリートダンスが創造の源です。",
     "career": [
+      { "org": "東京理科大学 理学部物理学科", "desc": "卒業" },
       { "org": "株式会社TAIAN", "desc": "エンジニア（業務委託）" },
       { "org": "株式会社TripX", "desc": "エンジニア（業務委託）" },
       { "org": "株式会社EasyX", "desc": "エンジニア（業務委託）" },
-      { "org": "東京理科大学 理学部物理学科", "desc": "卒業" },
-      { "org": "メガベンチャー", "desc": "SRE（現職）" }
+      { "org": "メガベンチャー", "desc": "SRE — 決済基盤チーム（現職）" }
     ],
-    "interests": ["Bboy / ブレイクダンス", "コーヒー・バリスタ"]
+    "interests": ["Bboy / ブレイクダンス", "コーヒー・バリスタ", "ストリートダンスカルチャー"]
   }
 }

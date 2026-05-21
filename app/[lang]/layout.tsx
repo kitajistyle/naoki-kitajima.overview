@@ -20,6 +20,7 @@ export default async function LocaleLayout({
 
   const navItems = [
     { label: dict.nav.home, href: `/${lang}` },
+    { label: dict.nav.works, href: `/${lang}/works` },
     { label: dict.nav.about, href: `/${lang}/about` },
     { label: dict.nav.blog, href: `/${lang}/blog` },
     { label: dict.nav.like, href: `/${lang}/like` },

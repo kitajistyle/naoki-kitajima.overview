@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { getDictionary, hasLocale } from '../../dictionaries'
 import { getWorks } from '../../../../lib/data'
 import { notFound } from 'next/navigation'
+import { WorksScene } from '../../../components/ui/WorksScene'
 
 export async function generateMetadata({ params }: PageProps<'/[lang]/works'>): Promise<Metadata> {
   const { lang } = await params
@@ -29,7 +30,9 @@ export default async function WorksPage({ params }: PageProps<'/[lang]/works'>) 
   const isJa = lang === 'ja'
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-16">
+    <>
+    <WorksScene />
+    <main className="relative z-10 max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-3xl font-bold mb-12">{dict.nav.works}</h1>
       <ul className="space-y-8">
         {works.map((work) => (
@@ -83,5 +86,6 @@ export default async function WorksPage({ params }: PageProps<'/[lang]/works'>) 
         ))}
       </ul>
     </main>
+    </>
   )
 }
