@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 const SOCIAL_LINKS = [
   { label: 'GitHub', url: 'https://github.com/kitajistyle' },
-  { label: 'X', url: 'https://x.com/kitajistyle' },
+  { label: 'X', url: 'https://x.com/kitajistyIe' },
   { label: 'Zenn', url: 'https://zenn.dev/kitajistyle' },
 ] as const
 

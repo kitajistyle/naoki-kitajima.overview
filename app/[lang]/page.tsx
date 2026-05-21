@@ -14,7 +14,7 @@ const jsonLd = {
   url: 'https://kitajistyle.com',
   sameAs: [
     'https://github.com/kitajistyle',
-    'https://x.com/kitajistyle',
+    'https://x.com/kitajistyIe',
     'https://zenn.dev/kitajistyle',
     'https://linkedin.com/in/kitajistyle',
   ],

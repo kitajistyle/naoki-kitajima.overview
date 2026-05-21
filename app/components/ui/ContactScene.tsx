@@ -19,7 +19,7 @@ type LinkItem = {
 
 const LINKS: LinkItem[] = [
   { id: 'github',   href: 'https://github.com/kitajistyle',    label: 'GitHub',   Icon: FaGithub },
-  { id: 'twitter',  href: 'https://x.com/kitajistyle',          label: 'X',        Icon: FaXTwitter },
+  { id: 'twitter',  href: 'https://x.com/kitajistyIe',          label: 'X',        Icon: FaXTwitter },
   { id: 'zenn',     href: 'https://zenn.dev/kitajistyle',        label: 'Zenn',     Icon: SiZenn },
   { id: 'linkedin', href: 'https://linkedin.com/in/kitajistyle', label: 'LinkedIn', Icon: FaLinkedin },
 ]
