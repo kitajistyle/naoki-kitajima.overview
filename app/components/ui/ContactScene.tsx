@@ -261,7 +261,7 @@ function SceneContents({
 }
 
 // ── Exported component ────────────────────────────────────────────────────
-export function ContactScene({ title }: { title: string }) {
+export function ContactScene() {
   const [phase, setPhase]         = useState<Phase>('idle')
   const [targetPos, setTargetPos] = useState<Pos3 | null>(null)
   const [activeId, setActiveId]   = useState<string | null>(null)
@@ -309,9 +309,6 @@ export function ContactScene({ title }: { title: string }) {
           </Suspense>
         </Canvas>
       </div>
-
-      {/* タイトル — 左上に固定 */}
-      <h1 className="fixed top-20 left-4 z-10 text-xs font-medium tracking-widest text-zinc-500">{title}</h1>
     </>
   )
 }

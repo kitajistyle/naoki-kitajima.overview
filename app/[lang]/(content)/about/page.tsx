@@ -32,44 +32,47 @@ export default async function AboutPage({ params }: PageProps<'/[lang]/about'>) 
   return (
     <>
     <AboutScene />
-    <main className="relative z-10 max-w-2xl mx-auto px-6 sm:px-12 space-y-12">
-      <section>
-        <h1 className="text-3xl font-bold">{profile.name}</h1>
-        <p className="text-sm text-gray-500 mt-1">{profile.role} · {profile.location}</p>
-        <p className="mt-4 leading-relaxed">{profile.bio}</p>
-      </section>
+    <main className="relative z-10 px-6 sm:px-12">
+      <div className="max-w-2xl mx-auto space-y-12">
+        <h1 className="text-4xl font-black tracking-tight mb-12">{dict.nav.about}</h1>
+        <section>
+          <h2 className="text-2xl font-bold mb-2">{profile.name}</h2>
+          <p className="text-sm text-gray-500">{profile.role} · {profile.location}</p>
+          <p className="mt-4 leading-relaxed">{profile.bio}</p>
+        </section>
 
-      <section>
-        <h2 className="text-lg font-semibold mb-3">{dict.about.skills}</h2>
-        <ul className="flex flex-wrap gap-2">
-          {profile.skills.map((skill) => (
-            <li key={skill} className="px-3 py-1 bg-white/10 border border-white/20 rounded-full text-sm">
-              {skill}
-            </li>
-          ))}
-        </ul>
-      </section>
+        <section>
+          <h2 className="text-lg font-semibold mb-3">{dict.about.skills}</h2>
+          <ul className="flex flex-wrap gap-2">
+            {profile.skills.map((skill) => (
+              <li key={skill} className="px-3 py-1 bg-white/10 border border-white/20 rounded-full text-sm">
+                {skill}
+              </li>
+            ))}
+          </ul>
+        </section>
 
-      <section>
-        <h2 className="text-lg font-semibold mb-3">{dict.about.career}</h2>
-        <ul className="space-y-3">
-          {profile.career.map((item) => (
-            <li key={item.org} className="flex justify-between text-sm">
-              <span>{item.org}</span>
-              <span className="text-gray-500">{item.desc}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
+        <section>
+          <h2 className="text-lg font-semibold mb-3">{dict.about.career}</h2>
+          <ul className="space-y-3">
+            {profile.career.map((item) => (
+              <li key={item.org} className="flex justify-between text-sm">
+                <span>{item.org}</span>
+                <span className="text-gray-500">{item.desc}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-      <section>
-        <h2 className="text-lg font-semibold mb-3">{dict.about.interests}</h2>
-        <ul className="flex flex-wrap gap-4">
-          {profile.interests.map((interest) => (
-            <li key={interest} className="text-sm text-gray-600">{interest}</li>
-          ))}
-        </ul>
-      </section>
+        <section>
+          <h2 className="text-lg font-semibold mb-3">{dict.about.interests}</h2>
+          <ul className="flex flex-wrap gap-4">
+            {profile.interests.map((interest) => (
+              <li key={interest} className="text-sm text-gray-600">{interest}</li>
+            ))}
+          </ul>
+        </section>
+      </div>
     </main>
     </>
   )

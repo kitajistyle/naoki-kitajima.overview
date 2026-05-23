@@ -1,7 +1,10 @@
 import type { Locale } from '../app/[lang]/dictionaries'
 import worksData from '../data/works.json'
 import profileData from '../data/profile.json'
-import blogData from '../data/blog.json'
+import fs from 'fs'
+import path from 'path'
+import matter from 'gray-matter'
+import { marked } from 'marked'
 
 export type Work = {
   slug: string
@@ -48,22 +51,69 @@ export const getProfile = (locale: Locale): Profile => ({
   ...profileData[locale],
 })
 
+export type BodyBlock =
+  | { type: 'p'; text: string }
+  | { type: 'h2'; text: string }
+  | { type: 'code'; text: string }
+  | { type: 'ul'; items: string[] }
+
 export type BlogPost = {
   slug: string
   date: string
   tags: string[]
   title: string
   excerpt: string
-  body: string[]
+  contentHtml: string
 }
 
-export const getBlogPosts = (locale: Locale): BlogPost[] =>
-  blogData.map((post) => ({
-    slug: post.slug,
-    date: post.date,
-    tags: post.tags,
-    ...post[locale],
-  }))
+export const getBlogPosts = (locale: Locale): BlogPost[] => {
+  const postsDirectory = path.join(process.cwd(), 'data/posts', locale)
+  if (!fs.existsSync(postsDirectory)) {
+    return []
+  }
 
-export const getBlogPostBySlug = (locale: Locale, slug: string): BlogPost | undefined =>
-  getBlogPosts(locale).find((p) => p.slug === slug)
+  const fileNames = fs.readdirSync(postsDirectory)
+  const allPostsData = fileNames
+    .filter((fileName) => fileName.endsWith('.md'))
+    .map((fileName) => {
+      const slug = fileName.replace(/\.md$/, '')
+      const fullPath = path.join(postsDirectory, fileName)
+      const fileContents = fs.readFileSync(fullPath, 'utf8')
+      const matterResult = matter(fileContents)
+      const contentHtml = marked.parse(matterResult.content) as string
+
+      return {
+        slug,
+        date: matterResult.data.date,
+        tags: matterResult.data.tags || [],
+        title: matterResult.data.title,
+        excerpt: matterResult.data.excerpt || '',
+        contentHtml,
+      }
+    })
+
+  return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1))
+}
+
+export const getBlogPostBySlug = (locale: Locale, slug: string): BlogPost | undefined => {
+  try {
+    const fullPath = path.join(process.cwd(), 'data/posts', locale, `${slug}.md`)
+    if (!fs.existsSync(fullPath)) {
+      return undefined
+    }
+    const fileContents = fs.readFileSync(fullPath, 'utf8')
+    const matterResult = matter(fileContents)
+    const contentHtml = marked.parse(matterResult.content) as string
+
+    return {
+      slug,
+      date: matterResult.data.date,
+      tags: matterResult.data.tags || [],
+      title: matterResult.data.title,
+      excerpt: matterResult.data.excerpt || '',
+      contentHtml,
+    }
+  } catch (e) {
+    return undefined
+  }
+}

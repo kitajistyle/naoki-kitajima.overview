@@ -65,11 +65,10 @@ export default async function BlogPostPage({ params }: { params: Params }) {
             </span>
           ))}
         </div>
-        <div className="flex flex-col gap-5 text-zinc-300 leading-relaxed">
-          {post.body.map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
-          ))}
-        </div>
+        <div
+          className="blog-content flex flex-col gap-5 text-zinc-300 leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+        />
       </div>
     </main>
   )

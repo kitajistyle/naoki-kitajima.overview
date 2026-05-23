@@ -24,8 +24,13 @@ export default async function ContactPage({ params }: PageProps<'/[lang]/contact
   const dict = await getDictionary(lang)
 
   return (
-    <main>
-      <ContactScene title={dict.nav.contact} />
-    </main>
+    <>
+      <ContactScene />
+      <main className="relative z-10 px-6 sm:px-12">
+        <div className="max-w-2xl mx-auto">
+          <h1 className="text-4xl font-black tracking-tight mb-12">{dict.nav.contact}</h1>
+        </div>
+      </main>
+    </>
   )
 }
