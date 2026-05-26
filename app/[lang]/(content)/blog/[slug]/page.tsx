@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { hasLocale } from '../../../dictionaries'
 import { getBlogPosts, getBlogPostBySlug } from '../../../../../lib/data'
 import { notFound } from 'next/navigation'
+import { BlogScene } from '../../../../components/ui/BlogScene'
 
 export async function generateStaticParams() {
   const posts = getBlogPosts('en')
@@ -43,8 +44,10 @@ export default async function BlogPostPage({ params }: { params: Params }) {
   if (!post) notFound()
 
   return (
-    <main className="px-6 sm:px-12">
-      <div className="max-w-2xl mx-auto">
+    <>
+      <BlogScene />
+      <main className="relative z-10 px-6 sm:px-12">
+        <div className="max-w-2xl mx-auto">
         <Link
           href={`/${lang}/blog`}
           className="text-xs tracking-widest uppercase text-zinc-500 hover:text-zinc-300 transition-colors duration-200 mb-10 inline-block"
@@ -70,6 +73,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
       </div>
-    </main>
+      </main>
+    </>
   )
 }
