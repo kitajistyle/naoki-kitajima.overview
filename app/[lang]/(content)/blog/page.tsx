@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { getDictionary, hasLocale } from '../../dictionaries'
 import { getBlogPosts } from '../../../../lib/data'
 import { notFound } from 'next/navigation'
+import { BlogScene } from '../../../components/ui/BlogScene'
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params
@@ -29,8 +30,10 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: str
   const posts = getBlogPosts(lang)
 
   return (
-    <main className="px-6 sm:px-12">
-      <div className="max-w-2xl mx-auto">
+    <>
+      <BlogScene />
+      <main className="relative z-10 px-6 sm:px-12">
+        <div className="max-w-2xl mx-auto">
         <h1 className="text-4xl font-black tracking-tight mb-12">{dict.nav.blog}</h1>
         <ul className="flex flex-col gap-10">
           {posts.map((post) => (
@@ -61,6 +64,7 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: str
           ))}
         </ul>
       </div>
-    </main>
+      </main>
+    </>
   )
 }
