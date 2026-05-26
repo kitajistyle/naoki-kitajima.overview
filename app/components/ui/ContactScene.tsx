@@ -32,9 +32,9 @@ function Flame() {
   useFrame(({ clock }) => {
     if (!mesh.current) return
     const t = clock.elapsedTime
-    mesh.current.scale.y = 0.85 + Math.sin(t * 14) * 0.15
+    mesh.current.scale.y = 0.85 + Math.sin(t * 35) * 0.15
     ;(mesh.current.material as THREE.MeshStandardMaterial).emissiveIntensity =
-      1.6 + Math.sin(t * 11) * 0.4
+      1.6 + Math.sin(t * 28) * 0.4
   })
   return (
     <mesh ref={mesh} position={[0, -1.3, 0]} rotation={[Math.PI, 0, 0]}>
@@ -102,8 +102,8 @@ function Rocket({ phase, targetPos }: { phase: Phase; targetPos: Pos3 | null }) 
 
     if (phase === 'idle') {
       const t = state.clock.elapsedTime
-      g.position.set(0, Math.sin(t * 0.75) * 0.13 - 2.5, 0)
-      g.rotation.y += delta * 0.28
+      g.position.set(0, Math.sin(t * 2.2) * 0.13 - 2.5, 0)
+      g.rotation.y += delta * 0.85
       g.scale.setScalar(1)
     } else if (phase === 'flying' && targetPos) {
       progress.current = Math.min(progress.current + delta / FLY_DURATION, 1)
@@ -147,7 +147,7 @@ function Icon3D({
     if (!groupRef.current) return
     // 各カードで位相をずらした bob アニメーション
     groupRef.current.position.y =
-      pos[1] + Math.sin(clock.elapsedTime * 1.4 + pos[0]) * 0.055
+      pos[1] + Math.sin(clock.elapsedTime * 3.5 + pos[0]) * 0.055
   })
 
   return (
@@ -241,7 +241,7 @@ function SceneContents({
   return (
     <>
       <color attach="background" args={['#09090b']} />
-      <Stars radius={100} depth={60} count={2500} factor={4} fade speed={0.8} />
+      <Stars radius={100} depth={60} count={2500} factor={4} fade speed={2.0} />
       <ambientLight intensity={0.45} />
       <directionalLight position={[5, 8, 5]} intensity={1.2} />
       <pointLight position={[0, -3, 0.8]} color="#f97316" intensity={3} distance={4} decay={2} />

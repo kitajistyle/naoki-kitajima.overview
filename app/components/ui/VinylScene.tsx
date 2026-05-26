@@ -9,7 +9,7 @@ function VinylDisc() {
 
   useFrame((_, delta) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y -= delta * 1.1
+      groupRef.current.rotation.y -= delta * 3.0
     }
   })
 
