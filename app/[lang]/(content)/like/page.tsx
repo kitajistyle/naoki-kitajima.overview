@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import { getDictionary, hasLocale } from '../../dictionaries'
 import { notFound } from 'next/navigation'
 import { BboyScene } from '../../../components/ui/BboyScene'
@@ -35,18 +34,6 @@ export default async function LikePage({ params }: PageProps<'/[lang]/like'>) {
 
         {/* Bboy section */}
         <section className="space-y-8">
-          <div className="relative w-full aspect-[4/5] overflow-hidden rounded-sm">
-            <Image
-              src="/bboy.jpg"
-              alt="Bboying at a cypher"
-              fill
-              className="object-cover object-top grayscale"
-            />
-            <span className="absolute bottom-4 left-4 text-xs font-medium tracking-[0.2em] text-zinc-400 uppercase">
-              {like.cypher_label}
-            </span>
-          </div>
-
           <BboyScene />
 
           <h2 className="text-2xl font-bold">{like.bboy_title}</h2>

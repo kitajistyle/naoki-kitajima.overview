@@ -26,9 +26,8 @@ function BboyCharacter() {
   }, [scene])
 
   useEffect(() => {
-    // List of breakdance action names in DanceOff.glb
-    // Fallback order in case names differ slightly
-    const possibleActions = ['Flair', 'Break Dance1', 'Soul Spin Combo', 'House Dance', 'idle']
+    // List of only breakdance action names in DanceOff.glb
+    const possibleActions = ['Flair', 'Break Dance1']
     const availableActions = Object.keys(actions)
     
     // Filter animations that are actually loaded
@@ -88,15 +87,13 @@ function BboyCharacter() {
 
 export function BboyScene() {
   return (
-    <div className="w-full h-64 sm:h-80 relative overflow-hidden rounded-2xl border border-zinc-800 bg-[#090c1b]/30 backdrop-blur-sm">
+    <div className="w-full h-64 sm:h-80 relative">
       <Canvas
-        camera={{ position: [0, 0.5, 2.2], fov: 45 }}
+        camera={{ position: [0, 0.85, 3.2], fov: 45 }}
         shadows
-        gl={{ antialias: true }}
+        gl={{ antialias: true, alpha: true }}
       >
         <Suspense fallback={null}>
-          <color attach="background" args={['#050814']} />
-          
           <ambientLight intensity={0.6} />
           
           {/* Main directional light with shadow setup */}
@@ -116,9 +113,6 @@ export function BboyScene() {
 
           {/* Breakdancing Character */}
           <BboyCharacter />
-
-          {/* Hologram neon floor grid */}
-          <gridHelper args={[8, 16, '#0ea5e9', '#1e293b']} position={[0, -1.05, 0]} />
           
           {/* Floor mesh to receive dancing shadow casting */}
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.055, 0]} receiveShadow>
