@@ -89,7 +89,7 @@ export function BboyScene() {
   return (
     <div className="w-full h-64 sm:h-80 relative">
       <Canvas
-        camera={{ position: [0, 0.85, 3.2], fov: 45 }}
+        camera={{ position: [0, 1.5, 3.0], fov: 45 }}
         shadows
         gl={{ antialias: true, alpha: true }}
       >
