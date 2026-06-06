@@ -5,7 +5,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Stars, RoundedBox, Html } from '@react-three/drei'
 import * as THREE from 'three'
 import { FaGithub, FaXTwitter, FaLinkedin } from 'react-icons/fa6'
-import { SiZenn } from 'react-icons/si'
+import { SiZenn, SiQiita } from 'react-icons/si'
 
 type Phase = 'idle' | 'flying' | 'resetting'
 type Pos3  = [number, number, number]
@@ -22,6 +22,7 @@ const LINKS: LinkItem[] = [
   { id: 'twitter',  href: 'https://x.com/kitajistyIe',          label: 'X',        Icon: FaXTwitter },
   { id: 'zenn',     href: 'https://zenn.dev/kitajistyle',        label: 'Zenn',     Icon: SiZenn },
   { id: 'linkedin', href: 'https://linkedin.com/in/kitajistyle', label: 'LinkedIn', Icon: FaLinkedin },
+  { id: 'qiita',    href: 'https://qiita.com/kitajistyle',        label: 'Qiita',    Icon: SiQiita },
 ]
 
 const FLY_DURATION = 0.85
@@ -220,19 +221,23 @@ function SceneContents({
 
   const getIconPos = (index: number): Pos3 => {
     if (isMobile) {
-      // 2x2 Grid for mobile
-      const cols = 2
+      // Row1: 3 items, Row2: 2 items centered
+      const row1Count = 3
       const xSpacing = 1.3
       const ySpacing = 1.4
-      const row = Math.floor(index / cols)
-      const col = index % cols
-      const x = (col - (cols - 1) / 2) * xSpacing
-      const y = 2.0 - row * ySpacing
-      return [x, y, 0]
+      if (index < row1Count) {
+        const x = (index - (row1Count - 1) / 2) * xSpacing
+        return [x, 2.0, 0]
+      } else {
+        const col = index - row1Count
+        const row2Count = LINKS.length - row1Count
+        const x = (col - (row2Count - 1) / 2) * xSpacing
+        return [x, 2.0 - ySpacing, 0]
+      }
     } else {
-      // Row of 4 for desktop
-      const cols = 4
-      const xSpacing = Math.min(1.4, viewport.width / 4)
+      // Row of 5 for desktop
+      const cols = 5
+      const xSpacing = Math.min(1.3, viewport.width / 5)
       const x = (index - (cols - 1) / 2) * xSpacing
       return [x, 1.4, 0]
     }

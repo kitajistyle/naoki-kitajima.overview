@@ -3,7 +3,8 @@
     { "label": "GitHub", "url": "https://github.com/kitajistyle" },
     { "label": "X", "url": "https://x.com/kitajistyIe" },
     { "label": "Zenn", "url": "https://zenn.dev/kitajistyle" },
-    { "label": "LinkedIn", "url": "https://linkedin.com/in/kitajistyle" }
+    { "label": "LinkedIn", "url": "https://linkedin.com/in/kitajistyle" },
+    { "label": "Qiita", "url": "https://qiita.com/kitajistyle" }
   ],
   "skills": ["Go", "TypeScript", "React", "Next.js", "AWS", "Kubernetes", "Docker", "Terraform"],
   "en": {
