@@ -1,28 +1,27 @@
 'use client'
 
-import { Suspense, useRef, useMemo } from 'react'
+import { Suspense, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Stars } from '@react-three/drei'
 import * as THREE from 'three'
 
+// Particles (speed, angleOffset, radius, scale) — generated once at module
+// load so render stays pure (Math.random() is not allowed during render)
+const PARTICLE_COUNT = 18
+const PARTICLES = Array.from({ length: PARTICLE_COUNT }, (_, i) => ({
+  speed: 0.8 + Math.random() * 0.7,
+  radius: 0.1 + Math.random() * 0.45,
+  angleOffset: (i / PARTICLE_COUNT) * Math.PI * 2,
+  yOffset: Math.random() * 3, // Initial heights
+  scale: 0.02 + Math.random() * 0.035,
+}))
+
 function DigitalBook() {
   const groupRef = useRef<THREE.Group>(null)
-  
-  // Particles state (x, y, z, speed, angleOffset, radius, scale)
-  const particleCount = 18
-  const particles = useMemo(() => {
-    return Array.from({ length: particleCount }, (_, i) => ({
-      speed: 0.8 + Math.random() * 0.7,
-      radius: 0.1 + Math.random() * 0.45,
-      angleOffset: (i / particleCount) * Math.PI * 2,
-      yOffset: Math.random() * 3, // Initial heights
-      scale: 0.02 + Math.random() * 0.035,
-    }))
-  }, [])
 
   const satRefs = useRef<(THREE.Mesh | null)[]>([])
 
-  useFrame((state, delta) => {
+  useFrame((state) => {
     const t = state.clock.getElapsedTime()
 
     // Slow bobbing and rotation for the book
@@ -33,7 +32,7 @@ function DigitalBook() {
     }
 
     // Particle motion (spiraling upwards)
-    particles.forEach((p, i) => {
+    PARTICLES.forEach((p, i) => {
       const mesh = satRefs.current[i]
       if (!mesh) return
 
@@ -118,7 +117,7 @@ function DigitalBook() {
       </group>
 
       {/* Rise Particles (representing data/knowledge streams) */}
-      {particles.map((p, i) => (
+      {PARTICLES.map((p, i) => (
         <mesh
           key={i}
           ref={(el) => { satRefs.current[i] = el }}

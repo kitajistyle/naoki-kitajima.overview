@@ -3,9 +3,9 @@ import Link from 'next/link'
 import { getDictionary, hasLocale } from '../../dictionaries'
 import { getBlogPosts } from '../../../../lib/data'
 import { notFound } from 'next/navigation'
-import { BlogScene } from '../../../components/ui/BlogScene'
+import { Scene } from '../../../components/ui/Scene'
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<'/[lang]/blog'>): Promise<Metadata> {
   const { lang } = await params
   const isJa = lang === 'ja'
   return {
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   }
 }
 
-export default async function BlogPage({ params }: { params: Promise<{ lang: string }> }) {
+export default async function BlogPage({ params }: PageProps<'/[lang]/blog'>) {
   const { lang } = await params
   if (!hasLocale(lang)) notFound()
   const dict = await getDictionary(lang)
@@ -31,7 +31,7 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: str
 
   return (
     <>
-      <BlogScene />
+      <Scene name="blog" />
       <main className="relative z-10 px-6 sm:px-12">
         <div className="max-w-2xl mx-auto">
         <h1 className="text-4xl font-black tracking-tight mb-12">{dict.nav.blog}</h1>

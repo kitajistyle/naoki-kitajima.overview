@@ -1,9 +1,8 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { getDictionary, hasLocale } from '../../dictionaries'
 import { getProfile } from '../../../../lib/data'
 import { notFound } from 'next/navigation'
-import { AboutScene } from '../../../components/ui/AboutScene'
+import { Scene } from '../../../components/ui/Scene'
 
 export async function generateMetadata({ params }: PageProps<'/[lang]/about'>): Promise<Metadata> {
   const { lang } = await params
@@ -31,7 +30,7 @@ export default async function AboutPage({ params }: PageProps<'/[lang]/about'>) 
 
   return (
     <>
-    <AboutScene />
+    <Scene name="about" />
     <main className="relative z-10 px-6 sm:px-12">
       <div className="max-w-2xl mx-auto space-y-12">
         <h1 className="text-4xl font-black tracking-tight mb-12">{dict.nav.about}</h1>

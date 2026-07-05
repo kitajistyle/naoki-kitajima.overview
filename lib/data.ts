@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import type { Locale } from '../app/[lang]/dictionaries'
 import worksData from '../data/works.json'
 import profileData from '../data/profile.json'
@@ -66,7 +67,9 @@ export type BlogPost = {
   contentHtml: string
 }
 
-export const getBlogPosts = (locale: Locale): BlogPost[] => {
+// cache() dedupes per render pass — generateMetadata and the page component
+// both call these, so markdown parsing runs once instead of twice per request
+export const getBlogPosts = cache((locale: Locale): BlogPost[] => {
   const postsDirectory = path.join(process.cwd(), 'data/posts', locale)
   if (!fs.existsSync(postsDirectory)) {
     return []
@@ -93,9 +96,9 @@ export const getBlogPosts = (locale: Locale): BlogPost[] => {
     })
 
   return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1))
-}
+})
 
-export const getBlogPostBySlug = (locale: Locale, slug: string): BlogPost | undefined => {
+export const getBlogPostBySlug = cache((locale: Locale, slug: string): BlogPost | undefined => {
   try {
     const fullPath = path.join(process.cwd(), 'data/posts', locale, `${slug}.md`)
     if (!fs.existsSync(fullPath)) {
@@ -113,7 +116,7 @@ export const getBlogPostBySlug = (locale: Locale, slug: string): BlogPost | unde
       excerpt: matterResult.data.excerpt || '',
       contentHtml,
     }
-  } catch (e) {
+  } catch {
     return undefined
   }
-}
+})

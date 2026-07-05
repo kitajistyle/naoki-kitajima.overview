@@ -1,7 +1,7 @@
 'use client'
 
-import { Suspense, useRef, useEffect, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Suspense, useRef, useEffect } from 'react'
+import { Canvas } from '@react-three/fiber'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import * as THREE from 'three'
 
@@ -11,9 +11,6 @@ function BboyCharacter() {
   // Load the breakdance model with embedded animations
   const { scene, animations } = useGLTF('/DanceOff.glb')
   const { actions } = useAnimations(animations, group)
-  
-  // Track current animation index
-  const [currentActionName, setCurrentActionName] = useState<string>('')
 
   // Traverse the scene once to enable shadows
   useEffect(() => {
@@ -47,7 +44,6 @@ function BboyCharacter() {
 
     if (activeAction) {
       activeAction.play()
-      setCurrentActionName(danceList[currentIndex])
     }
 
     // Cycle through breakdance moves every 8 seconds with a smooth crossfade
@@ -67,7 +63,6 @@ function BboyCharacter() {
         
         activeAction = nextAction
         currentIndex = nextIndex
-        setCurrentActionName(nextActionName)
       }
     }, 8000)
 

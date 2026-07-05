@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getDictionary, hasLocale } from '../../dictionaries'
 import { notFound } from 'next/navigation'
-import { BboyScene } from '../../../components/ui/BboyScene'
+import { Scene } from '../../../components/ui/Scene'
 
 export async function generateMetadata({ params }: PageProps<'/[lang]/like'>): Promise<Metadata> {
   const { lang } = await params
@@ -34,7 +34,7 @@ export default async function LikePage({ params }: PageProps<'/[lang]/like'>) {
 
         {/* Bboy section */}
         <section className="space-y-8">
-          <BboyScene />
+          <Scene name="bboy" />
 
           <h2 className="text-2xl font-bold">{like.bboy_title}</h2>
 

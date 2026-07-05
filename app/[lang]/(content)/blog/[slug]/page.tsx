@@ -3,16 +3,14 @@ import Link from 'next/link'
 import { hasLocale } from '../../../dictionaries'
 import { getBlogPosts, getBlogPostBySlug } from '../../../../../lib/data'
 import { notFound } from 'next/navigation'
-import { BlogScene } from '../../../../components/ui/BlogScene'
+import { Scene } from '../../../../components/ui/Scene'
 
 export async function generateStaticParams() {
   const posts = getBlogPosts('en')
   return posts.map((post) => ({ slug: post.slug }))
 }
 
-type Params = Promise<{ lang: string; slug: string }>
-
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<'/[lang]/blog/[slug]'>): Promise<Metadata> {
   const { lang, slug } = await params
   if (!hasLocale(lang)) notFound()
   const post = getBlogPostBySlug(lang, slug)
@@ -37,7 +35,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   }
 }
 
-export default async function BlogPostPage({ params }: { params: Params }) {
+export default async function BlogPostPage({ params }: PageProps<'/[lang]/blog/[slug]'>) {
   const { lang, slug } = await params
   if (!hasLocale(lang)) notFound()
   const post = getBlogPostBySlug(lang, slug)
@@ -45,7 +43,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
 
   return (
     <>
-      <BlogScene />
+      <Scene name="blog" />
       <main className="relative z-10 px-6 sm:px-12">
         <div className="max-w-2xl mx-auto">
         <Link

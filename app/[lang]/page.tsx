@@ -63,8 +63,9 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
           src="/hero.png"
           alt=""
           fill
+          sizes="(max-width: 768px) 140vw, 80vw"
           className="object-contain object-left scale-[1.15] origin-left [image-rendering:pixelated] opacity-90 transition-transform duration-700"
-          priority
+          preload
         />
       </div>
 

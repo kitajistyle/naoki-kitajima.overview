@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { getDictionary, hasLocale } from '../../dictionaries'
 import { getWorks } from '../../../../lib/data'
 import { notFound } from 'next/navigation'
-import { WorksScene } from '../../../components/ui/WorksScene'
+import { Scene } from '../../../components/ui/Scene'
 
 export async function generateMetadata({ params }: PageProps<'/[lang]/works'>): Promise<Metadata> {
   const { lang } = await params
@@ -27,11 +27,10 @@ export default async function WorksPage({ params }: PageProps<'/[lang]/works'>) 
   if (!hasLocale(lang)) notFound()
   const dict = await getDictionary(lang)
   const works = getWorks(lang)
-  const isJa = lang === 'ja'
 
   return (
     <>
-    <WorksScene />
+    <Scene name="works" />
     <main className="relative z-10 px-6 sm:px-12">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-4xl font-black tracking-tight mb-12">{dict.nav.works}</h1>
@@ -43,7 +42,7 @@ export default async function WorksPage({ params }: PageProps<'/[lang]/works'>) 
                   <div className="flex items-start justify-between gap-4 mb-3">
                     <h2 className="text-xl font-semibold text-white">{work.title}</h2>
                     <span className="shrink-0 text-xs font-medium tracking-widest uppercase px-3 py-1 rounded-full border border-zinc-600 text-zinc-400">
-                      {isJa ? 'Coming Soon' : 'Coming Soon'}
+                      Coming Soon
                     </span>
                   </div>
                   <p className="text-zinc-400 text-sm leading-relaxed mb-4">{work.description}</p>

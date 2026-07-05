@@ -19,9 +19,13 @@ export function Navigation({ lang, items }: Props) {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
 
-  useEffect(() => {
+  // Close the mobile menu when navigating — adjust state during render
+  // instead of in an effect to avoid a cascading re-render
+  const [prevPathname, setPrevPathname] = useState(pathname)
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname)
     setOpen(false)
-  }, [pathname])
+  }
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
