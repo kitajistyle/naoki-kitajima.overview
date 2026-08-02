@@ -76,7 +76,7 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
         </p>
 
         <h1 className="text-[6rem] sm:text-[9rem] md:text-[14rem] lg:text-[18rem] xl:text-[22rem] font-black font-mono tracking-tighter leading-none select-none text-white drop-shadow-2xl">
-          NOAKI
+          KITAJI
         </h1>
 
         <p className="text-white text-sm sm:text-base max-w-xs text-right leading-relaxed">
