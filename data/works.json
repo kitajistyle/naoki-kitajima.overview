@@ -2,9 +2,10 @@
   {
     "slug": "cypher-map",
     "tags": ["React", "TypeScript", "Next.js", "Go"],
-    "url": "",
+    "url": "https://cyphermap.app/",
     "image": "",
-    "comingSoon": true,
+    "embed": true,
+    "comingSoon": false,
     "en": {
       "title": "Cypher Map",
       "description": "A platform for Bboys and Bgirls to discover and share cyphers and jams happening across Japan and the world. Born from a love of street dance culture and a desire to connect dancers everywhere."
@@ -12,6 +13,22 @@
     "ja": {
       "title": "Cypher Map",
       "description": "日本や世界各地で開催されているBboy/Bgirlのサイファーやジャムを探して共有できるプラットフォーム。ストリートダンスカルチャーへの愛と、世界中のダンサーをつなげたいという想いから生まれたプロダクト。"
+    }
+  },
+  {
+    "slug": "knok",
+    "tags": ["Flutter", "Go", "PostgreSQL", "iOS", "Android"],
+    "url": "",
+    "image": "",
+    "embed": false,
+    "comingSoon": true,
+    "en": {
+      "title": "knok",
+      "description": "A voice-first community app for iOS and Android. Posts freely combine words, images, and voice — and every post brings a voice room along with it. When a room is full, you knock; someone inside can let you in. Currently in development."
+    },
+    "ja": {
+      "title": "knok",
+      "description": "声でつながるコミュニティアプリ。投稿は「ことば」「画像」「声」を自由に組み合わせて作り、その投稿が声の部屋を連れてくる。満室の部屋にはノックして、中の人が開ければ入れる。iOS / Android 向けに開発中。"
     }
   }
 ]

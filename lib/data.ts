@@ -12,6 +12,7 @@ export type Work = {
   tags: string[]
   url?: string
   image?: string
+  embed?: boolean
   comingSoon?: boolean
   title: string
   description: string
@@ -39,6 +40,7 @@ export const getWorks = (locale: Locale): Work[] =>
     tags: work.tags,
     url: work.url,
     image: work.image,
+    embed: work.embed ?? false,
     comingSoon: work.comingSoon ?? false,
     ...work[locale],
   }))
