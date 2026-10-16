@@ -6,6 +6,9 @@
     "image": "",
     "embed": true,
     "comingSoon": false,
+    "links": [
+      { "label": "App Store", "url": "https://apps.apple.com/jp/app/cyphermap/id6792790877" }
+    ],
     "en": {
       "title": "Cypher Map",
       "description": "A platform for Bboys and Bgirls to discover and share cyphers and jams happening across Japan and the world. Born from a love of street dance culture and a desire to connect dancers everywhere."
@@ -22,6 +25,7 @@
     "image": "",
     "embed": false,
     "comingSoon": true,
+    "links": [],
     "en": {
       "title": "knok",
       "description": "A voice-first community app for iOS and Android. Posts freely combine words, images, and voice — and every post brings a voice room along with it. When a room is full, you knock; someone inside can let you in. Currently in development."
