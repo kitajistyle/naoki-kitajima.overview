@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/contact'>)
   return {
     title: isJa ? 'SNS' : 'Contact',
     description: isJa
-      ? '北島直樹（きたじー / KITAJI）へのSNS。'
+      ? 'きたじー（KITAJI）へのSNS。'
       : 'Get in touch with Naoki Kitajima (KITAJI).',
     alternates: {
       canonical: `/${lang}/contact`,

@@ -10,10 +10,10 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/about'>): 
   return {
     title: isJa ? 'プロフィール' : 'About',
     description: isJa
-      ? '北島直樹（きたじー / KITAJI）のプロフィール。東京理科大学理学部物理学科卒、ソフトウェアエンジニア / SRE。Bboy。'
+      ? 'きたじー（KITAJI）のプロフィール。東京理科大学理学部物理学科卒、ソフトウェアエンジニア / SRE。Bboy。'
       : 'Profile of Naoki Kitajima (KITAJI) — Software Engineer / SRE. Physics graduate from Tokyo University of Science. Bboy.',
     keywords: isJa
-      ? ['北島直樹', 'きたじー', 'KITAJI', 'プロフィール', 'ソフトウェアエンジニア', 'SRE', '経歴']
+      ? ['きたじー', 'KITAJI', 'プロフィール', 'ソフトウェアエンジニア', 'SRE', '経歴']
       : ['Naoki Kitajima', 'KITAJI', 'About', 'Software Engineer', 'SRE', 'Profile'],
     alternates: {
       canonical: `/${lang}/about`,

@@ -22,7 +22,7 @@
     "interests": ["Bboy / Breakdancing", "Coffee & Barista", "Street dance culture"]
   },
   "ja": {
-    "name": "北島直樹",
+    "name": "きたじー",
     "role": "フルスタックエンジニア / SRE",
     "location": "日本",
     "bio": "Bboyです！フロントエンド（React/Next.js/TypeScript）からAWS/Kubernetesを中心としたクラウドインフラ・SREまで、幅広い領域をカバーするフルスタックエンジニアです。東京理科大学理学部物理学科卒業後、複数のスタートアップでの業務委託を経て、現在はメガベンチャーのSREとして働いています。",

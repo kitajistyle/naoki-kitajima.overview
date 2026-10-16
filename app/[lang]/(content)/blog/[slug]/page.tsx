@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/blog/[slug
     title: post.title,
     description: post.excerpt,
     keywords: isJa
-      ? ['北島直樹', 'きたじー', 'KITAJI', 'ブログ', ...post.tags]
+      ? ['きたじー', 'KITAJI', 'ブログ', ...post.tags]
       : ['Naoki Kitajima', 'KITAJI', 'Blog', ...post.tags],
     alternates: {
       canonical: `/${lang}/blog/${slug}`,

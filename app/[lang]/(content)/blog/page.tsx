@@ -11,10 +11,10 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/blog'>): P
   return {
     title: isJa ? 'ブログ' : 'Blog',
     description: isJa
-      ? '北島直樹（きたじー / KITAJI）のブログ。ソフトウェアエンジニアリング、テクノロジー、日々の思いを発信。'
+      ? 'きたじー（KITAJI）のブログ。ソフトウェアエンジニアリング、テクノロジー、日々の思いを発信。'
       : 'Blog by Naoki Kitajima (KITAJI) — writing about software engineering, technology, and life.',
     keywords: isJa
-      ? ['北島直樹', 'きたじー', 'KITAJI', 'ブログ', 'ソフトウェアエンジニアリング', '技術']
+      ? ['きたじー', 'KITAJI', 'ブログ', 'ソフトウェアエンジニアリング', '技術']
       : ['Naoki Kitajima', 'KITAJI', 'Blog', 'Software Engineering', 'Technology'],
     alternates: {
       canonical: `/${lang}/blog`,

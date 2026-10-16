@@ -9,7 +9,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Naoki Kitajima',
-  alternateName: ['北島直樹', 'きたじー', 'KITAJI', 'kitajistyle'],
+  alternateName: ['きたじー', 'KITAJI', 'kitajistyle'],
   jobTitle: 'Software Engineer / SRE',
   url: 'https://kitajistyle.com',
   sameAs: [
@@ -24,12 +24,12 @@ export async function generateMetadata({ params }: PageProps<'/[lang]'>): Promis
   const { lang } = await params
   const isJa = lang === 'ja'
   return {
-    title: isJa ? '北島直樹 | KITAJI' : 'Naoki Kitajima | KITAJI',
+    title: isJa ? 'きたじー | KITAJI' : 'Naoki Kitajima | KITAJI',
     description: isJa
-      ? '北島直樹（きたじー / KITAJI）のポートフォリオ。ソフトウェアエンジニア / SRE。東京理科大学卒。Bboy。'
+      ? 'きたじー（KITAJI）のポートフォリオ。ソフトウェアエンジニア / SRE。東京理科大学卒。Bboy。'
       : 'Portfolio of Naoki Kitajima (KITAJI) — Software Engineer / SRE based in Japan. Physics graduate from Tokyo University of Science. Bboy.',
     keywords: isJa
-      ? ['北島直樹', 'きたじー', 'KITAJI', 'kitajistyle', 'ポートフォリオ', 'ソフトウェアエンジニア', 'SRE', 'Bboy']
+      ? ['きたじー', 'KITAJI', 'kitajistyle', 'ポートフォリオ', 'ソフトウェアエンジニア', 'SRE', 'Bboy']
       : ['Naoki Kitajima', 'KITAJI', 'kitajistyle', 'Portfolio', 'Software Engineer', 'SRE', 'Bboy', 'Breakdancing'],
     alternates: {
       canonical: `/${lang}`,
@@ -37,9 +37,9 @@ export async function generateMetadata({ params }: PageProps<'/[lang]'>): Promis
     },
     openGraph: {
       url: `/${lang}`,
-      title: isJa ? '北島直樹 | KITAJI' : 'Naoki Kitajima | KITAJI',
+      title: isJa ? 'きたじー | KITAJI' : 'Naoki Kitajima | KITAJI',
       description: isJa
-        ? '北島直樹（きたじー / KITAJI）のポートフォリオ。ソフトウェアエンジニア / SRE。'
+        ? 'きたじー（KITAJI）のポートフォリオ。ソフトウェアエンジニア / SRE。'
         : 'Portfolio of Naoki Kitajima (KITAJI) — Software Engineer / SRE based in Japan.',
     },
   }
