@@ -8,8 +8,8 @@ import { Footer } from '../components/ui/Footer'
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'Naoki Kitajima',
-  alternateName: ['きたじー', 'KITAJI', 'kitajistyle'],
+  name: 'きたじー',
+  alternateName: ['Kitaji', 'KITAJI', 'kitajistyle'],
   jobTitle: 'Software Engineer / SRE',
   url: 'https://kitajistyle.com',
   sameAs: [
@@ -24,23 +24,23 @@ export async function generateMetadata({ params }: PageProps<'/[lang]'>): Promis
   const { lang } = await params
   const isJa = lang === 'ja'
   return {
-    title: isJa ? 'きたじー | KITAJI' : 'Naoki Kitajima | KITAJI',
+    title: isJa ? 'きたじー' : 'Kitaji',
     description: isJa
       ? 'きたじー（KITAJI）のポートフォリオ。ソフトウェアエンジニア / SRE。東京理科大学卒。Bboy。'
-      : 'Portfolio of Naoki Kitajima (KITAJI) — Software Engineer / SRE based in Japan. Physics graduate from Tokyo University of Science. Bboy.',
+      : 'Portfolio of Kitaji (きたじー) — Software Engineer / SRE based in Japan. Physics graduate from Tokyo University of Science. Bboy.',
     keywords: isJa
       ? ['きたじー', 'KITAJI', 'kitajistyle', 'ポートフォリオ', 'ソフトウェアエンジニア', 'SRE', 'Bboy']
-      : ['Naoki Kitajima', 'KITAJI', 'kitajistyle', 'Portfolio', 'Software Engineer', 'SRE', 'Bboy', 'Breakdancing'],
+      : ['Kitaji', 'KITAJI', 'kitajistyle', 'Portfolio', 'Software Engineer', 'SRE', 'Bboy', 'Breakdancing'],
     alternates: {
       canonical: `/${lang}`,
       languages: { en: '/en', ja: '/ja', 'x-default': '/en' },
     },
     openGraph: {
       url: `/${lang}`,
-      title: isJa ? 'きたじー | KITAJI' : 'Naoki Kitajima | KITAJI',
+      title: isJa ? 'きたじー | KITAJI' : 'Kitaji | KITAJI',
       description: isJa
         ? 'きたじー（KITAJI）のポートフォリオ。ソフトウェアエンジニア / SRE。'
-        : 'Portfolio of Naoki Kitajima (KITAJI) — Software Engineer / SRE based in Japan.',
+        : 'Portfolio of Kitaji (きたじー) — Software Engineer / SRE based in Japan.',
     },
   }
 }

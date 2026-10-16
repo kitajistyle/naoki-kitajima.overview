@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/blog/[slug
     description: post.excerpt,
     keywords: isJa
       ? ['きたじー', 'KITAJI', 'ブログ', ...post.tags]
-      : ['Naoki Kitajima', 'KITAJI', 'Blog', ...post.tags],
+      : ['Kitaji', 'KITAJI', 'Blog', ...post.tags],
     alternates: {
       canonical: `/${lang}/blog/${slug}`,
       languages: { en: `/en/blog/${slug}`, ja: `/ja/blog/${slug}`, 'x-default': `/en/blog/${slug}` },
@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params }: PageProps<'/[lang]/blog/[
       inLanguage: lang,
       author: {
         '@type': 'Person',
-        name: 'Naoki Kitajima',
+        name: 'きたじー',
         alternateName: 'きたじー',
         url: siteUrl,
       },

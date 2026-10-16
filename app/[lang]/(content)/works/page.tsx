@@ -13,10 +13,10 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/works'>): 
     title: isJa ? '作品' : 'Works',
     description: isJa
       ? 'きたじー（KITAJI）の作品一覧。React・TypeScript・Next.js・Go を使ったプロジェクト。'
-      : 'Works and projects by Naoki Kitajima (KITAJI) — React, TypeScript, Next.js, Go.',
+      : 'Works and projects by Kitaji (きたじー) — React, TypeScript, Next.js, Go.',
     keywords: isJa
       ? ['きたじー', 'KITAJI', '作品', 'ポートフォリオ', 'React', 'TypeScript', 'Next.js', 'Go']
-      : ['Naoki Kitajima', 'KITAJI', 'Works', 'Portfolio', 'React', 'TypeScript', 'Next.js', 'Go'],
+      : ['Kitaji', 'KITAJI', 'Works', 'Portfolio', 'React', 'TypeScript', 'Next.js', 'Go'],
     alternates: {
       canonical: `/${lang}/works`,
       languages: { en: '/en/works', ja: '/ja/works', 'x-default': '/en/works' },

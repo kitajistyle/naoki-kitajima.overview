@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/contact'>)
     title: isJa ? 'SNS' : 'Contact',
     description: isJa
       ? 'きたじー（KITAJI）へのSNS。'
-      : 'Get in touch with Naoki Kitajima (KITAJI).',
+      : 'Get in touch with Kitaji (きたじー).',
     alternates: {
       canonical: `/${lang}/contact`,
       languages: { en: '/en/contact', ja: '/ja/contact', 'x-default': '/en/contact' },

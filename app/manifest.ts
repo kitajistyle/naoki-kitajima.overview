@@ -2,10 +2,10 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Naoki Kitajima | きたじー',
+    name: 'きたじー | KITAJI',
     short_name: 'KITAJI',
     description:
-      'Portfolio of Naoki Kitajima (きたじー / KITAJI) — Software Engineer / SRE based in Japan.',
+      'Portfolio of Kitaji (きたじー / KITAJI) — Software Engineer / SRE based in Japan.',
     start_url: '/',
     display: 'standalone',
     background_color: '#090c1b',

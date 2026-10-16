@@ -11,10 +11,10 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/about'>): 
     title: isJa ? 'プロフィール' : 'About',
     description: isJa
       ? 'きたじー（KITAJI）のプロフィール。東京理科大学理学部物理学科卒、ソフトウェアエンジニア / SRE。Bboy。'
-      : 'Profile of Naoki Kitajima (KITAJI) — Software Engineer / SRE. Physics graduate from Tokyo University of Science. Bboy.',
+      : 'Profile of Kitaji (きたじー) — Software Engineer / SRE. Physics graduate from Tokyo University of Science. Bboy.',
     keywords: isJa
       ? ['きたじー', 'KITAJI', 'プロフィール', 'ソフトウェアエンジニア', 'SRE', '経歴']
-      : ['Naoki Kitajima', 'KITAJI', 'About', 'Software Engineer', 'SRE', 'Profile'],
+      : ['Kitaji', 'KITAJI', 'About', 'Software Engineer', 'SRE', 'Profile'],
     alternates: {
       canonical: `/${lang}/about`,
       languages: { en: '/en/about', ja: '/ja/about', 'x-default': '/en/about' },

@@ -8,7 +8,7 @@
   ],
   "skills": ["Go", "TypeScript", "React", "Next.js", "AWS", "Kubernetes", "Docker", "Terraform"],
   "en": {
-    "name": "Naoki Kitajima",
+    "name": "Kitaji",
     "role": "Full-Stack Engineer / SRE",
     "location": "Japan",
     "bio": "I'm a Bboy! A full-stack engineer covering everything from frontend (React/Next.js/TypeScript) to cloud infrastructure and SRE for payment platforms at a major tech company. I graduated from Tokyo University of Science with a degree in Physics, then built experience across multiple startups before joining my current role on a payment infrastructure team. Outside of code, coffee and street dance fuel my creativity.",

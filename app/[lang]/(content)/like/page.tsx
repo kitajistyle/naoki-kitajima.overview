@@ -10,10 +10,10 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/like'>): P
     title: isJa ? 'お気に入り' : 'Like',
     description: isJa
       ? 'きたじー（KITAJI）の好きなこと。Bboy / ブレイクダンス、コーヒー・バリスタ。'
-      : 'Things Naoki Kitajima (KITAJI) loves — Bboy / Breakdancing, Coffee & Barista.',
+      : 'Things Kitaji (きたじー) loves — Bboy / Breakdancing, Coffee & Barista.',
     keywords: isJa
       ? ['きたじー', 'KITAJI', 'Bboy', 'ブレイクダンス', 'コーヒー', 'バリスタ']
-      : ['Naoki Kitajima', 'KITAJI', 'Bboy', 'Breakdancing', 'Coffee', 'Barista'],
+      : ['Kitaji', 'KITAJI', 'Bboy', 'Breakdancing', 'Coffee', 'Barista'],
     alternates: {
       canonical: `/${lang}/like`,
       languages: { en: '/en/like', ja: '/ja/like', 'x-default': '/en/like' },

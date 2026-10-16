@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/works/[slu
     description: work.description,
     keywords: isJa
       ? ['きたじー', 'KITAJI', '作品', ...work.tags]
-      : ['Naoki Kitajima', 'KITAJI', 'Works', ...work.tags],
+      : ['Kitaji', 'KITAJI', 'Works', ...work.tags],
     alternates: {
       canonical: `/${lang}/works/${slug}`,
       languages: { en: `/en/works/${slug}`, ja: `/ja/works/${slug}`, 'x-default': `/en/works/${slug}` },
@@ -52,7 +52,7 @@ export default async function WorkDetailPage({ params }: PageProps<'/[lang]/work
       ...(work.url ? { url: work.url } : {}),
       author: {
         '@type': 'Person',
-        name: 'Naoki Kitajima',
+        name: 'きたじー',
         alternateName: 'きたじー',
         url: siteUrl,
       },
