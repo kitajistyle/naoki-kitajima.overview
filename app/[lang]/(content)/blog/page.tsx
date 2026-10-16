@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/blog'>): P
       : ['Naoki Kitajima', 'KITAJI', 'Blog', 'Software Engineering', 'Technology'],
     alternates: {
       canonical: `/${lang}/blog`,
-      languages: { en: '/en/blog', ja: '/ja/blog' },
+      languages: { en: '/en/blog', ja: '/ja/blog', 'x-default': '/en/blog' },
     },
   }
 }

@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]'>): Promis
       : ['Naoki Kitajima', 'KITAJI', 'kitajistyle', 'Portfolio', 'Software Engineer', 'SRE', 'Bboy', 'Breakdancing'],
     alternates: {
       canonical: `/${lang}`,
-      languages: { en: '/en', ja: '/ja' },
+      languages: { en: '/en', ja: '/ja', 'x-default': '/en' },
     },
     openGraph: {
       url: `/${lang}`,

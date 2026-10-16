@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/like'>): P
       : ['Naoki Kitajima', 'KITAJI', 'Bboy', 'Breakdancing', 'Coffee', 'Barista'],
     alternates: {
       canonical: `/${lang}/like`,
-      languages: { en: '/en/like', ja: '/ja/like' },
+      languages: { en: '/en/like', ja: '/ja/like', 'x-default': '/en/like' },
     },
   }
 }

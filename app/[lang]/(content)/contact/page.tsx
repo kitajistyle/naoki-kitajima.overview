@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/contact'>)
       : 'Get in touch with Naoki Kitajima (KITAJI).',
     alternates: {
       canonical: `/${lang}/contact`,
-      languages: { en: '/en/contact', ja: '/ja/contact' },
+      languages: { en: '/en/contact', ja: '/ja/contact', 'x-default': '/en/contact' },
     },
   }
 }

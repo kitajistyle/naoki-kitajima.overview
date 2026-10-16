@@ -6,6 +6,8 @@ import { getWorkBySlug, getWorks } from '../../../../../lib/data'
 import { notFound } from 'next/navigation'
 import { Scene } from '../../../../components/ui/Scene'
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kitajistyle.com'
+
 export async function generateStaticParams() {
   const enWorks = getWorks('en')
   return enWorks.map((work) => ({ slug: work.slug }))
@@ -25,7 +27,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/works/[slu
       : ['Naoki Kitajima', 'KITAJI', 'Works', ...work.tags],
     alternates: {
       canonical: `/${lang}/works/${slug}`,
-      languages: { en: `/en/works/${slug}`, ja: `/ja/works/${slug}` },
+      languages: { en: `/en/works/${slug}`, ja: `/ja/works/${slug}`, 'x-default': `/en/works/${slug}` },
     },
     openGraph: {
       title: work.title,
@@ -41,8 +43,38 @@ export default async function WorkDetailPage({ params }: PageProps<'/[lang]/work
   if (!work) notFound()
   const dict = await getDictionary(lang)
 
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: work.title,
+      description: work.description,
+      ...(work.url ? { url: work.url } : {}),
+      author: {
+        '@type': 'Person',
+        name: 'Naoki Kitajima',
+        alternateName: 'きたじー',
+        url: siteUrl,
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/${lang}` },
+        { '@type': 'ListItem', position: 2, name: 'Works', item: `${siteUrl}/${lang}/works` },
+        { '@type': 'ListItem', position: 3, name: work.title, item: `${siteUrl}/${lang}/works/${slug}` },
+      ],
+    },
+  ]
+
   if (work.embed && work.url) {
     return (
+      <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <main className="relative z-10 -my-8 sm:-my-14 h-[calc(100dvh-4rem)]">
         <h1 className="sr-only">{work.title}</h1>
         <Link
@@ -72,11 +104,16 @@ export default async function WorkDetailPage({ params }: PageProps<'/[lang]/work
         ) : null}
         <iframe src={work.url} title={work.title} className="h-full w-full" />
       </main>
+      </>
     )
   }
 
   return (
     <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
     <Scene name="works" />
     <main className="relative z-10 px-6 sm:px-12">
       <div className="max-w-4xl mx-auto">

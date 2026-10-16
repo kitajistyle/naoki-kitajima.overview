@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/about'>): 
       : ['Naoki Kitajima', 'KITAJI', 'About', 'Software Engineer', 'SRE', 'Profile'],
     alternates: {
       canonical: `/${lang}/about`,
-      languages: { en: '/en/about', ja: '/ja/about' },
+      languages: { en: '/en/about', ja: '/ja/about', 'x-default': '/en/about' },
     },
   }
 }
