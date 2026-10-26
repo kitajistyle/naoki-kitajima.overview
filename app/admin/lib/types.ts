@@ -17,6 +17,8 @@ export interface RawApp {
   cat: string
   plat: string
   color: string
+  // false のアプリは未デプロイとしてグレー表示する
+  deployed: boolean
   dl: number
   dau: number
   ret: number

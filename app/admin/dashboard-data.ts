@@ -138,7 +138,7 @@ export function buildDashboardView(
   const apps = APPS.map((a) => {
     const ad = a.ad * f
     const iap = a.iap * f
-    return { ...a, adV: ad, iapV: iap, totalV: ad + iap, dlV: a.dl * f, dauV: a.dau, d: a.delta * dm }
+    return { ...a, color: a.deployed ? a.color : '#9AA4B2', adV: ad, iapV: iap, totalV: ad + iap, dlV: a.dl * f, dauV: a.dau, d: a.delta * dm }
   })
   const sum = (k: 'adV' | 'iapV' | 'totalV' | 'dlV' | 'dauV') => apps.reduce((s, a) => s + a[k], 0)
   const totalRevV = sum('totalV')
@@ -318,6 +318,6 @@ export function buildDashboardView(
     retention,
     devices: sel.retention ? num(sel.retention.devices) : num(sel.dau * 2.1),
     deletions: sel.retention ? num(sel.retention.deletions) : num(sel.dl * f * 0.18),
-    appOptions: APPS.map((a) => ({ name: a.name, color: a.color })),
+    appOptions: apps.map((a) => ({ name: a.name, color: a.color })),
   }
 }

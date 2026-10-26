@@ -17,7 +17,9 @@ const jwt = (): string | null => {
     b64u(JSON.stringify({ alg: 'ES256', kid, typ: 'JWT' })),
     b64u(JSON.stringify({ iss, iat: now, exp: now + 1200, aud: 'appstoreconnect-v1' })),
   ].join('.')
-  const signature = createSign('SHA256').update(signingInput).sign(key, 'base64url')
+  // JWS の ES256 は IEEE-P1363（r||s 連結）形式必須。Node のデフォルトは DER で
+  // そのまま署名すると Apple が 401 を返す（実レスポンスで検証済み）。
+  const signature = createSign('SHA256').update(signingInput).sign({ key, dsaEncoding: 'ieee-p1363' }, 'base64url')
   return `${signingInput}.${signature}`
 }
 
