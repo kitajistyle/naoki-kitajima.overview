@@ -1,16 +1,15 @@
 import type { AdminRaw, SourcePatch } from './types'
-import { sampleRaw } from './sample'
+import { baseRaw } from './base'
 import { fetchAppStoreMetrics } from './appstore'
 import { fetchAdmobMetrics } from './admob'
 import { fetchPlayMetrics } from './play'
 import { fetchDbStats } from './dbstats'
 import { fetchRevenueCatMetrics } from './revenuecat'
 
-// Fetches all configured sources in parallel and merges their results over
-// the sample data. Any source that is unconfigured or fails simply leaves the
-// sample values for the fields it would have provided.
+// Fetches all configured sources in parallel and merges their results over the
+// app registry. Fields a source doesn't provide stay 0/undefined (shown as —).
 export async function getAdminRaw(): Promise<AdminRaw> {
-  const raw = sampleRaw()
+  const raw = baseRaw()
   const sources = [fetchAppStoreMetrics, fetchAdmobMetrics, fetchPlayMetrics, fetchDbStats, fetchRevenueCatMetrics]
   const results = await Promise.allSettled(sources.map((s) => s()))
 

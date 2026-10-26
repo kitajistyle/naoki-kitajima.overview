@@ -8,7 +8,8 @@ import type { ChurnStats, SourcePatch } from './types'
 //     "lastSeenBuckets": [0.46,0.22,0.14,0.18], // fractions: <=7d/8-30d/31-60d/61d+
 //     "churnRate": 0.32                  // optional; derived from buckets if absent
 //   }
-// Backends should return 200 JSON within a few seconds; failures keep sample data.
+// Backends should return 200 JSON within a few seconds; failures leave the app's
+// metrics at 0/undefined.
 interface StatsResponse {
   dau?: number
   users?: number
@@ -44,7 +45,7 @@ export async function fetchDbStats(): Promise<SourcePatch> {
         }
         if (Object.keys(patch).length > 0) apps[name] = patch
       } catch {
-        // endpoint down -> keep sample fallback for this app
+        // endpoint down -> no patch for this app
       }
     })
   )

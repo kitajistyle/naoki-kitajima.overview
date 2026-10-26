@@ -21,10 +21,11 @@ export interface RawApp {
   deployed: boolean
   dl: number
   dau: number
-  ret: number
+  // ソースが返さない場合は undefined（UIでは — 表示）
+  ret?: number
   ad: number
   iap: number
-  delta: number
+  delta?: number
   churn?: ChurnStats
   retention?: RetentionStats
 }

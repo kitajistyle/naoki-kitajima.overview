@@ -86,11 +86,8 @@ export function DashboardPc({
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center gap-2.5">
               <h1 className="text-[26px] font-bold tracking-[0.01em]">概要</h1>
-              <span className="text-[11px] font-bold text-[#7A4A00] bg-[#FFF1D6] px-2 py-[3px] rounded-full">
-                サンプルデータ
-              </span>
             </div>
-            <p className="text-[13px] text-[#5B6270]">{view.rangeLabel} ・ 最終更新 2026/10/25 22:00</p>
+            <p className="text-[13px] text-[#5B6270]">{view.rangeLabel} ・ 最終更新 {view.updatedPc}</p>
           </div>
           <div role="group" aria-label="期間" className="flex gap-1 p-1 bg-[#E6E9EE] rounded-[10px]">
             {PERIODS.map((p) => {

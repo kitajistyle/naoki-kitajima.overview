@@ -78,6 +78,8 @@ export interface DashboardView {
   rangeShort: string
   startLabel: string
   bucketLabel: string
+  updatedPc: string
+  updatedSp: string
   kpis: Kpi[]
   spKpis: Kpi[]
   totalRev: string
@@ -114,10 +116,14 @@ const yen = (n: number) => '¥' + Math.round(n).toLocaleString('ja-JP')
 const yenS = (n: number) => (n >= 10000 ? '¥' + (n / 10000).toFixed(1) + '万' : yen(n))
 const num = (n: number) => Math.round(n).toLocaleString('ja-JP')
 
-const dStyle = (d: number): DeltaBadge =>
-  d >= 0
-    ? { dColor: '#0B6B4B', dBg: '#E3F5EC', delta: '▲ ' + d.toFixed(1) + '%' }
-    : { dColor: '#A3241F', dBg: '#FCE8E6', delta: '▼ ' + Math.abs(d).toFixed(1) + '%' }
+const dStyle = (d: number | undefined): DeltaBadge =>
+  d === undefined
+    ? { dColor: '#5B6270', dBg: '#E6E9EE', delta: '—' }
+    : d >= 0
+      ? { dColor: '#0B6B4B', dBg: '#E3F5EC', delta: '▲ ' + d.toFixed(1) + '%' }
+      : { dColor: '#A3241F', dBg: '#FCE8E6', delta: '▼ ' + Math.abs(d).toFixed(1) + '%' }
+
+const UNKNOWN = '—'
 
 export function buildDashboardView(
   raw: AdminRaw,
@@ -138,7 +144,7 @@ export function buildDashboardView(
   const apps = APPS.map((a) => {
     const ad = a.ad * f
     const iap = a.iap * f
-    return { ...a, color: a.deployed ? a.color : '#9AA4B2', adV: ad, iapV: iap, totalV: ad + iap, dlV: a.dl * f, dauV: a.dau, d: a.delta * dm }
+    return { ...a, color: a.deployed ? a.color : '#9AA4B2', adV: ad, iapV: iap, totalV: ad + iap, dlV: a.dl * f, dauV: a.dau, d: a.delta === undefined ? undefined : a.delta * dm }
   })
   const sum = (k: 'adV' | 'iapV' | 'totalV' | 'dlV' | 'dauV') => apps.reduce((s, a) => s + a[k], 0)
   const totalRevV = sum('totalV')
@@ -146,57 +152,61 @@ export function buildDashboardView(
   const iapT = sum('iapV')
   const dlT = sum('dlV')
   const dauT = sum('dauV')
-  const arpdau = totalRevV / (dauT * period)
+  const arpdau = dauT > 0 ? totalRevV / (dauT * period) : 0
 
-  const kd = period === 7 ? [4.2, 1.8, 6.3, 3.1] : period === 90 ? [18.6, 9.4, 14.2, 4.8] : [8.9, 3.6, 9.7, 5.2]
+  // Real delta only exists where a source computed it; otherwise show —.
   const kpis: Kpi[] = [
-    { label: '総ダウンロード数', value: num(dlT), ...dStyle(kd[0]) },
-    { label: '平均DAU（全アプリ）', value: num(dauT), ...dStyle(kd[1]) },
-    { label: '総収益', value: yen(totalRevV), ...dStyle(kd[2]) },
-    { label: 'ARPDAU', value: '¥' + arpdau.toFixed(1), ...dStyle(kd[3]) },
+    { label: '総ダウンロード数', value: num(dlT), ...dStyle(undefined) },
+    { label: '平均DAU（全アプリ）', value: num(dauT), ...dStyle(undefined) },
+    { label: '総収益', value: yen(totalRevV), ...dStyle(undefined) },
+    { label: 'ARPDAU', value: '¥' + arpdau.toFixed(1), ...dStyle(undefined) },
   ]
 
-  const iosList = apps.filter((a) => a.plat.indexOf('iOS') >= 0)
-  const avgRet = iosList.reduce((s, a) => s + a.ret * a.dau, 0) / iosList.reduce((s, a) => s + a.dau, 0)
-  const spKd = period === 7 ? [4.2, 1.8, 3.1, 0.6] : period === 90 ? [18.6, 9.4, 4.8, 2.2] : [8.9, 3.6, 5.2, 1.4]
+  const iosList = apps.filter((a) => a.plat.indexOf('iOS') >= 0 && typeof a.ret === 'number')
+  const iosDau = iosList.reduce((s, a) => s + a.dau, 0)
+  const avgRet = iosDau > 0 ? iosList.reduce((s, a) => s + (a.ret ?? 0) * a.dau, 0) / iosDau : undefined
   const spKpis: Kpi[] = [
-    { label: 'ダウンロード', value: num(dlT), ...dStyle(spKd[0]) },
-    { label: '平均DAU', value: num(dauT), ...dStyle(spKd[1]) },
-    { label: 'ARPDAU', value: '¥' + arpdau.toFixed(1), ...dStyle(spKd[2]) },
-    { label: '保持率（7日後・iOSのみ）', value: avgRet.toFixed(1) + '%', ...dStyle(spKd[3]) },
+    { label: 'ダウンロード', value: num(dlT), ...dStyle(undefined) },
+    { label: '平均DAU', value: num(dauT), ...dStyle(undefined) },
+    { label: 'ARPDAU', value: '¥' + arpdau.toFixed(1), ...dStyle(undefined) },
+    { label: '保持率（7日後・iOSのみ）', value: avgRet === undefined ? UNKNOWN : avgRet.toFixed(1) + '%', ...dStyle(undefined) },
   ]
-  const revD = period === 7 ? 6.3 : period === 90 ? 14.2 : 9.7
 
   const n = period === 90 ? 13 : period
   const step = period === 90 ? 7 : 1
-  const rnd = (i: number) => {
-    const x = Math.sin(i * 12.9898 + period) * 43758.5453
-    return x - Math.floor(x)
-  }
   const rawBars: { v: number; ad: number; iap: number; md: string }[] = []
   const daily = raw.daily ?? []
-  const end = daily.length > 0 ? new Date(daily[daily.length - 1].date + 'T00:00:00') : new Date(2026, 9, 25)
-  if (daily.length >= n * step) {
-    // Real daily revenue: bucket into days (7/30) or weeks (90).
-    const tail = daily.slice(-n * step)
-    for (let i = 0; i < n; i++) {
-      const chunk = tail.slice(i * step, (i + 1) * step)
-      const ad = chunk.reduce((s, p) => s + p.ad, 0)
-      const iap = chunk.reduce((s, p) => s + p.iap, 0)
-      const md = Number(chunk[chunk.length - 1].date.slice(5, 7)) + '/' + Number(chunk[chunk.length - 1].date.slice(8))
-      rawBars.push({ v: ad + iap, ad, iap, md })
+  const end = daily.length > 0 ? new Date(daily[daily.length - 1].date + 'T00:00:00') : new Date()
+  // Bucket real daily revenue into days (7/30) or weeks (90); days without a
+  // reported value count as 0.
+  const dailyMap = new Map(daily.map((p) => [p.date, p]))
+  for (let i = 0; i < n; i++) {
+    let ad = 0
+    let iap = 0
+    for (let j = 0; j < step; j++) {
+      const d = new Date(end.getTime() - ((n - 1 - i) * step + j) * 86400000)
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+      const p = dailyMap.get(key)
+      if (p) {
+        ad += p.ad
+        iap += p.iap
+      }
     }
-  } else {
-    for (let i = 0; i < n; i++) {
-      const v = (totalRevV / n) * (0.72 + 0.42 * rnd(i) + 0.28 * (i / n))
-      const adShare = 0.42 + 0.12 * rnd(i + 31)
-      const d = new Date(end.getTime() - (n - 1 - i) * step * 86400000)
-      rawBars.push({ v, ad: v * adShare, iap: v * (1 - adShare), md: d.getMonth() + 1 + '/' + d.getDate() })
-    }
+    const last = new Date(end.getTime() - (n - 1 - i) * step * 86400000)
+    rawBars.push({ v: ad + iap, ad, iap, md: last.getMonth() + 1 + '/' + last.getDate() })
   }
-  const maxV = Math.max(...rawBars.map((r) => r.v))
-  const maxPc = maxV * 1.08
-  const maxSp = maxV * 1.05
+  // Real revenue delta: this period vs the previous period of equal length.
+  const dailySum = (fromDaysAgo: number, toDaysAgo: number) =>
+    daily.reduce((s, p) => {
+      const t = new Date(p.date + 'T00:00:00').getTime()
+      return t > end.getTime() - toDaysAgo * 86400000 && t <= end.getTime() - fromDaysAgo * 86400000 ? s + p.ad + p.iap : s
+    }, 0)
+  const curRev = dailySum(0, period)
+  const prevRev = dailySum(period, period * 2)
+  const revD = prevRev > 0 ? ((curRev - prevRev) / prevRev) * 100 : undefined
+  const maxV = Math.max(...rawBars.map((r) => r.v), 0)
+  const maxPc = maxV > 0 ? maxV * 1.08 : 1
+  const maxSp = maxV > 0 ? maxV * 1.05 : 1
   const labelEvery = period === 7 ? 1 : period === 30 ? 5 : 2
   const bars: Bar[] = rawBars.map((r, i) => {
     const show = i % labelEvery === 0 || i === n - 1
@@ -218,7 +228,7 @@ export function buildDashboardView(
       name: a.name,
       color: a.color,
       rev: yenS(a.totalV),
-      pct: Math.round((a.totalV / totalRevV) * 100),
+      pct: totalRevV > 0 ? Math.round((a.totalV / totalRevV) * 100) : 0,
     }))
 
   const sortKey = sort === 'dl' ? 'dlV' : sort === 'dau' ? 'dauV' : 'totalV'
@@ -232,7 +242,7 @@ export function buildDashboardView(
       initial: a.name.slice(-1),
       dl: num(a.dlV),
       dau: num(a.dauV),
-      ret: a.plat.indexOf('iOS') >= 0 ? a.ret + '%' : '—',
+      ret: a.ret === undefined ? UNKNOWN : a.ret + '%',
       ad: yen(a.adV),
       iap: yen(a.iapV),
       total: yen(a.totalV),
@@ -247,77 +257,81 @@ export function buildDashboardView(
       color: a.color,
       initial: a.name.slice(-1),
       total: yen(a.totalV),
-      pct: Math.round((a.totalV / totalRevV) * 100),
+      pct: totalRevV > 0 ? Math.round((a.totalV / totalRevV) * 100) : 0,
       dl: num(a.dlV),
       dau: num(a.dau),
-      ret: a.plat.indexOf('iOS') >= 0 ? a.ret + '%' : '—',
-      ...dStyle(a.delta * dm),
+      ret: a.ret === undefined ? UNKNOWN : a.ret + '%',
+      ...dStyle(a.d),
     }))
 
   const sel = APPS[appIndex]
-  const r2 = (i: number) => {
-    const x = Math.sin(i * 78.233 + 3.1) * 43758.5453
-    return x - Math.floor(x)
-  }
-  const users = sel.churn?.users ?? Math.round(sel.dau * 3.4)
+  const hasChurn = sel.churn !== undefined
+  const users = sel.churn?.users ?? 0
   const BUCKET_LABELS = ['7日以内', '8〜30日', '31〜60日', '61日以上'] as const
-  const BUCKET_BASE = [0.46, 0.22, 0.14, 0.18] as const
-  const fracs = sel.churn
-    ? [...sel.churn.fractions]
-    : BUCKET_BASE.map((b, j) => b * (0.8 + 0.4 * r2(appIndex * 7 + j)))
+  const fracs = sel.churn ? [...sel.churn.fractions] : [0, 0, 0, 0]
   const sumB = fracs.reduce((s, v) => s + v, 0)
   const buckets: Bucket[] = BUCKET_LABELS.map((label, j) => {
-    const p = (fracs[j] / sumB) * 100
-    return { label, color: BUCKET_COLORS[j], w: p.toFixed(1), pct: p.toFixed(1) + '%', count: num((users * p) / 100) }
+    const p = sumB > 0 ? (fracs[j] / sumB) * 100 : 0
+    return {
+      label,
+      color: BUCKET_COLORS[j],
+      w: p.toFixed(1),
+      pct: hasChurn ? p.toFixed(1) + '%' : UNKNOWN,
+      count: hasChurn ? num((users * p) / 100) : UNKNOWN,
+    }
   })
-  const churnV = ((fracs[2] + fracs[3]) / sumB) * 100
+  const churnV = sumB > 0 ? ((fracs[2] + fracs[3]) / sumB) * 100 : undefined
   const hasIos = sel.plat.indexOf('iOS') >= 0
   const hasAndroid = sel.plat.indexOf('Android') >= 0
   const RET_LABELS = ['翌日', '7日後', '28日後'] as const
-  const retVals = sel.retention
+  const retVals: (number | undefined)[] = sel.retention
     ? [sel.retention.d1, sel.retention.d7, sel.retention.d28]
-    : [0.42, 0.21, 0.11].map((v, j) => v * (0.8 + 0.4 * r2(appIndex * 13 + j + 40)) * 100)
+    : [undefined, undefined, undefined]
   const retention: Retention[] = RET_LABELS.map((label, j) => ({
     label,
-    pct: retVals[j].toFixed(1) + '%',
-    w: retVals[j].toFixed(1),
+    pct: retVals[j] === undefined ? UNKNOWN : retVals[j].toFixed(1) + '%',
+    w: retVals[j] === undefined ? '0' : retVals[j].toFixed(1),
   }))
 
   const start = new Date(end.getTime() - (period - 1) * 86400000)
   const fmt = (d: Date) => d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate()
+  const now = new Date()
+  const hhmm = (d: Date) => String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0')
 
   return {
     rangeLabel: fmt(start) + ' 〜 ' + fmt(end),
     rangeShort: '過去' + period + '日',
     startLabel: start.getMonth() + 1 + '/' + start.getDate(),
     bucketLabel: period === 90 ? '週ごと' : '日ごと',
+    updatedPc: fmt(now) + ' ' + hhmm(now),
+    updatedSp: now.getMonth() + 1 + '/' + now.getDate() + ' ' + hhmm(now),
     kpis,
     spKpis,
     totalRev: yen(totalRevV),
-    revDelta: '▲ ' + revD.toFixed(1) + '% 前期間比',
+    revDelta: revD === undefined ? UNKNOWN + ' 前期間比' : (revD >= 0 ? '▲ ' : '▼ ') + Math.abs(revD).toFixed(1) + '% 前期間比',
     bars,
     spBars,
     barGapPc: period === 7 ? '14px' : period === 30 ? '4px' : '8px',
     barGapSp: period === 7 ? '10px' : period === 30 ? '2px' : '6px',
     yTop: yenS(maxPc),
     yMid: yenS(maxPc / 2),
-    adPct: Math.round((adT / totalRevV) * 100),
-    iapPct: 100 - Math.round((adT / totalRevV) * 100),
+    adPct: totalRevV > 0 ? Math.round((adT / totalRevV) * 100) : 0,
+    iapPct: totalRevV > 0 ? 100 - Math.round((adT / totalRevV) * 100) : 0,
     adTotal: yen(adT),
     iapTotal: yen(iapT),
     share,
     rows,
     cards,
     exitApp: sel.name,
-    churn: churnV.toFixed(1) + '%',
-    users: num(users),
-    churnUsers: num((users * churnV) / 100),
+    churn: churnV === undefined ? UNKNOWN : churnV.toFixed(1) + '%',
+    users: hasChurn ? num(users) : UNKNOWN,
+    churnUsers: churnV === undefined ? UNKNOWN : num((users * churnV) / 100),
     buckets,
     hasIos,
     hasAndroid,
     retention,
-    devices: sel.retention ? num(sel.retention.devices) : num(sel.dau * 2.1),
-    deletions: sel.retention ? num(sel.retention.deletions) : num(sel.dl * f * 0.18),
+    devices: sel.retention ? num(sel.retention.devices) : UNKNOWN,
+    deletions: sel.retention ? num(sel.retention.deletions) : UNKNOWN,
     appOptions: apps.map((a) => ({ name: a.name, color: a.color })),
   }
 }

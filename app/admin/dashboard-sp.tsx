@@ -42,11 +42,8 @@ export function DashboardSp({
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2">
               <p className="text-2xl font-bold">概要</p>
-              <span className="text-[10px] font-bold text-[#7A4A00] bg-[#FFF1D6] px-[7px] py-0.5 rounded-full">
-                サンプル
-              </span>
             </div>
-            <span className="text-xs text-[#5B6270]">最終更新 10/25 22:00</span>
+            <span className="text-xs text-[#5B6270]">最終更新 {view.updatedSp}</span>
           </div>
           <button
             type="button"

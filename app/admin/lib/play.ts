@@ -59,7 +59,7 @@ export async function fetchPlayMetrics(): Promise<SourcePatch> {
       }
       if (total > 0) apps[name] = { ...apps[name], dl: total }
     } catch {
-      // keep sample fallback for this app
+      // no patch for this app
     }
   }
   return { apps }
