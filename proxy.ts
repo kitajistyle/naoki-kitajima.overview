@@ -85,6 +85,10 @@ export function proxy(request: NextRequest) {
   const host = request.headers.get('host')?.split(':')[0] ?? ''
   const isAdminHost = host.startsWith('admin.')
 
+  // API routes are never locale-redirected. /api/cron/* is authenticated by
+  // CRON_SECRET inside the route itself.
+  if (pathname.startsWith('/api/')) return
+
   if (isAdminHost || pathname === '/admin' || pathname.startsWith('/admin/')) {
     return adminProxy(request, pathname, isAdminHost)
   }

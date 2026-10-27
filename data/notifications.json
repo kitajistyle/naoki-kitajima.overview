@@ -1,0 +1,26 @@
+{
+  "digest": {
+    "enabled": true,
+    "comment": "毎朝のサマリー通知"
+  },
+  "alerts": {
+    "endpointDown": {
+      "enabled": true,
+      "comment": "設定済みの取得先が落ちている/失敗したとき"
+    },
+    "revDropPct": {
+      "enabled": true,
+      "threshold": 50,
+      "comment": "直近30日の収益が前30日比でN%低下（dailyデータがあるときのみ判定）"
+    },
+    "dauBelow": {
+      "enabled": true,
+      "threshold": 1,
+      "comment": "backend接続済みアプリの平均DAUがN人未満"
+    },
+    "metricsMissing": {
+      "enabled": false,
+      "comment": "デプロイ済みなのに指標が1つも取れていないアプリ（接続漏れ検知）"
+    }
+  }
+}

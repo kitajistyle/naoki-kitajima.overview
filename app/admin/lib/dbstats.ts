@@ -28,11 +28,15 @@ export async function fetchDbStats(): Promise<SourcePatch> {
   }
 
   const apps: SourcePatch['apps'] = {}
+  const errors: string[] = []
   await Promise.all(
     Object.entries(endpoints).map(async ([name, url]) => {
       try {
         const res = await fetch(url, { next: { revalidate: 3600 }, signal: AbortSignal.timeout(8000) })
-        if (!res.ok) return
+        if (!res.ok) {
+          errors.push(`${name}: HTTP ${res.status}`)
+          return
+        }
         const data = (await res.json()) as StatsResponse
         const patch: SourcePatch['apps'][string] = {}
         if (typeof data.dau === 'number') patch.dau = data.dau
@@ -45,9 +49,9 @@ export async function fetchDbStats(): Promise<SourcePatch> {
         }
         if (Object.keys(patch).length > 0) apps[name] = patch
       } catch {
-        // endpoint down -> no patch for this app
+        errors.push(`${name}: 接続失敗`)
       }
     })
   )
-  return { apps }
+  return { apps, errors: errors.length > 0 ? errors : undefined }
 }

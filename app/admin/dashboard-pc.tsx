@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { CSSProperties } from 'react'
 import type { DashboardView, Period, SortKey } from './dashboard-data'
 import { Icon, type IconName } from './icons'
@@ -16,12 +17,12 @@ const SORTS: { value: SortKey; label: string }[] = [
   { value: 'dl', label: 'ダウンロード' },
 ]
 
-const NAV: { icon: IconName; label: string; current: boolean }[] = [
+const NAV: { icon: IconName; label: string; current: boolean; href?: string }[] = [
   { icon: 'overview', label: '概要', current: true },
   { icon: 'apps', label: 'アプリ別', current: false },
   { icon: 'revenue', label: '収益', current: false },
   { icon: 'users', label: 'ユーザー', current: false },
-  { icon: 'settings', label: '設定', current: false },
+  { icon: 'settings', label: '通知設定', current: false, href: '/admin/notifications' },
 ]
 
 const pill = (on: boolean) =>
@@ -62,19 +63,26 @@ export function DashboardPc({
           <div className="font-bold text-base">My Apps</div>
         </div>
         <div className="flex flex-col gap-1">
-          {NAV.map((item) => (
-            <button
-              key={item.label}
-              type="button"
-              aria-current={item.current ? 'page' : undefined}
-              className={`flex items-center gap-3 min-h-11 px-3 rounded-lg text-sm text-left cursor-pointer ${
-                item.current ? 'bg-[#EAF0FF] text-[#163A9E] font-bold' : 'text-[#464C57]'
-              }`}
-            >
-              <Icon name={item.icon} />
-              {item.label}
-            </button>
-          ))}
+          {NAV.map((item) => {
+            const cls = `flex items-center gap-3 min-h-11 px-3 rounded-lg text-sm text-left cursor-pointer ${
+              item.current ? 'bg-[#EAF0FF] text-[#163A9E] font-bold' : 'text-[#464C57]'
+            }`
+            const inner = (
+              <>
+                <Icon name={item.icon} />
+                {item.label}
+              </>
+            )
+            return item.href ? (
+              <Link key={item.label} href={item.href} className={cls}>
+                {inner}
+              </Link>
+            ) : (
+              <button key={item.label} type="button" aria-current={item.current ? 'page' : undefined} className={cls}>
+                {inner}
+              </button>
+            )
+          })}
         </div>
         <div className="mt-auto p-3 rounded-[10px] bg-[#F4F5F7] text-xs leading-[1.6] text-[#464C57]">
           データ連携：App Store Connect / Google Play Console / AdMob

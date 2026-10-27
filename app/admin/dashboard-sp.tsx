@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { CSSProperties } from 'react'
 import type { DashboardView, Period } from './dashboard-data'
 import { Icon, type IconName } from './icons'
@@ -10,11 +11,11 @@ const PERIODS: { value: Period; label: string }[] = [
   { value: 90, label: '90日' },
 ]
 
-const BOTTOM_NAV: { icon: IconName; label: string; current: boolean }[] = [
+const BOTTOM_NAV: { icon: IconName; label: string; current: boolean; href?: string }[] = [
   { icon: 'overview', label: '概要', current: true },
   { icon: 'apps', label: 'アプリ', current: false },
   { icon: 'revenue', label: '収益', current: false },
-  { icon: 'settings', label: '設定', current: false },
+  { icon: 'settings', label: '通知', current: false, href: '/admin/notifications' },
 ]
 
 const pill = (on: boolean) =>
@@ -295,19 +296,26 @@ export function DashboardSp({
         aria-label="メインメニュー"
         className="sticky bottom-0 z-10 bg-white border-t border-[#E3E6EB] px-2 pt-1.5 pb-[calc(8px+env(safe-area-inset-bottom))] grid grid-cols-4 gap-1"
       >
-        {BOTTOM_NAV.map((item) => (
-          <button
-            key={item.label}
-            type="button"
-            aria-current={item.current ? 'page' : undefined}
-            className={`min-h-[52px] flex flex-col items-center justify-center gap-1 text-[11px] cursor-pointer ${
-              item.current ? 'text-[#2456E8] font-bold' : 'text-[#5B6270]'
-            }`}
-          >
-            <Icon name={item.icon} size={22} />
-            {item.label}
-          </button>
-        ))}
+        {BOTTOM_NAV.map((item) => {
+          const cls = `min-h-[52px] flex flex-col items-center justify-center gap-1 text-[11px] cursor-pointer ${
+            item.current ? 'text-[#2456E8] font-bold' : 'text-[#5B6270]'
+          }`
+          const inner = (
+            <>
+              <Icon name={item.icon} size={22} />
+              {item.label}
+            </>
+          )
+          return item.href ? (
+            <Link key={item.label} href={item.href} className={cls}>
+              {inner}
+            </Link>
+          ) : (
+            <button key={item.label} type="button" aria-current={item.current ? 'page' : undefined} className={cls}>
+              {inner}
+            </button>
+          )
+        })}
       </nav>
     </div>
   )

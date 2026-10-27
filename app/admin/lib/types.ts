@@ -34,6 +34,9 @@ export interface AdminRaw {
   apps: RawApp[]
   // All-apps-total daily revenue for the recent window, if sources provide it.
   daily?: { date: string; ad: number; iap: number }[]
+  // Source-level failures observed while collecting (e.g. "Cypher Map: HTTP 500").
+  // Empty means every configured source succeeded.
+  errors?: string[]
 }
 
 export interface AppPatch {
@@ -51,4 +54,6 @@ export interface SourcePatch {
   apps: Record<string, AppPatch>
   // Per-source daily revenue contribution (e.g. ad from AdMob, iap from ASC).
   daily?: { date: string; ad: number; iap: number }[]
+  // Failures observed while fetching this source.
+  errors?: string[]
 }
