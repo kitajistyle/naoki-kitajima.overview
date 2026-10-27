@@ -27,6 +27,15 @@ const btnPrimary =
 const badge = (on: boolean) =>
   `text-[10px] font-bold px-[7px] py-0.5 rounded-full ${on ? 'bg-[#E3F5EC] text-[#0B6B4B]' : 'bg-[#E6E9EE] text-[#5B6270]'}`
 
+type PushKind = 'expo' | 'backend' | 'local' | 'web'
+
+const PUSH_LABEL: Record<PushKind, string> = {
+  expo: '送信可',
+  backend: '基盤なし',
+  local: 'ローカルのみ',
+  web: '対象外',
+}
+
 export function NotificationsClient({
   channels,
   rules,
@@ -34,9 +43,9 @@ export function NotificationsClient({
   apps,
 }: {
   channels: string[]
-  rules: { digest: { enabled: boolean }; alerts: Record<string, AlertRule> }
+  rules: { digest: { enabled: boolean }; alerts: Record<string, AlertRule>; apps: Record<string, { alerts?: boolean; digest?: boolean }> }
   pushApps: string[]
-  apps: { name: string; deployed: boolean }[]
+  apps: { name: string; deployed: boolean; pushKind?: PushKind }[]
 }) {
   const [evalResult, setEvalResult] = useState<EvalResult | null>(null)
   const [evalBusy, setEvalBusy] = useState<'eval' | 'test' | null>(null)
@@ -149,6 +158,47 @@ export function NotificationsClient({
           )}
         </section>
 
+        <section className={card} aria-label="プロダクト別設定">
+          <h2 className={h2}>プロダクト別設定</h2>
+          <div className="flex flex-col gap-2">
+            {apps.map((a) => {
+              const cfg = rules.apps[a.name] ?? {}
+              const alertsOn = cfg.alerts !== false
+              const digestOn = cfg.digest !== false
+              const canPush = pushApps.includes(a.name)
+              return (
+                <div key={a.name} className="border border-[#E3E6EB] rounded-xl p-3.5 flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <div className="flex items-center gap-2 min-w-[180px]">
+                    <span className="text-sm font-bold">{a.name}</span>
+                    {!a.deployed && <span className={badge(false)}>未デプロイ</span>}
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-[#464C57]">
+                    <span>アラート</span>
+                    <span className={badge(alertsOn)}>{alertsOn ? 'ON' : 'OFF'}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-[#464C57]">
+                    <span>日次サマリー</span>
+                    <span className={badge(digestOn)}>{digestOn ? 'ON' : 'OFF'}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-[#464C57]">
+                    <span>ユーザーPush</span>
+                    <span className={badge(canPush)}>{canPush ? '送信可' : (a.pushKind && PUSH_LABEL[a.pushKind]) || '未対応'}</span>
+                  </div>
+                  {canPush && (
+                    <button type="button" className={`${btn} ml-auto`} onClick={() => setApp(a.name)}>
+                      送信対象に選択
+                    </button>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+          <p className={sub}>
+            アプリ別のON/OFFは <code className="font-mono text-[11px] bg-[#F4F5F7] px-1 rounded">data/notifications.json</code> の
+            <code className="font-mono text-[11px] bg-[#F4F5F7] px-1 rounded">apps</code> セクションで変更します。
+          </p>
+        </section>
+
         <section className={card} aria-label="ユーザーPush送信">
           <div className="flex items-center justify-between">
             <h2 className={h2}>ユーザーPush送信</h2>
@@ -158,14 +208,6 @@ export function NotificationsClient({
             バックエンドの POST /admin/push へ転送します。対応アプリは ADMIN_PUSH_ENDPOINTS で設定。
             ユーザーの「アプリのお知らせ」設定をOFFにしている人には届きません。
           </p>
-          <div className="flex flex-wrap gap-1.5">
-            {apps.map((a) => (
-              <span key={a.name} className={`text-xs rounded-full px-3 py-1.5 border ${pushApps.includes(a.name) ? 'border-[#D5D9E0] text-[#464C57]' : 'border-[#E3E6EB] text-[#9AA4B2]'}`}>
-                {a.name}
-                {pushApps.includes(a.name) ? '' : '（未対応）'}
-              </span>
-            ))}
-          </div>
 
           <div className="flex flex-col gap-3 border-t border-[#EEF0F3] pt-4">
             <label className="flex flex-col gap-1.5 text-xs font-bold text-[#464C57]">

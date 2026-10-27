@@ -19,6 +19,9 @@ export interface RawApp {
   color: string
   // false のアプリは未デプロイとしてグレー表示する
   deployed: boolean
+  // サーバーPushの実態: expo=Expo Push基盤あり / backend=バックエンドはあるがPush基盤なし
+  // local=ローカル通知のみ（サーバー送信不可）/ web=Webのため対象外
+  pushKind?: 'expo' | 'backend' | 'local' | 'web'
   dl: number
   dau: number
   // ソースが返さない場合は undefined（UIでは — 表示）

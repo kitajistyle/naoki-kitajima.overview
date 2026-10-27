@@ -15,7 +15,7 @@ export const revalidate = 3600
 
 export default async function NotificationsPage() {
   const pushApps = Object.keys(JSON.parse(process.env.ADMIN_PUSH_ENDPOINTS ?? '{}') as Record<string, string>)
-  const apps = baseRaw().apps.map((a) => ({ name: a.name, deployed: a.deployed }))
+  const apps = baseRaw().apps.map((a) => ({ name: a.name, deployed: a.deployed, pushKind: a.pushKind }))
 
   return (
     <NotificationsClient

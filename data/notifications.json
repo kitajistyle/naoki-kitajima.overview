@@ -22,5 +22,14 @@
       "enabled": false,
       "comment": "デプロイ済みなのに指標が1つも取れていないアプリ（接続漏れ検知）"
     }
+  },
+  "apps": {
+    "Cypher Map": { "alerts": true, "digest": true },
+    "乾杯": { "alerts": true, "digest": true },
+    "おくすりびより": { "alerts": true, "digest": true },
+    "ぽてもち": { "alerts": true, "digest": true },
+    "naoki-kitajima.overview": { "alerts": false, "digest": false },
+    "knok": { "alerts": true, "digest": true },
+    "eat-log": { "alerts": false, "digest": false }
   }
 }

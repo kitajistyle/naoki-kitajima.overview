@@ -117,8 +117,12 @@ export function evaluate(raw: AdminRaw): NotifyEvaluation {
     }
   }
 
+  const appCfg = config.apps as Record<string, { alerts?: boolean; digest?: boolean }>
+  const alertsOn = (name: string) => appCfg[name]?.alerts !== false
+  const digestOn = (name: string) => appCfg[name]?.digest !== false
+
   for (const a of raw.apps) {
-    if (!a.deployed) continue
+    if (!a.deployed || !alertsOn(a.name)) continue
     // backend が繋がっている（users がある）のに DAU が閾値未満 = 実質ダウンの兆候
     if (rules.dauBelow.enabled && a.churn && a.churn.users > 0 && a.dau < rules.dauBelow.threshold) {
       alerts.push({ level: 'warn', text: `${a.name}: 平均DAU ${a.dau}（登録ユーザー ${num(a.churn.users)}）` })
@@ -128,12 +132,11 @@ export function evaluate(raw: AdminRaw): NotifyEvaluation {
     }
   }
 
+  const digestApps = raw.apps.filter((a) => a.deployed && digestOn(a.name))
   const digest = config.digest.enabled
     ? [
-        `収益合計 ${yen(raw.apps.reduce((s, a) => s + a.ad + a.iap, 0))} / DAU合計 ${num(raw.apps.reduce((s, a) => s + a.dau, 0))} / DL合計 ${num(raw.apps.reduce((s, a) => s + a.dl, 0))}`,
-        ...raw.apps
-          .filter((a) => a.deployed)
-          .map((a) => `${a.name}: DAU ${num(a.dau)} / 収益 ${yen(a.ad + a.iap)}`),
+        `収益合計 ${yen(digestApps.reduce((s, a) => s + a.ad + a.iap, 0))} / DAU合計 ${num(digestApps.reduce((s, a) => s + a.dau, 0))} / DL合計 ${num(digestApps.reduce((s, a) => s + a.dl, 0))}`,
+        ...digestApps.map((a) => `${a.name}: DAU ${num(a.dau)} / 収益 ${yen(a.ad + a.iap)}`),
       ].join('\n')
     : null
 
