@@ -8,6 +8,7 @@ import { ChurnCard } from './ChurnCard'
 import { DataLimitsNote } from './DataLimitsNote'
 import { EmptyState } from './EmptyState'
 import { PeriodToggle } from './PeriodToggle'
+import { RefreshButton } from './RefreshButton'
 import { RetentionCard } from './RetentionCard'
 import { SpHeader } from './SpHeader'
 import { useDashboard } from './use-dashboard'
@@ -138,7 +139,10 @@ export function AppDetailView({ name }: { name: string }) {
         </Link>
         <header className="flex flex-wrap items-end justify-between gap-4">
           {profile(true)}
-          <PeriodToggle />
+          <div className="flex items-center gap-3">
+            <PeriodToggle />
+            <RefreshButton withLabel />
+          </div>
         </header>
         <AppSwitcher current={name} />
         {hasAnyData ? (

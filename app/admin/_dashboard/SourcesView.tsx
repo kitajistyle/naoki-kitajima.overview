@@ -1,6 +1,7 @@
 'use client'
 
 import type { SourceState } from '../lib/types'
+import { RefreshButton } from './RefreshButton'
 import { SourceCard } from './SourceCard'
 import { useDashboard } from './use-dashboard'
 import { CARD, PC_PAGE, SP_MAIN, SP_PAGE } from './styles'
@@ -49,16 +50,22 @@ export function SourcesView() {
   return (
     <>
       <div className={PC_PAGE}>
-        <header className="flex flex-col gap-1.5">
-          <h1 className="text-[26px] font-bold tracking-[0.01em]">データソース</h1>
-          <p className="text-[13px] text-[#5B6270]">各データソースから実際に取得できているか</p>
+        <header className="flex flex-wrap items-end justify-between gap-4">
+          <div className="flex flex-col gap-1.5">
+            <h1 className="text-[26px] font-bold tracking-[0.01em]">データソース</h1>
+            <p className="text-[13px] text-[#5B6270]">各データソースから実際に取得できているか</p>
+          </div>
+          <RefreshButton withLabel />
         </header>
         {body}
       </div>
       <div className={SP_PAGE}>
-        <header className="px-5 pt-[calc(16px+env(safe-area-inset-top))] pb-4 bg-white border-b border-[#E3E6EB] flex flex-col gap-1">
-          <h1 className="text-2xl font-bold">データソース</h1>
-          <span className="text-xs text-[#5B6270]">各データソースから実際に取得できているか</span>
+        <header className="px-5 pt-[calc(16px+env(safe-area-inset-top))] pb-4 bg-white border-b border-[#E3E6EB] flex justify-between items-center gap-3">
+          <div className="flex flex-col gap-1">
+            <h1 className="text-2xl font-bold">データソース</h1>
+            <span className="text-xs text-[#5B6270]">各データソースから実際に取得できているか</span>
+          </div>
+          <RefreshButton />
         </header>
         <main className={SP_MAIN}>{body}</main>
       </div>

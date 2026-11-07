@@ -1,6 +1,7 @@
 'use client'
 
 import { PeriodToggle } from './PeriodToggle'
+import { RefreshButton } from './RefreshButton'
 import { useDashboard } from './use-dashboard'
 
 export function PcHeader({ title, showPeriod = true }: { title: string; showPeriod?: boolean }) {
@@ -14,7 +15,10 @@ export function PcHeader({ title, showPeriod = true }: { title: string; showPeri
           {showPeriod ? `${view.rangeLabel} ・ ` : ''}最終更新 {view.updatedPc}
         </p>
       </div>
-      {showPeriod ? <PeriodToggle /> : null}
+      <div className="flex items-center gap-3">
+        {showPeriod ? <PeriodToggle /> : null}
+        <RefreshButton withLabel />
+      </div>
     </header>
   )
 }
