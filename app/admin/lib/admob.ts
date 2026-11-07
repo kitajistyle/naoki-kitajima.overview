@@ -30,7 +30,8 @@ export async function fetchAdmobMetrics(): Promise<SourcePatch> {
   const token = await accessToken()
   const publisher = process.env.ADMOB_PUBLISHER_ID
   const appIds = process.env.ADMOB_APP_IDS ? (JSON.parse(process.env.ADMOB_APP_IDS) as Record<string, string>) : null
-  if (!token || !publisher || !appIds) return { apps: {} }
+  if (!process.env.ADMOB_CLIENT_ID || !publisher || !appIds) return { apps: {} }
+  if (!token) throw new Error('OAuth アクセストークンを取得できません（refresh token を確認）')
 
   const end = new Date()
   const start = new Date(end.getTime() - 89 * 86400000)
@@ -47,11 +48,12 @@ export async function fetchAdmobMetrics(): Promise<SourcePatch> {
     }),
     next: { revalidate: 3600 },
   })
-  if (!res.ok) return { apps: {} }
+  if (!res.ok) throw new Error(`レポート取得に失敗（HTTP ${res.status}）`)
 
   // Response is a stream of newline-delimited JSON rows.
   const byName = new Map(Object.entries(appIds).map(([name, id]) => [id, name]))
-  const apps: SourcePatch['apps'] = {}
+  // The report succeeded, so apps without rows earned 0
+  const apps: SourcePatch['apps'] = Object.fromEntries(Object.keys(appIds).map((name) => [name, { ad: 0 }]))
   const dailyMap = new Map<string, number>()
   for (const line of (await res.text()).split('\n')) {
     if (!line.trim()) continue
@@ -84,5 +86,5 @@ export async function fetchAdmobMetrics(): Promise<SourcePatch> {
   const daily = [...dailyMap.entries()]
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([date, ad]) => ({ date, ad, iap: 0 }))
-  return { apps, daily: daily.length > 0 ? daily : undefined }
+  return { apps, daily }
 }

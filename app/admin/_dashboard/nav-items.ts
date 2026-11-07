@@ -4,7 +4,7 @@ export interface AdminNavItem {
   icon: IconName
   label: string
   // Path below /admin ('' is the overview)
-  path: '' | '/apps' | '/revenue' | '/users' | '/notifications'
+  path: '' | '/apps' | '/revenue' | '/users' | '/sources' | '/notifications'
 }
 
 export const ADMIN_NAV: AdminNavItem[] = [
@@ -12,6 +12,7 @@ export const ADMIN_NAV: AdminNavItem[] = [
   { icon: 'apps', label: 'アプリ', path: '/apps' },
   { icon: 'revenue', label: '収益', path: '/revenue' },
   { icon: 'users', label: 'ユーザー', path: '/users' },
+  { icon: 'database', label: 'データ', path: '/sources' },
   { icon: 'settings', label: '通知', path: '/notifications' },
 ]
 

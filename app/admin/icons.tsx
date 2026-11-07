@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-export type IconName = 'logo' | 'overview' | 'apps' | 'revenue' | 'users' | 'settings' | 'refresh' | 'info'
+export type IconName = 'logo' | 'overview' | 'apps' | 'revenue' | 'users' | 'settings' | 'refresh' | 'info' | 'database'
 
 const PATHS: Record<IconName, ReactNode> = {
   logo: <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />,
@@ -42,6 +42,13 @@ const PATHS: Record<IconName, ReactNode> = {
     <>
       <path d="M21 12a9 9 0 1 1-2.6-6.4" />
       <path d="M21 4v5h-5" />
+    </>
+  ),
+  database: (
+    <>
+      <ellipse cx="12" cy="5" rx="8" ry="3" />
+      <path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5" />
+      <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" />
     </>
   ),
   info: (

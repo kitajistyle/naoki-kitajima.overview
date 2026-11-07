@@ -38,8 +38,27 @@ export interface RawApp {
 
 export type ReportedMetric = 'dl' | 'dau' | 'ad' | 'iap'
 
+export type SourceState = 'ok' | 'partial' | 'error' | 'unconfigured'
+
+export interface SourceStatus {
+  id: string
+  name: string
+  // What the dashboard gets from this source
+  provides: string[]
+  state: SourceState
+  // Env var names that are not set (unconfigured only)
+  missing: string[]
+  messages: string[]
+  // Apps the source returned at least one metric for
+  apps: string[]
+  dailyRows: number
+}
+
 export interface AdminRaw {
   apps: RawApp[]
+  // Health of each data source at fetch time
+  sources?: SourceStatus[]
+  checkedAt?: string
   // All-apps-total daily revenue for the recent window. Undefined when no
   // source reports daily revenue; an empty array means reported but no rows.
   daily?: { date: string; ad: number; iap: number }[]

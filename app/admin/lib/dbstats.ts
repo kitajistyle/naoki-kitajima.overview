@@ -24,7 +24,7 @@ export async function fetchDbStats(): Promise<SourcePatch> {
   try {
     endpoints = JSON.parse(raw) as Record<string, string>
   } catch {
-    return { apps: {} }
+    throw new Error('ADMIN_STATS_ENDPOINTS を JSON として読めません')
   }
 
   const apps: SourcePatch['apps'] = {}

@@ -13,7 +13,7 @@ export function AdminBottomNav() {
       aria-label="メインメニュー"
       className="fixed inset-x-0 bottom-0 z-20 bg-white border-t border-[#E3E6EB] px-2 pt-1.5 pb-[calc(8px+env(safe-area-inset-bottom))]"
     >
-      <ul className="max-w-[640px] mx-auto grid grid-cols-5 gap-1">
+      <ul className="max-w-[720px] mx-auto grid grid-cols-6 gap-0.5">
         {ADMIN_NAV.map((item) => {
           const current = isCurrentNav(pathname, item.path)
           return (
