@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { hasLocale, getDictionary } from './dictionaries'
 import { Header } from '../components/ui/Header'
 import { Footer } from '../components/ui/Footer'
+import { FooterGate } from '../components/ui/FooterGate'
 import { getProfile } from '../../lib/data'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
@@ -23,8 +24,8 @@ export default async function LocaleLayout({
 
   const navItems = [
     { label: dict.nav.home, href: `/${lang}` },
-    { label: dict.nav.works, href: `/${lang}/works` },
     { label: dict.nav.about, href: `/${lang}/about` },
+    { label: dict.nav.works, href: `/${lang}/works` },
     { label: dict.nav.blog, href: `/${lang}/blog` },
     { label: dict.nav.like, href: `/${lang}/like` },
     { label: dict.nav.contact, href: `/${lang}/contact` },
@@ -37,7 +38,9 @@ export default async function LocaleLayout({
         <div className="flex-1 flex flex-col">
           {children}
         </div>
-        <Footer lang={lang} navItems={navItems} socialLinks={socialLinks} />
+        <FooterGate>
+          <Footer lang={lang} navItems={navItems} socialLinks={socialLinks} />
+        </FooterGate>
       </body>
     </html>
   )

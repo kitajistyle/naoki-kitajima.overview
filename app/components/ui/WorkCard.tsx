@@ -33,7 +33,7 @@ export function WorkCard({ work, lang, viewDetailLabel, headingLevel: Heading = 
       )}
 
       {work.comingSoon ? (
-        <span className="absolute top-4 left-4 z-10 border border-white/40 px-3 py-1 text-[10px] font-bold tracking-[0.2em] text-white/80 uppercase">
+        <span className="absolute top-4 left-4 z-10 border border-white/40 bg-ink/70 px-3 py-1 text-[10px] font-bold tracking-[0.2em] text-white/80 uppercase">
           Coming Soon
         </span>
       ) : null}

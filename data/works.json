@@ -1,13 +1,21 @@
 [
   {
     "slug": "cypher-map",
-    "tags": ["React", "TypeScript", "Next.js", "Go"],
+    "tags": [
+      "React",
+      "TypeScript",
+      "Next.js",
+      "Go"
+    ],
     "url": "https://cyphermap.app/",
-    "image": "",
+    "image": "/images/works/cypher-map.jpg",
     "embed": true,
     "comingSoon": false,
     "links": [
-      { "label": "App Store", "url": "https://apps.apple.com/jp/app/cyphermap/id6792790877" }
+      {
+        "label": "App Store",
+        "url": "https://apps.apple.com/jp/app/cyphermap/id6792790877"
+      }
     ],
     "en": {
       "title": "Cypher Map",
@@ -19,20 +27,94 @@
     }
   },
   {
-    "slug": "knok",
-    "tags": ["Flutter", "Go", "PostgreSQL", "iOS", "Android"],
+    "slug": "kanpai",
+    "tags": [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Go",
+      "PostgreSQL"
+    ],
+    "url": "https://kanpai-lp.vercel.app/",
+    "image": "/images/works/kanpai.jpg",
+    "embed": true,
+    "comingSoon": true,
+    "links": [],
+    "en": {
+      "title": "Kanpai",
+      "description": "An all-in-one app for nights out with friends — find nearby spots, gather your crew, log every toast, split the bill, and play party games. Currently in development."
+    },
+    "ja": {
+      "title": "乾杯",
+      "description": "近くの飲み会スポット探し、仲間集め、乾杯の記録、割り勘、パーティーゲームまで。飲み会をひとつのアプリで楽しくする。開発中。"
+    }
+  },
+  {
+    "slug": "okusuri",
+    "tags": [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "SQLite"
+    ],
+    "url": "https://okusuri-biyori.vercel.app/",
+    "image": "/images/works/okusuri.jpg",
+    "embed": true,
+    "comingSoon": true,
+    "links": [],
+    "en": {
+      "title": "Okusuri Biyori",
+      "description": "A medication app that keeps you from missing a dose. Marupi, a capsule character, checks in when it's time, and your medication notebook, alarms, and drug info live in one place. All data stays on your device. Currently in development."
+    },
+    "ja": {
+      "title": "おくすりびより",
+      "description": "飲み忘れを防ぐおくすり管理アプリ。時間になるとカプセルのキャラクター「まるぴ」が話しかけ、お薬手帳・アラーム・お薬の情報をひとつにまとめる。データはすべて端末内に保存。開発中。"
+    }
+  },
+  {
+    "slug": "eat-log",
+    "tags": [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Go",
+      "Supabase",
+      "Gemini"
+    ],
     "url": "",
-    "image": "",
+    "image": "/images/works/eat-log.jpg",
     "embed": false,
     "comingSoon": true,
     "links": [],
     "en": {
-      "title": "knok",
-      "description": "A voice-first community app for iOS and Android. Posts freely combine words, images, and voice — and every post brings a voice room along with it. When a room is full, you knock; someone inside can let you in. Currently in development."
+      "title": "eat log",
+      "description": "A social app for casually sharing your daily meals with friends. Snap a photo and AI logs the dish and its nutrition — while your numbers stay private, just for you. Currently in development."
     },
     "ja": {
-      "title": "knok",
-      "description": "声でつながるコミュニティアプリ。投稿は「ことば」「画像」「声」を自由に組み合わせて作り、その投稿が声の部屋を連れてくる。満室の部屋にはノックして、中の人が開ければ入れる。iOS / Android 向けに開発中。"
+      "title": "eat log",
+      "description": "毎日のごはんを友達とゆるく見せ合うSNSアプリ。写真を撮るだけでAIが料理名と栄養を記録し、カロリーや栄養は自分だけでこっそり確認できる。開発中。"
+    }
+  },
+  {
+    "slug": "habitstracker",
+    "tags": [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "SQLite"
+    ],
+    "url": "https://potemochi.vercel.app/",
+    "image": "/images/works/habitstracker.jpg",
+    "embed": true,
+    "comingSoon": true,
+    "links": [],
+    "en": {
+      "title": "Potemochi Habits Tracker",
+      "description": "A habit tracker where your daily habits feed Potemochi, a squishy character you raise. Fill in your calendar one good day at a time. No sign-up, all data stays on your iPhone, available in 9 languages. Currently in development."
+    },
+    "ja": {
+      "title": "ぽてもち Habits Tracker",
+      "description": "まいにちの小さなしゅうかんが、ぽてもちのごはんになる。できた日でカレンダーをうめて、もちもちのキャラクターを育てる習慣化アプリ。アカウント登録なし・データは端末内だけ・9言語対応。開発中。"
     }
   }
 ]
