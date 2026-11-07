@@ -5,6 +5,7 @@ import { CARD, vars } from './styles'
 
 export function RevenueBreakdown({ className = '' }: { className?: string }) {
   const { view } = useDashboard()
+  if (!view.hasRevenue) return null
 
   return (
     <section aria-label="収益の内訳" className={`${CARD} min-w-0 px-5 py-5 md:px-6 flex flex-col gap-[18px] ${className}`}>

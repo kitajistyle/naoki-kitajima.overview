@@ -6,6 +6,7 @@ import { CARD, vars } from './styles'
 
 export function RevenueChartPc({ moreHref, className = '' }: { moreHref?: string; className?: string }) {
   const { view } = useDashboard()
+  if (!view.hasRevenue) return null
 
   return (
     <section aria-label="収益の推移" className={`${CARD} min-w-0 px-6 py-5 flex flex-col gap-4 ${className}`}>

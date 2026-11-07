@@ -31,11 +31,17 @@ export interface RawApp {
   delta?: number
   churn?: ChurnStats
   retention?: RetentionStats
+  // Metrics some source actually returned. A reported 0 is real data;
+  // an unreported metric keeps the registry's placeholder 0 and is hidden.
+  reported?: Partial<Record<ReportedMetric, true>>
 }
+
+export type ReportedMetric = 'dl' | 'dau' | 'ad' | 'iap'
 
 export interface AdminRaw {
   apps: RawApp[]
-  // All-apps-total daily revenue for the recent window, if sources provide it.
+  // All-apps-total daily revenue for the recent window. Undefined when no
+  // source reports daily revenue; an empty array means reported but no rows.
   daily?: { date: string; ad: number; iap: number }[]
   // Source-level failures observed while collecting (e.g. "Cypher Map: HTTP 500").
   // Empty means every configured source succeeded.

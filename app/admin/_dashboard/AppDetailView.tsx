@@ -6,6 +6,7 @@ import { buildDashboardView } from '../dashboard-data'
 import { AppSwitcher } from './AppSwitcher'
 import { ChurnCard } from './ChurnCard'
 import { DataLimitsNote } from './DataLimitsNote'
+import { EmptyState } from './EmptyState'
 import { PeriodToggle } from './PeriodToggle'
 import { RetentionCard } from './RetentionCard'
 import { SpHeader } from './SpHeader'
@@ -42,15 +43,16 @@ export function AppDetailView({ name }: { name: string }) {
 
   const row = view.rows.find((r) => r.name === name)
   const share = view.share.find((s) => s.name === name)
-  const hasRevenue = app.ad + app.iap > 0
-  const adPct = hasRevenue ? Math.round((app.ad / (app.ad + app.iap)) * 100) : 0
+  const hasRevenue = row?.total != null
+  const adPct = app.ad + app.iap > 0 ? Math.round((app.ad / (app.ad + app.iap)) * 100) : 0
 
   const kpis = [
-    { label: 'ダウンロード', value: row?.dl ?? '—' },
-    { label: '平均DAU', value: row?.dau ?? '—' },
-    { label: '合計収益', value: row?.total ?? '—', badge: row },
-    { label: '保持率（7日後・iOS）', value: row?.ret ?? '—' },
-  ]
+    { label: 'ダウンロード', value: row?.dl ?? null },
+    { label: '平均DAU', value: row?.dau ?? null },
+    { label: '合計収益', value: row?.total ?? null, badge: row?.hasDelta ? row : undefined },
+    { label: '保持率（7日後・iOS）', value: row?.ret ?? null },
+  ].filter((k) => k.value !== null)
+  const hasAnyData = kpis.length > 0 || hasRevenue || view.hasChurn || view.hasRetention
 
   const profile = (showName: boolean) => (
     <div className="flex items-center gap-3.5">
@@ -78,7 +80,7 @@ export function AppDetailView({ name }: { name: string }) {
     </div>
   )
 
-  const kpiGrid = (
+  const kpiGrid = kpis.length === 0 ? null : (
     <section aria-label="このアプリの指標" className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
       {kpis.map((k) => (
         <div key={k.label} className={`${CARD} p-3.5 md:p-5 flex flex-col gap-1.5 md:gap-2.5`}>
@@ -97,13 +99,13 @@ export function AppDetailView({ name }: { name: string }) {
     </section>
   )
 
-  const revenue = (
+  const revenue = !hasRevenue ? null : (
     <section aria-label="収益の構成" className={`${CARD} p-4 md:px-6 md:py-5 flex flex-col gap-4 min-w-0`}>
       <h2 className="text-base font-bold">収益の構成（{view.rangeShort}）</h2>
       <div className="flex flex-col gap-2.5">
         <div className="flex h-3.5 rounded-full overflow-hidden bg-[#EEF0F3]">
           <div className="bg-[#2456E8] w-(--ad-pct)" style={vars({ '--ad-pct': `${adPct}%` })} />
-          {hasRevenue ? <div className="bg-[#F0A04B] flex-1" /> : null}
+          {app.iap > 0 ? <div className="bg-[#F0A04B] flex-1" /> : null}
         </div>
         <div className="flex justify-between text-[13px]">
           <span>
@@ -139,26 +141,40 @@ export function AppDetailView({ name }: { name: string }) {
           <PeriodToggle />
         </header>
         <AppSwitcher current={name} />
-        {kpiGrid}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-          {revenue}
-          <div className="xl:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <ChurnCard view={view} />
-            <RetentionCard view={view} />
-          </div>
-        </div>
-        <DataLimitsNote />
+        {hasAnyData ? (
+          <>
+            {kpiGrid}
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+              {revenue}
+              {view.hasChurn || view.hasRetention ? (
+                <div className={`${revenue ? 'xl:col-span-2' : 'xl:col-span-3'} grid grid-cols-1 lg:grid-cols-2 gap-4`}>
+                  <ChurnCard view={view} />
+                  <RetentionCard view={view} />
+                </div>
+              ) : null}
+            </div>
+            {view.hasChurn ? <DataLimitsNote /> : null}
+          </>
+        ) : (
+          <EmptyState title="このアプリのデータはまだありません" />
+        )}
       </div>
       <div className={SP_PAGE}>
         <SpHeader title={app.name} />
         <main className={SP_MAIN}>
           <AppSwitcher current={name} scroll />
           {profile(false)}
-          {kpiGrid}
-          {revenue}
-          <ChurnCard view={view} />
-          <RetentionCard view={view} />
-          <DataLimitsNote />
+          {hasAnyData ? (
+            <>
+              {kpiGrid}
+              {revenue}
+              <ChurnCard view={view} />
+              <RetentionCard view={view} />
+              {view.hasChurn ? <DataLimitsNote /> : null}
+            </>
+          ) : (
+            <EmptyState title="このアプリのデータはまだありません" />
+          )}
         </main>
       </div>
     </>

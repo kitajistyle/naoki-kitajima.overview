@@ -8,6 +8,7 @@ import { CARD, SOURCE_TAG, vars } from './styles'
 export function ChurnCard({ view: viewProp }: { view?: DashboardView }) {
   const { view: ctxView } = useDashboard()
   const view = viewProp ?? ctxView
+  if (!view.hasChurn) return null
 
   return (
     <section aria-label="30日離脱率" className={`${CARD} p-4 md:p-5 flex flex-col gap-4 min-w-0`}>

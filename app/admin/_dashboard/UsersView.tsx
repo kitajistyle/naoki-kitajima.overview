@@ -5,6 +5,7 @@ import { MoreLink } from './MoreLink'
 import { appHref } from './app-href'
 import { ChurnCard } from './ChurnCard'
 import { DataLimitsNote } from './DataLimitsNote'
+import { EmptyState } from './EmptyState'
 import { PcHeader } from './PcHeader'
 import { RetentionCard } from './RetentionCard'
 import { SpHeader } from './SpHeader'
@@ -15,6 +16,9 @@ import { PC_PAGE, SP_MAIN, SP_PAGE } from './styles'
 // neither depends on the period, so the period toggle is hidden here.
 export function UsersView() {
   const { view } = useDashboard()
+  const empty =
+    view.hasChurn || view.hasRetention ? null : <EmptyState title={`${view.exitApp} のユーザーデータはまだありません`} />
+  const note = view.hasChurn ? <DataLimitsNote /> : null
 
   return (
     <>
@@ -27,11 +31,13 @@ export function UsersView() {
           </span>
           <AppSelector />
         </div>
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-          <ChurnCard />
-          <RetentionCard />
-        </div>
-        <DataLimitsNote />
+        {empty ?? (
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+            <ChurnCard />
+            <RetentionCard />
+          </div>
+        )}
+        {note}
       </div>
       <div className={SP_PAGE}>
         <SpHeader title="ユーザー" showPeriod={false} />
@@ -40,9 +46,10 @@ export function UsersView() {
           <div className="flex justify-end px-1">
             <MoreLink href={appHref(view.exitApp)} label="このアプリの詳細" />
           </div>
+          {empty}
           <ChurnCard />
           <RetentionCard />
-          <DataLimitsNote />
+          {note}
         </main>
       </div>
     </>

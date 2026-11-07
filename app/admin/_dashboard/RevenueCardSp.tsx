@@ -6,12 +6,13 @@ import { vars } from './styles'
 
 export function RevenueCardSp({ moreHref }: { moreHref?: string }) {
   const { view } = useDashboard()
+  if (!view.hasRevenue) return null
 
   return (
     <section aria-label="総収益" className="bg-[#14161A] text-white rounded-[18px] p-5 flex flex-col gap-3.5">
       <div className="flex justify-between items-center">
         <span className="text-[13px] text-[#C9CDD4]">総収益（{view.rangeShort}）</span>
-        <span className="text-xs font-bold text-[#7EE2B5]">{view.revDelta}</span>
+        {view.revDelta ? <span className="text-xs font-bold text-[#7EE2B5]">{view.revDelta}</span> : null}
       </div>
       <div className="font-mono text-4xl font-bold tabular-nums tracking-[-0.01em]">{view.totalRev}</div>
       <div className="h-24 flex items-end gap-(--bar-gap)" style={vars({ '--bar-gap': view.barGapSp })}>

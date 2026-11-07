@@ -10,14 +10,16 @@ const TOP_N = 3
 
 export function TopAppsCard({ className = '' }: { className?: string }) {
   const { view } = useDashboard()
-  const top = view.cards.slice(0, TOP_N)
+  const withRevenue = view.cards.filter((a) => a.total !== null)
+  const top = withRevenue.slice(0, TOP_N)
+  if (top.length === 0) return null
 
   return (
     <section aria-label="収益の多いアプリ" className={`${CARD} p-4 md:px-6 md:py-5 flex flex-col gap-4 min-w-0 ${className}`}>
       <div className="flex justify-between items-center gap-3">
         <div className="flex flex-col gap-0.5">
           <h2 className="text-base font-bold">収益の多いアプリ</h2>
-          <span className="text-xs text-[#5B6270]">上位{TOP_N}件 / 全{view.cards.length}件</span>
+          <span className="text-xs text-[#5B6270]">上位{top.length}件 / 収益のある{withRevenue.length}件</span>
         </div>
         <MoreLink href="/admin/apps" />
       </div>

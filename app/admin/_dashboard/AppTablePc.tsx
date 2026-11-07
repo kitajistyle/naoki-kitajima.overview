@@ -11,6 +11,7 @@ const td = 'py-3.5 px-3 border-b border-[#EEF0F3]'
 
 export function AppTablePc() {
   const { view } = useDashboard()
+  const c = view.columns
 
   return (
     <section aria-label="アプリ一覧" className={`${CARD} pt-5 pb-2 flex flex-col gap-3`}>
@@ -22,18 +23,18 @@ export function AppTablePc() {
         <SortPills />
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[920px] border-collapse text-[13px] tabular-nums">
+        <table className="w-full min-w-[480px] border-collapse text-[13px] tabular-nums">
           <thead>
             <tr className="text-[#5B6270] text-xs text-right">
               <th scope="col" className={`${th} text-left px-6`}>アプリ</th>
               <th scope="col" className={`${th} text-left`}>プラットフォーム</th>
-              <th scope="col" className={th}>ダウンロード</th>
-              <th scope="col" className={th}>平均DAU</th>
-              <th scope="col" className={th}>保持率（7日後・iOSのみ）</th>
-              <th scope="col" className={th}>広告収益</th>
-              <th scope="col" className={th}>課金収益</th>
-              <th scope="col" className={th}>合計収益</th>
-              <th scope="col" className={`${th} pl-3 pr-6`}>前期間比</th>
+              {c.dl ? <th scope="col" className={th}>ダウンロード</th> : null}
+              {c.dau ? <th scope="col" className={th}>平均DAU</th> : null}
+              {c.ret ? <th scope="col" className={th}>保持率（7日後・iOSのみ）</th> : null}
+              {c.rev ? <th scope="col" className={th}>広告収益</th> : null}
+              {c.rev ? <th scope="col" className={th}>課金収益</th> : null}
+              {c.rev ? <th scope="col" className={th}>合計収益</th> : null}
+              {c.delta ? <th scope="col" className={`${th} pl-3 pr-6`}>前期間比</th> : null}
             </tr>
           </thead>
           <tbody>
@@ -57,20 +58,24 @@ export function AppTablePc() {
                   </Link>
                 </th>
                 <td className={`${td} text-left text-[#464C57]`}>{r.plat}</td>
-                <td className={td}>{r.dl}</td>
-                <td className={td}>{r.dau}</td>
-                <td className={td}>{r.ret}</td>
-                <td className={`${td} text-[#464C57]`}>{r.ad}</td>
-                <td className={`${td} text-[#464C57]`}>{r.iap}</td>
-                <td className={`${td} font-bold`}>{r.total}</td>
-                <td className={`${td} pl-3 pr-6`}>
-                  <span
-                    className="font-bold text-(--d-color) bg-(--d-bg) px-2 py-0.5 rounded-full whitespace-nowrap"
-                    style={vars({ '--d-color': r.dColor, '--d-bg': r.dBg })}
-                  >
-                    {r.delta}
-                  </span>
-                </td>
+                {c.dl ? <td className={td}>{r.dl}</td> : null}
+                {c.dau ? <td className={td}>{r.dau}</td> : null}
+                {c.ret ? <td className={td}>{r.ret}</td> : null}
+                {c.rev ? <td className={`${td} text-[#464C57]`}>{r.ad}</td> : null}
+                {c.rev ? <td className={`${td} text-[#464C57]`}>{r.iap}</td> : null}
+                {c.rev ? <td className={`${td} font-bold`}>{r.total}</td> : null}
+                {c.delta ? (
+                  <td className={`${td} pl-3 pr-6`}>
+                    {r.hasDelta ? (
+                      <span
+                        className="font-bold text-(--d-color) bg-(--d-bg) px-2 py-0.5 rounded-full whitespace-nowrap"
+                        style={vars({ '--d-color': r.dColor, '--d-bg': r.dBg })}
+                      >
+                        {r.delta}
+                      </span>
+                    ) : null}
+                  </td>
+                ) : null}
               </tr>
             ))}
           </tbody>
