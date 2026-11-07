@@ -32,7 +32,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={lang} className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col tracking-[0.02em]">
         <Header lang={lang} navItems={navItems} socialLinks={socialLinks} />
         <div className="flex-1 flex flex-col">
           {children}
