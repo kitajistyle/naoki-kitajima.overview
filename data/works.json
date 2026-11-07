@@ -81,9 +81,9 @@
       "Supabase",
       "Gemini"
     ],
-    "url": "",
+    "url": "/embeds/eat-log/index.html",
     "image": "/images/works/eat-log.jpg",
-    "embed": false,
+    "embed": true,
     "comingSoon": true,
     "links": [],
     "en": {

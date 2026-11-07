@@ -50,7 +50,7 @@ export default async function WorkDetailPage({ params }: PageProps<'/[lang]/work
       '@type': 'SoftwareApplication',
       name: work.title,
       description: work.description,
-      ...(work.url ? { url: work.url } : {}),
+      ...(work.url ? { url: new URL(work.url, siteUrl).href } : {}),
       author: {
         '@type': 'Person',
         name: 'きたじー',

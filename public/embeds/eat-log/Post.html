@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>投稿とAI解析</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#B23F1B}a:hover{color:#8E3014}
+</style>
+<style>body{background:#E9E2D9;display:flex;justify-content:center;padding:24px 0}body>div{border-radius:40px;box-shadow:0 8px 30px rgba(43,38,34,.15)}@media (max-width:420px){body{padding:0;background:#FBF7F2}body>div{border-radius:0;box-shadow:none}}</style>
+</head>
+<body>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #FBF7F2; color: #2B2622; font-family: 'Zen Maru Gothic', sans-serif; display: flex; flex-direction: column; overflow: hidden">
+  <div style="flex: none; padding: 56px 16px 12px; display: flex; align-items: center; justify-content: space-between">
+    <a href="Camera.html" aria-label="撮り直す" style="width: 44px; height: 44px; border-radius: 22px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; color: #2B2622">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <span style="font-size: 17px; font-weight: 700">夜ごはんを投稿</span>
+    <div style="width: 44px; height: 44px"></div>
+  </div>
+
+  <div style="flex: 1 1 auto; overflow-y: auto; padding: 4px 16px 16px; display: flex; flex-direction: column; gap: 16px">
+    <div style="height: 230px; flex: none; border-radius: 24px; background: #F6DDD2; position: relative; overflow: hidden">
+      <svg width="230" height="230" viewBox="0 0 120 120" role="img" aria-label="カレーライス" style="position: absolute; left: 10px; top: 10px"><ellipse cx="60" cy="64" rx="52" ry="32" fill="#FFFFFF"></ellipse><ellipse cx="60" cy="64" rx="44" ry="25" fill="#F4EEE6"></ellipse><path d="M20 64c0-12 12-20 28-20 10 0 16 6 16 14 0 12-12 22-28 22-10 0-16-6-16-16z" fill="#FFFFFF"></path><path d="M54 50c14-6 34-4 42 6 6 8 2 20-12 24-12 4-26 2-32-6-4-6-4-20 2-24z" fill="#C7772A"></path><rect x="66" y="56" width="11" height="9" rx="3" fill="#E8A04A"></rect><rect x="81" y="63" width="9" height="8" rx="3" fill="#F2C07A"></rect><path d="M66 71l9-2 2 6-9 2z" fill="#E8613C"></path><circle cx="34" cy="56" r="3.5" fill="#D64545"></circle><circle cx="40" cy="54" r="3" fill="#D64545"></circle></svg>
+      <svg width="130" height="130" viewBox="0 0 120 120" role="img" aria-label="グリーンサラダ" style="position: absolute; right: 8px; bottom: 4px"><circle cx="40" cy="56" r="14" fill="#7DBB5E"></circle><circle cx="60" cy="48" r="16" fill="#5E9E48"></circle><circle cx="80" cy="56" r="13" fill="#8CC66A"></circle><circle cx="50" cy="52" r="6" fill="#E8613C"></circle><circle cx="74" cy="47" r="5" fill="#E8613C"></circle><circle cx="64" cy="58" r="6" fill="#FFF6DA"></circle><circle cx="64" cy="58" r="3" fill="#F2A71B"></circle><path d="M20 60h80c0 22-18 36-40 36S20 82 20 60z" fill="#FFFFFF"></path><path d="M34 76h52" stroke="#9CC9DE" stroke-width="3" stroke-linecap="round"></path></svg>
+      <span style="position: absolute; left: 12px; top: 12px; font-size: 11px; padding: 4px 10px; border-radius: 10px; background: rgba(255,255,255,0.9); color: #2B2622; font-weight: 500">アプリ内カメラ · 19:42</span>
+    </div>
+
+    <section style="background: #FFFFFF; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; justify-content: space-between; align-items: center">
+        <h2 style="margin: 0; font-size: 15px; font-weight: 700">AIの読み取り</h2>
+        <span style="font-size: 12px; color: #6E655D">違ったらタップで修正</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <a href="FoodEdit.html" style="min-height: 56px; box-sizing: border-box; padding: 6px 12px 6px 6px; border-radius: 14px; border: 1.5px solid #E5DACE; background: #FBF7F2; color: #2B2622; text-decoration: none; display: flex; gap: 10px; align-items: center">
+          <span style="width: 44px; height: 44px; flex: none; border-radius: 12px; background: #F6DDD2; display: flex; align-items: center; justify-content: center">
+            <svg width="40" height="40" viewBox="0 0 120 120" aria-hidden="true"><ellipse cx="60" cy="64" rx="52" ry="32" fill="#FFFFFF"></ellipse><path d="M20 64c0-12 12-20 28-20 10 0 16 6 16 14 0 12-12 22-28 22-10 0-16-6-16-16z" fill="#F4EEE6"></path><path d="M54 50c14-6 34-4 42 6 6 8 2 20-12 24-12 4-26 2-32-6-4-6-4-20 2-24z" fill="#C7772A"></path><rect x="66" y="56" width="11" height="9" rx="3" fill="#E8A04A"></rect></svg>
+          </span>
+          <span style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto"><span style="font-size: 14px; font-weight: 700">カレーライス</span><span style="font-size: 12px; color: #6E655D">量：約1人前</span></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6E655D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"></path></svg>
+        </a>
+        <button style="min-height: 56px; padding: 6px 12px 6px 6px; border-radius: 14px; border: 1.5px solid #E5DACE; background: #FBF7F2; font-family: inherit; color: #2B2622; display: flex; gap: 10px; align-items: center; text-align: left">
+          <span style="width: 44px; height: 44px; flex: none; border-radius: 12px; background: #E6EDDD; display: flex; align-items: center; justify-content: center">
+            <svg width="40" height="40" viewBox="0 0 120 120" aria-hidden="true"><circle cx="40" cy="56" r="14" fill="#7DBB5E"></circle><circle cx="60" cy="48" r="16" fill="#5E9E48"></circle><circle cx="80" cy="56" r="13" fill="#8CC66A"></circle><circle cx="50" cy="52" r="6" fill="#E8613C"></circle><path d="M20 60h80c0 22-18 36-40 36S20 82 20 60z" fill="#FFFFFF"></path></svg>
+          </span>
+          <span style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto"><span style="font-size: 14px; font-weight: 700">グリーンサラダ</span><span style="font-size: 12px; color: #6E655D">量：小鉢1つ</span></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6E655D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"></path></svg>
+        </button>
+        <button style="height: 44px; border-radius: 14px; border: 1.5px dashed #C9BCAE; background: transparent; font-family: inherit; font-size: 13px; color: #6E655D">＋ 料理を追加</button>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; padding-top: 4px">
+        <span style="font-size: 12px; padding: 4px 10px; border-radius: 10px; background: #E3F1E8; color: #23603D; font-weight: 700">バランス◎</span>
+        <span style="font-size: 12px; color: #6E655D">[kcal] · 詳しい栄養は自分だけに表示</span>
+      </div>
+    </section>
+
+    <section style="background: #FFFFFF; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 12px">
+      <label for="comment" style="font-size: 15px; font-weight: 700">ひとこと</label>
+      <input id="comment" type="text" placeholder="今日のごはん、どうだった？" style="height: 44px; box-sizing: border-box; padding: 0 12px; border-radius: 12px; border: 1.5px solid #E5DACE; background: #FBF7F2; font-family: inherit; font-size: 14px; color: #2B2622">
+      <label style="display: flex; align-items: center; justify-content: space-between; min-height: 44px; font-size: 14px">
+        <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 500">手作り</span><span style="font-size: 12px; color: #6E655D">カレンダーに手作りマークがつきます</span></span>
+        <input type="checkbox" checked style="width: 22px; height: 22px; accent-color: #B23F1B">
+      </label>
+      <button style="height: 44px; border-radius: 12px; border: 1.5px solid #E5DACE; background: #FFFFFF; font-family: inherit; font-size: 14px; color: #2B2622; display: flex; align-items: center; justify-content: center; gap: 6px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"></path><path d="M9 12h7M9 16h5"></path></svg>
+        レシピ・材料を添付
+      </button>
+    </section>
+  </div>
+
+  <div style="flex: none; padding: 12px 16px 32px; background: #FBF7F2; border-top: 1px solid #EEE6DC; display: flex; flex-direction: column; gap: 8px">
+    <span style="font-size: 12px; color: #6E655D; text-align: center">公開範囲：友達（相互フォロー）</span>
+    <a href="Main.html" style="height: 52px; border-radius: 26px; background: #B23F1B; color: #FFFFFF; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">投稿する</a>
+  </div>
+</div>
+</body>
+</html>

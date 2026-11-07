@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>通知設定</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#B23F1B}a:hover{color:#8E3014}
+input.sw{appearance:none;-webkit-appearance:none;width:50px;height:30px;border-radius:15px;background:#CFC5BA;position:relative;margin:0;flex:none;cursor:pointer}
+input.sw::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:12px;background:#FFFFFF;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+input.sw:checked{background:#2F7A4F}
+input.sw:checked::after{left:23px}
+</style>
+<style>body{background:#E9E2D9;display:flex;justify-content:center;padding:24px 0}body>div{border-radius:40px;box-shadow:0 8px 30px rgba(43,38,34,.15)}@media (max-width:420px){body{padding:0;background:#FBF7F2}body>div{border-radius:0;box-shadow:none}}</style>
+</head>
+<body>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #FBF7F2; color: #2B2622; font-family: 'Zen Maru Gothic', sans-serif; display: flex; flex-direction: column; overflow: hidden">
+  <div style="flex: none; padding: 56px 16px 8px; display: flex; align-items: center; justify-content: space-between">
+    <a href="Settings.html" aria-label="戻る" style="width: 44px; height: 44px; border-radius: 22px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; color: #2B2622"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <span style="font-size: 17px; font-weight: 700">通知</span>
+    <div style="width: 44px; height: 44px"></div>
+  </div>
+
+  <div style="flex: 1 1 auto; overflow-y: auto; padding: 8px 16px 32px; display: flex; flex-direction: column; gap: 18px">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <h2 style="margin: 0 0 0 6px; font-size: 13px; color: #5C544C; font-weight: 500">ごはんのリマインド</h2>
+      <div style="background: #FFFFFF; border-radius: 20px; padding: 0 14px; display: flex; flex-direction: column">
+        <label style="display: flex; gap: 12px; align-items: center; min-height: 58px">
+          <span style="width: 36px; height: 36px; flex: none; border-radius: 18px; background: #FBEBD3; display: flex; align-items: center; justify-content: center"><svg width="28" height="28" viewBox="0 0 120 120" aria-hidden="true"><path d="M28 46c0-14 10-22 32-22s32 8 32 22c0 4-3 6-6 7v37H34V53c-3-1-6-3-6-7z" fill="#D9A15B"></path><path d="M34 48c0-10 8-16 26-16s26 6 26 16c0 3-2 4-4 5v31H38V53c-2-1-4-2-4-5z" fill="#F3D39A"></path><circle cx="58" cy="64" r="8" fill="#F2A71B"></circle></svg></span>
+          <span style="font-size: 14px; flex: 1 1 auto">朝ごはん</span>
+          <span style="font-size: 13px; color: #2B2622; padding: 6px 10px; border-radius: 10px; background: #F6F1EB">8:00</span>
+          <input class="sw" type="checkbox" role="switch" checked>
+        </label>
+        <label style="display: flex; gap: 12px; align-items: center; min-height: 58px; border-top: 1px solid #F1EBE4">
+          <span style="width: 36px; height: 36px; flex: none; border-radius: 18px; background: #E3EEF5; display: flex; align-items: center; justify-content: center"><svg width="28" height="28" viewBox="0 0 120 120" aria-hidden="true"><path d="M24 58c4-16 18-24 36-24s32 8 36 24z" fill="#FFFFFF"></path><path d="M40 47c6-8 20-10 30-6 4 2 4 6 0 8-10 4-22 4-30-2z" fill="#F08A65"></path><path d="M18 58h84c0 24-18 40-42 40S18 82 18 58z" fill="#3E6E8E"></path></svg></span>
+          <span style="font-size: 14px; flex: 1 1 auto">昼ごはん</span>
+          <span style="font-size: 13px; color: #2B2622; padding: 6px 10px; border-radius: 10px; background: #F6F1EB">12:30</span>
+          <input class="sw" type="checkbox" role="switch" checked>
+        </label>
+        <label style="display: flex; gap: 12px; align-items: center; min-height: 58px; border-top: 1px solid #F1EBE4">
+          <span style="width: 36px; height: 36px; flex: none; border-radius: 18px; background: #F3E6D8; display: flex; align-items: center; justify-content: center"><svg width="30" height="30" viewBox="0 0 120 120" aria-hidden="true"><ellipse cx="60" cy="64" rx="52" ry="32" fill="#FFFFFF"></ellipse><path d="M54 50c14-6 34-4 42 6 6 8 2 20-12 24-12 4-26 2-32-6-4-6-4-20 2-24z" fill="#C7772A"></path></svg></span>
+          <span style="font-size: 14px; flex: 1 1 auto">夜ごはん</span>
+          <span style="font-size: 13px; color: #2B2622; padding: 6px 10px; border-radius: 10px; background: #F6F1EB">19:00</span>
+          <input class="sw" type="checkbox" role="switch">
+        </label>
+      </div>
+      <p style="margin: 0 6px; font-size: 12px; line-height: 1.6; color: #6E655D">投稿済みの枠には通知しません。</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <h2 style="margin: 0 0 0 6px; font-size: 13px; color: #5C544C; font-weight: 500">友達とのやりとり</h2>
+      <div style="background: #FFFFFF; border-radius: 20px; padding: 0 14px; display: flex; flex-direction: column">
+        <label style="display: flex; gap: 12px; align-items: center; min-height: 52px"><span style="font-size: 14px; flex: 1 1 auto">リアクション</span><input class="sw" type="checkbox" role="switch" checked></label>
+        <label style="display: flex; gap: 12px; align-items: center; min-height: 52px; border-top: 1px solid #F1EBE4"><span style="font-size: 14px; flex: 1 1 auto">友達申請</span><input class="sw" type="checkbox" role="switch" checked></label>
+        <label style="display: flex; gap: 12px; align-items: center; min-height: 52px; border-top: 1px solid #F1EBE4"><span style="font-size: 14px; flex: 1 1 auto">友達の投稿</span><input class="sw" type="checkbox" role="switch"></label>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <h2 style="margin: 0 0 0 6px; font-size: 13px; color: #5C544C; font-weight: 500">ごほうび</h2>
+      <div style="background: #FFFFFF; border-radius: 20px; padding: 0 14px; display: flex; flex-direction: column">
+        <label style="display: flex; gap: 12px; align-items: center; min-height: 52px"><span style="font-size: 14px; flex: 1 1 auto">おやつ・夜食が解放されたとき</span><input class="sw" type="checkbox" role="switch" checked></label>
+        <label style="display: flex; gap: 12px; align-items: center; min-height: 52px; border-top: 1px solid #F1EBE4"><span style="font-size: 14px; flex: 1 1 auto">運営からのお知らせ</span><input class="sw" type="checkbox" role="switch"></label>
+      </div>
+    </div>
+
+    <div style="background: #FFFFFF; border-radius: 20px; padding: 0 14px; display: flex; flex-direction: column">
+      <label style="display: flex; gap: 12px; align-items: center; min-height: 58px">
+        <span style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto"><span style="font-size: 14px">おやすみ時間</span><span style="font-size: 12px; color: #6E655D">23:00〜7:00 は通知しません</span></span>
+        <input class="sw" type="checkbox" role="switch" checked>
+      </label>
+    </div>
+  </div>
+</div>
+</body>
+</html>

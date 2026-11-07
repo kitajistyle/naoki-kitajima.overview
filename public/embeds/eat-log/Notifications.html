@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>お知らせ</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#B23F1B}a:hover{color:#8E3014}
+</style>
+<style>body{background:#E9E2D9;display:flex;justify-content:center;padding:24px 0}body>div{border-radius:40px;box-shadow:0 8px 30px rgba(43,38,34,.15)}@media (max-width:420px){body{padding:0;background:#FBF7F2}body>div{border-radius:0;box-shadow:none}}</style>
+</head>
+<body>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #FBF7F2; color: #2B2622; font-family: 'Zen Maru Gothic', sans-serif; display: flex; flex-direction: column; overflow: hidden">
+  <div style="flex: none; padding: 56px 16px 8px; display: flex; align-items: center; justify-content: space-between">
+    <a href="Main.html" aria-label="戻る" style="width: 44px; height: 44px; border-radius: 22px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; color: #2B2622"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <span style="font-size: 17px; font-weight: 700">お知らせ</span>
+    <a href="NotifySettings.html" aria-label="通知設定" style="width: 44px; height: 44px; border-radius: 22px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; color: #2B2622"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"></path></svg></a>
+  </div>
+
+  <div role="tablist" style="flex: none; margin: 4px 16px 8px; padding: 4px; border-radius: 16px; background: #FFFFFF; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px">
+    <button role="tab" aria-selected="true" style="height: 38px; border: none; border-radius: 12px; background: #2B2622; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700">すべて</button>
+    <button role="tab" aria-selected="false" style="height: 38px; border: none; border-radius: 12px; background: transparent; color: #2B2622; font-family: inherit; font-size: 13px">リアクション</button>
+    <button role="tab" aria-selected="false" style="height: 38px; border: none; border-radius: 12px; background: transparent; color: #2B2622; font-family: inherit; font-size: 13px">友達申請</button>
+  </div>
+
+  <div style="flex: 1 1 auto; overflow-y: auto; padding: 4px 16px 32px; display: flex; flex-direction: column; gap: 8px">
+    <h2 style="margin: 6px 0 0 6px; font-size: 13px; color: #5C544C; font-weight: 500">今日</h2>
+
+    <div style="background: #FFFFFF; border-radius: 18px; padding: 12px; display: flex; gap: 12px; align-items: center">
+      <div style="width: 40px; height: 40px; flex: none; border-radius: 20px; background: #DCE6F2; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700">は</div>
+      <div style="display: flex; flex-direction: column; gap: 8px; flex: 1 1 auto; min-width: 0">
+        <span style="font-size: 13.5px; line-height: 1.5"><b>[名前]</b>さんから友達申請が届きました</span>
+        <div style="display: flex; gap: 8px">
+          <button style="height: 36px; padding: 0 16px; border-radius: 18px; border: none; background: #B23F1B; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700">承認</button>
+          <button style="height: 36px; padding: 0 16px; border-radius: 18px; border: 1.5px solid #E5DACE; background: #FFFFFF; color: #2B2622; font-family: inherit; font-size: 13px">削除</button>
+        </div>
+      </div>
+      <span style="align-self: flex-start; width: 8px; height: 8px; border-radius: 4px; background: #B23F1B; flex: none; margin-top: 6px"></span>
+    </div>
+
+    <div style="background: #FFFFFF; border-radius: 18px; padding: 12px; display: flex; gap: 12px; align-items: center">
+      <div style="width: 40px; height: 40px; flex: none; border-radius: 20px; background: #E6EDDD; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700">ゆ</div>
+      <span style="font-size: 13.5px; line-height: 1.5; flex: 1 1 auto"><b>[名前]</b>さんがあなたの昼ごはんに「たべたい」しました<br><span style="font-size: 12px; color: #6E655D">13:05</span></span>
+      <span style="width: 48px; height: 48px; flex: none; border-radius: 12px; background: #E3EEF5; display: flex; align-items: center; justify-content: center"><svg width="40" height="40" viewBox="0 0 120 120" aria-hidden="true"><path d="M24 58c4-16 18-24 36-24s32 8 36 24z" fill="#FFFFFF"></path><path d="M40 47c6-8 20-10 30-6 4 2 4 6 0 8-10 4-22 4-30-2z" fill="#F08A65"></path><path d="M18 58h84c0 24-18 40-42 40S18 82 18 58z" fill="#3E6E8E"></path></svg></span>
+    </div>
+
+    <div style="background: #FFFFFF; border-radius: 18px; padding: 12px; display: flex; gap: 12px; align-items: center">
+      <div style="width: 40px; height: 40px; flex: none; border-radius: 20px; background: #FBEBD3; display: flex; align-items: center; justify-content: center"><svg width="32" height="32" viewBox="0 0 120 120" aria-hidden="true"><ellipse cx="60" cy="92" rx="42" ry="11" fill="#FFFFFF"></ellipse><path d="M36 88c0-6 3-38 10-44h28c7 6 10 38 10 44z" fill="#F6CF6A"></path><path d="M44 46c0-7 7-11 16-11s16 4 16 11c0 4-7 6-16 6s-16-2-16-6z" fill="#8A4A1C"></path><circle cx="60" cy="30" r="6" fill="#D64545"></circle></svg></div>
+      <span style="font-size: 13.5px; line-height: 1.5; flex: 1 1 auto"><b>おやつ</b>が解放されました。夜ごはんまでに投稿できます<br><span style="font-size: 12px; color: #6E655D">8:12</span></span>
+    </div>
+
+    <h2 style="margin: 10px 0 0 6px; font-size: 13px; color: #5C544C; font-weight: 500">昨日</h2>
+
+    <div style="background: #FFFFFF; border-radius: 18px; padding: 12px; display: flex; gap: 12px; align-items: center">
+      <div style="width: 40px; height: 40px; flex: none; border-radius: 20px; background: #EEE8E1; display: flex; align-items: center; justify-content: center"><svg width="30" height="30" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 24c9 0 42 52 42 64 0 9-8 10-42 10s-42-1-42-10c0-12 33-64 42-64z" fill="#FFFFFF"></path><rect x="44" y="70" width="32" height="28" rx="3" fill="#2E3B33"></rect></svg></div>
+      <span style="font-size: 13.5px; line-height: 1.5; flex: 1 1 auto">3食そろいました。<b>夜食</b>が解放されています<br><span style="font-size: 12px; color: #6E655D">20:41</span></span>
+    </div>
+
+    <div style="background: #FFFFFF; border-radius: 18px; padding: 12px; display: flex; gap: 12px; align-items: center">
+      <div style="width: 40px; height: 40px; flex: none; border-radius: 20px; background: #DCE6F2; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700">は</div>
+      <span style="font-size: 13.5px; line-height: 1.5; flex: 1 1 auto"><b>[名前]</b>さんほか [数]人があなたのカレーに「真似したい」しました<br><span style="font-size: 12px; color: #6E655D">19:58</span></span>
+      <span style="width: 48px; height: 48px; flex: none; border-radius: 12px; background: #F3E6D8; display: flex; align-items: center; justify-content: center"><svg width="42" height="42" viewBox="0 0 120 120" aria-hidden="true"><ellipse cx="60" cy="64" rx="52" ry="32" fill="#FFFFFF"></ellipse><path d="M20 64c0-12 12-20 28-20 10 0 16 6 16 14 0 12-12 22-28 22-10 0-16-6-16-16z" fill="#F4EEE6"></path><path d="M54 50c14-6 34-4 42 6 6 8 2 20-12 24-12 4-26 2-32-6-4-6-4-20 2-24z" fill="#C7772A"></path></svg></span>
+    </div>
+
+    <div style="background: #FFFFFF; border-radius: 18px; padding: 12px; display: flex; gap: 12px; align-items: center">
+      <div style="width: 40px; height: 40px; flex: none; border-radius: 20px; background: #FCE6DC; color: #9A3615; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 16H3z"></path><path d="M12 10v4M12 17v.5"></path></svg></div>
+      <span style="font-size: 13.5px; line-height: 1.5; flex: 1 1 auto">通報いただいた投稿を確認し、対応しました。ご協力ありがとうございます<br><span style="font-size: 12px; color: #6E655D">運営 · 10:20</span></span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
