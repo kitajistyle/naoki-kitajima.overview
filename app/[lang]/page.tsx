@@ -101,27 +101,16 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
             {home.scroll}
           </div>
         </div>
-
-        <div className="px-8 pt-40 pb-20 md:mx-auto md:w-215 md:px-0 md:pt-60 md:pb-25">
-          <p className="max-w-2xl text-sm leading-loose text-white md:text-base md:leading-loose">
-            {profile.bio}
-          </p>
-          <div className="mt-8">
-            <ViewMoreLink href={`/${lang}/about`} label={home.about_cta} />
-          </div>
-        </div>
       </section>
 
-      {/* Blog — latest posts, news-list style */}
-      <section className="bg-white px-8 pt-16 pb-18 text-ink md:pt-24 md:pb-24">
-        <div className="mx-auto max-w-215">
-          <SectionHeading title="Blog" lead={home.blog_lead} tone="dark" />
-          <div className="mt-10">
-            <PostList posts={posts} lang={lang} tone="dark" />
-          </div>
-          <div className="mt-12 flex justify-center">
-            <ViewMoreLink href={`/${lang}/blog`} label={home.view_more} tone="dark" />
-          </div>
+      {/* About — bio over the fixed hero video */}
+      <section className="px-8 py-24 text-white md:mx-auto md:w-215 md:px-0 md:py-36">
+        <SectionHeading title="About" />
+        <p className="mt-10 max-w-2xl text-sm leading-loose md:text-base md:leading-loose">
+          {profile.bio}
+        </p>
+        <div className="mt-8">
+          <ViewMoreLink href={`/${lang}/about`} label={home.about_cta} />
         </div>
       </section>
 
@@ -135,6 +124,19 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
         </div>
         <div className="mt-20 flex justify-center">
           <ViewMoreLink href={`/${lang}/works`} label={home.view_more} />
+        </div>
+      </section>
+
+      {/* Blog — latest posts, news-list style */}
+      <section className="bg-white px-8 pt-16 pb-18 text-ink md:pt-24 md:pb-24">
+        <div className="mx-auto max-w-215">
+          <SectionHeading title="Blog" lead={home.blog_lead} tone="dark" />
+          <div className="mt-10">
+            <PostList posts={posts} lang={lang} tone="dark" />
+          </div>
+          <div className="mt-12 flex justify-center">
+            <ViewMoreLink href={`/${lang}/blog`} label={home.view_more} tone="dark" />
+          </div>
         </div>
       </section>
 
