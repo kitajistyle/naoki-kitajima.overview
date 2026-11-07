@@ -1,9 +1,13 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
 import { getDictionary, hasLocale } from './dictionaries'
 import { notFound } from 'next/navigation'
-import { Footer } from '../components/ui/Footer'
+import { getBlogPosts, getProfile, getWorks } from '../../lib/data'
+import { ViewMoreLink } from '../components/ui/ViewMoreLink'
+import { SectionHeading } from '../components/ui/SectionHeading'
+import { WorksGrid } from '../components/ui/WorksGrid'
+import { PostList } from '../components/ui/PostList'
+import { SocialIcon } from '../components/ui/SocialIcon'
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -49,6 +53,10 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
   const { lang } = await params
   if (!hasLocale(lang)) notFound()
   const dict = await getDictionary(lang)
+  const profile = getProfile(lang)
+  const works = getWorks(lang)
+  const posts = getBlogPosts(lang).slice(0, 3)
+  const { home } = dict
 
   return (
     <>
@@ -56,50 +64,120 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
-    <main className="relative flex-1 flex items-center justify-center overflow-hidden">
-      {/* Decorative pixel earth */}
-      <div className="fixed inset-y-0 left-[-40%] md:left-[-20%] w-[140%] md:w-[80%] pointer-events-none -z-10">
+    <main>
+      {/* Hero — fixed background video; following sections scroll over it */}
+      <section className="relative">
+        <div className="fixed inset-0 -z-10 bg-ink">
+          <video
+            className="size-full object-cover"
+            src="/videos/hero.mp4"
+            poster="/videos/hero-poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-ink/70" />
+        </div>
+
+        <div className="relative flex min-h-svh flex-col justify-center px-8 md:mx-auto md:w-215 md:px-0">
+          <p className="text-xs font-bold tracking-[0.2em] text-white/70">{home.role}</p>
+          <h1 className="mt-6 text-[30px] leading-[46px] font-bold text-white md:text-6xl md:leading-20">
+            {home.hero_lines.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </h1>
+          <div className="mt-10 md:mt-14">
+            <ViewMoreLink href={`/${lang}/works`} label={home.view_works} />
+          </div>
+          <div
+            aria-hidden="true"
+            className="absolute -right-1 bottom-20 w-20 -rotate-90 animate-pulse bg-linear-to-r from-accent-from to-accent-to bg-size-[100%_1px] bg-bottom-left bg-no-repeat pb-1 text-right text-xs tracking-widest text-white uppercase md:-right-9 md:w-25 md:text-sm"
+          >
+            {home.scroll}
+          </div>
+        </div>
+
+        <div className="px-8 pt-40 pb-20 md:mx-auto md:w-215 md:px-0 md:pt-60 md:pb-25">
+          <p className="max-w-2xl text-sm leading-loose text-white md:text-base md:leading-loose">
+            {profile.bio}
+          </p>
+          <div className="mt-8">
+            <ViewMoreLink href={`/${lang}/about`} label={home.about_cta} />
+          </div>
+        </div>
+      </section>
+
+      {/* Blog — latest posts, news-list style */}
+      <section className="bg-white px-8 pt-16 pb-18 text-ink md:pt-24 md:pb-24">
+        <div className="mx-auto max-w-215">
+          <SectionHeading title="Blog" lead={home.blog_lead} tone="dark" />
+          <div className="mt-10">
+            <PostList posts={posts} lang={lang} tone="dark" />
+          </div>
+          <div className="mt-12 flex justify-center">
+            <ViewMoreLink href={`/${lang}/blog`} label={home.view_more} tone="dark" />
+          </div>
+        </div>
+      </section>
+
+      {/* Works */}
+      <section className="bg-ink pt-22 pb-30 text-white">
+        <div className="mx-auto max-w-247 px-8 md:px-16">
+          <SectionHeading title="Works" lead={home.works_lead} />
+        </div>
+        <div className="mx-auto mt-12 max-w-332 px-8 md:px-16">
+          <WorksGrid works={works} lang={lang} viewDetailLabel={home.view_detail} />
+        </div>
+        <div className="mt-20 flex justify-center">
+          <ViewMoreLink href={`/${lang}/works`} label={home.view_more} />
+        </div>
+      </section>
+
+      {/* Like — photo banner */}
+      <section className="relative isolate overflow-hidden px-8 py-24 text-white md:py-36">
         <Image
-          src="/hero.png"
+          src="/bboy.jpg"
           alt=""
           fill
-          sizes="(max-width: 768px) 140vw, 80vw"
-          className="object-contain object-left scale-[1.15] origin-left [image-rendering:pixelated] opacity-90 transition-transform duration-700"
-          preload
+          sizes="100vw"
+          className="-z-10 object-cover"
         />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 sm:px-12 flex flex-col items-end gap-6">
-        <p className="text-white text-xs sm:text-sm font-medium tracking-[0.3em] uppercase">
-          {dict.home.role}
-        </p>
-
-        <h1 className="text-[6rem] sm:text-[9rem] md:text-[14rem] lg:text-[18rem] xl:text-[22rem] font-black font-mono tracking-tighter leading-none select-none text-white drop-shadow-2xl">
-          KITAJI
-        </h1>
-
-        <p className="text-white text-sm sm:text-base max-w-xs text-right leading-relaxed">
-          {dict.home.tagline}
-        </p>
-
-        <div className="flex gap-3">
-          <Link
-            href={`/${lang}/works`}
-            className="px-6 py-2.5 text-sm font-medium rounded-full border border-zinc-700 text-white hover:border-white transition-colors duration-200"
-          >
-            {dict.home.cta_works}
-          </Link>
-          <Link
-            href={`/${lang}/about`}
-            className="px-6 py-2.5 text-sm font-medium rounded-full border border-zinc-700 text-white hover:border-white transition-colors duration-200"
-          >
-            {dict.home.cta_about}
-          </Link>
+        <div className="absolute inset-0 -z-10 bg-ink/70" />
+        <div className="mx-auto max-w-215">
+          <SectionHeading title="Like" lead={home.like_lead} />
+          <div className="mt-10">
+            <ViewMoreLink href={`/${lang}/like`} label={home.view_more} />
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Contact */}
+      <section className="bg-white px-8 py-20 text-ink md:py-28">
+        <div className="mx-auto max-w-215">
+          <SectionHeading title="Contact" lead={dict.contact.lead} tone="dark" />
+          <ul className="mt-10 flex flex-wrap gap-3">
+            {profile.links.map((link) => (
+              <li key={link.url}>
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 border border-ink/15 px-5 py-3 text-sm font-bold tracking-[0.08em] transition-colors duration-200 hover:border-transparent hover:bg-linear-to-r hover:from-accent-from hover:to-accent-to hover:text-white"
+                >
+                  <SocialIcon label={link.label} />
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </main>
-    <Footer fixed />
     </>
   )
 }

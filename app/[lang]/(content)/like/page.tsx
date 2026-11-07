@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { getDictionary, hasLocale } from '../../dictionaries'
 import { notFound } from 'next/navigation'
 import { Scene } from '../../../components/ui/Scene'
+import { PageHeader } from '../../../components/ui/PageHeader'
 
 export async function generateMetadata({ params }: PageProps<'/[lang]/like'>): Promise<Metadata> {
   const { lang } = await params
@@ -28,25 +29,26 @@ export default async function LikePage({ params }: PageProps<'/[lang]/like'>) {
   const { like } = dict
 
   return (
-    <main className="px-6 sm:px-12">
-      <div className="max-w-2xl mx-auto space-y-16">
-        <h1 className="text-4xl font-black tracking-tight mb-12">{like.heading}</h1>
-
-        {/* Bboy section */}
-        <section className="space-y-8">
-          <Scene name="bboy" />
-
-          <h2 className="text-2xl font-bold">{like.bboy_title}</h2>
-
-          <div className="space-y-5">
-            {like.bboy_paragraphs.map((paragraph, i) => (
-              <p key={i} className="text-zinc-400 leading-relaxed">
-                {paragraph}
-              </p>
-            ))}
+    <main>
+      <PageHeader title="Like" sub={like.heading} lead={dict.home.like_lead} />
+      <section className="mx-auto max-w-300 px-8 md:px-16">
+        <div className="grid gap-10 md:grid-cols-[1fr_1fr] md:items-center md:gap-16">
+          <div className="bg-ink-deep">
+            <Scene name="bboy" />
           </div>
-        </section>
-      </div>
+          <div>
+            <h2 className="text-2xl font-bold md:text-3xl">{like.bboy_title}</h2>
+            <span className="mt-5 block h-px w-2.5 bg-linear-to-r from-accent-from to-accent-to" />
+            <div className="mt-6 space-y-5">
+              {like.bboy_paragraphs.map((paragraph, i) => (
+                <p key={i} className="text-sm leading-loose text-white/80 md:text-base">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   )
 }

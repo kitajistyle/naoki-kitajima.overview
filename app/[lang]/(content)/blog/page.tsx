@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { getDictionary, hasLocale } from '../../dictionaries'
 import { getBlogPosts } from '../../../../lib/data'
 import { notFound } from 'next/navigation'
-import { Scene } from '../../../components/ui/Scene'
+import { PageHeader } from '../../../components/ui/PageHeader'
+import { PostList } from '../../../components/ui/PostList'
 
 export async function generateMetadata({ params }: PageProps<'/[lang]/blog'>): Promise<Metadata> {
   const { lang } = await params
@@ -30,41 +30,11 @@ export default async function BlogPage({ params }: PageProps<'/[lang]/blog'>) {
   const posts = getBlogPosts(lang)
 
   return (
-    <>
-      <Scene name="blog" />
-      <main className="relative z-10 px-6 sm:px-12">
-        <div className="max-w-2xl mx-auto">
-        <h1 className="text-4xl font-black tracking-tight mb-12">{dict.nav.blog}</h1>
-        <ul className="flex flex-col gap-10">
-          {posts.map((post) => (
-            <li key={post.slug}>
-              <Link
-                href={`/${lang}/blog/${post.slug}`}
-                className="group flex flex-col gap-2"
-              >
-                <time className="text-xs tracking-widest text-zinc-500 uppercase">
-                  {post.date}
-                </time>
-                <h2 className="text-xl font-semibold group-hover:text-zinc-300 transition-colors duration-200">
-                  {post.title}
-                </h2>
-                <p className="text-zinc-400 text-sm leading-relaxed">{post.excerpt}</p>
-                <div className="flex gap-2 mt-1">
-                  {post.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[10px] tracking-widest uppercase text-zinc-600 border border-zinc-800 px-2 py-0.5"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+    <main>
+      <PageHeader title="Blog" sub={dict.nav.blog} lead={dict.home.blog_lead} />
+      <div className="mx-auto max-w-300 px-8 md:px-16">
+        <PostList posts={posts} lang={lang} showExcerpt headingLevel="h2" />
       </div>
-      </main>
-    </>
+    </main>
   )
 }
