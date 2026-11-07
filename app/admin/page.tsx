@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 // Regenerate at most once an hour — external API calls and page renders only
-// happen on revalidation, not per request. IP + Basic auth still run per
+// happen on revalidation, not per request. Session check still runs per
 // request in proxy.ts.
 export const revalidate = 3600
 

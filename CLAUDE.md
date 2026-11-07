@@ -10,7 +10,7 @@
 
 ## ディレクトリ構成
 ```
-proxy.ts                     # ロケール検出 → /en or /ja にリダイレクト
+proxy.ts                     # ロケール検出 → /en or /ja にリダイレクト + /admin のセッション認証（Google OAuth）
 app/
   layout.tsx                 # Geist フォント・デフォルトメタデータ
   page.tsx                   # /ja へリダイレクト（フォールバック）

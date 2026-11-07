@@ -3,7 +3,7 @@ import { alertBody, evaluate, sendAll } from '../../lib/notify'
 
 // 管理画面の通知設定ページからの手動評価・送信。
 // {"send":true} で設定チャネルへ実送信、省略/Falseなら評価結果だけ返す。
-// アクセス制御は proxy.ts の /admin/*（IP許可リスト + Basic認証）。
+// アクセス制御は proxy.ts の /admin/*（Google OAuth セッション）。
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => ({}))) as { send?: boolean }
   const raw = await getAdminRaw()

@@ -2,7 +2,7 @@
 // ADMIN_PUSH_ENDPOINTS = {"<app name>": "https://<backend>/admin/push?token=…"}
 // POST {"app":"<name>"|null, "title":"…", "body":"…"} → 各バックエンドへ転送。
 // app=null（または"all"）は設定済み全アプリへ送る。
-// アクセス制御は proxy.ts の /admin/*（IP許可リスト + Basic認証）。
+// アクセス制御は proxy.ts の /admin/*（Google OAuth セッション）。
 export async function POST(request: Request) {
   const raw = process.env.ADMIN_PUSH_ENDPOINTS
   if (!raw) return Response.json({ error: 'ADMIN_PUSH_ENDPOINTS 未設定' }, { status: 503 })
