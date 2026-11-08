@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useState } from 'react'
 
 interface AlertRule {
@@ -93,16 +92,13 @@ export function NotificationsClient({
   }
 
   return (
-    <div className="min-h-screen bg-[#F4F5F7] text-[#14161A] font-sans">
+    <div className="min-h-screen">
       <div className="max-w-[920px] mx-auto px-5 py-8 flex flex-col gap-6">
         <header className="flex flex-wrap items-end justify-between gap-3">
           <div className="flex flex-col gap-1.5">
             <h1 className="text-[26px] font-bold tracking-[0.01em]">通知設定</h1>
             <p className="text-[13px] text-[#5B6270]">管理者アラートとユーザー向けPush送信</p>
           </div>
-          <Link href="/admin" className={btn}>
-            ← 概要に戻る
-          </Link>
         </header>
 
         <section className={card} aria-label="管理者アラート">

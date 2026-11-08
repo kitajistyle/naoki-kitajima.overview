@@ -4,7 +4,8 @@ import { AppStoreBadge } from '../../../../components/ui/AppStoreBadge'
 import { getDictionary, hasLocale } from '../../../dictionaries'
 import { getWorkBySlug, getWorks } from '../../../../../lib/data'
 import { notFound } from 'next/navigation'
-import { Scene } from '../../../../components/ui/Scene'
+import { PageHeader } from '../../../../components/ui/PageHeader'
+import { ViewMoreLink } from '../../../../components/ui/ViewMoreLink'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kitajistyle.com'
 
@@ -49,7 +50,7 @@ export default async function WorkDetailPage({ params }: PageProps<'/[lang]/work
       '@type': 'SoftwareApplication',
       name: work.title,
       description: work.description,
-      ...(work.url ? { url: work.url } : {}),
+      ...(work.url ? { url: new URL(work.url, siteUrl).href } : {}),
       author: {
         '@type': 'Person',
         name: 'きたじー',
@@ -68,6 +69,14 @@ export default async function WorkDetailPage({ params }: PageProps<'/[lang]/work
     },
   ]
 
+  const linkButtons = work.links.map((link) =>
+    link.label === 'App Store' ? (
+      <AppStoreBadge key={link.url} href={link.url} />
+    ) : (
+      <ViewMoreLink key={link.url} href={link.url} label={link.label} external />
+    )
+  )
+
   if (work.embed && work.url) {
     return (
       <>
@@ -75,34 +84,20 @@ export default async function WorkDetailPage({ params }: PageProps<'/[lang]/work
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <main className="relative z-10 -my-8 sm:-my-14 h-[calc(100dvh-4rem)]">
-        <h1 className="sr-only">{work.title}</h1>
-        <Link
-          href={`/${lang}/works`}
-          className="absolute top-4 left-6 sm:left-12 z-20 rounded-full border border-zinc-600 bg-black/60 px-3 py-1 text-xs font-medium uppercase tracking-widest text-zinc-300 backdrop-blur-sm transition-colors duration-200 hover:border-white hover:text-white"
-        >
-          ← {dict.nav.works}
-        </Link>
-        {work.links.length > 0 ? (
-          <div className="absolute top-4 right-6 sm:right-12 z-20 flex gap-2">
-            {work.links.map((link) =>
-              link.label === 'App Store' ? (
-                <AppStoreBadge key={link.url} href={link.url} />
-              ) : (
-                <a
-                  key={link.url}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-zinc-900 transition-colors duration-200 hover:bg-zinc-200"
-                >
-                  {link.label} ↗
-                </a>
-              )
-            )}
+      <main className="-mb-24 flex h-dvh flex-col pt-16 md:-mb-32 md:pt-28">
+        <div className="flex flex-wrap items-center justify-between gap-4 px-8 pb-4 md:px-[max(64px,calc(50%-600px))]">
+          <div className="flex items-center gap-4">
+            <Link
+              href={`/${lang}/works`}
+              className="text-xs font-bold tracking-[0.12em] text-white/60 transition-colors hover:text-white"
+            >
+              ← Works
+            </Link>
+            <h1 className="text-lg font-bold">{work.title}</h1>
           </div>
-        ) : null}
-        <iframe src={work.url} title={work.title} className="h-full w-full" />
+          {linkButtons.length > 0 ? <div className="flex items-center gap-4">{linkButtons}</div> : null}
+        </div>
+        <iframe src={work.url} title={work.title} className="w-full flex-1 bg-white" />
       </main>
       </>
     )
@@ -114,63 +109,26 @@ export default async function WorkDetailPage({ params }: PageProps<'/[lang]/work
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
-    <Scene name="works" />
-    <main className="relative z-10 px-6 sm:px-12">
-      <div className="max-w-4xl mx-auto">
-        <Link
-          href={`/${lang}/works`}
-          className="inline-block text-sm text-zinc-400 hover:text-white transition-colors duration-200 mb-10"
-        >
-          ← {dict.nav.works}
-        </Link>
-        <div className="flex items-start justify-between gap-4 mb-4">
-          <h1 className="text-4xl font-black tracking-tight">{work.title}</h1>
-          {work.comingSoon ? (
-            <span className="shrink-0 text-xs font-medium tracking-widest uppercase px-3 py-1 rounded-full border border-zinc-600 text-zinc-400">
-              Coming Soon
-            </span>
-          ) : work.url ? (
-            <a
-              href={work.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="shrink-0 text-xs font-medium tracking-widest uppercase px-3 py-1 rounded-full border border-zinc-600 text-zinc-400 hover:border-white hover:text-white transition-colors duration-200"
-            >
-              Visit ↗
-            </a>
-          ) : null}
-        </div>
-        <p className="text-zinc-400 leading-relaxed mb-6">{work.description}</p>
-        <ul className="flex flex-wrap gap-2 mb-12">
+    <main>
+      <PageHeader title={work.title} sub={work.comingSoon ? 'Coming Soon' : dict.nav.works} lead={work.description} />
+      <div className="mx-auto max-w-300 space-y-12 px-8 md:px-16">
+        <ul className="flex flex-wrap gap-x-6 gap-y-3">
           {work.tags.map((tag) => (
             <li
               key={tag}
-              className="text-xs px-2.5 py-1 rounded-full bg-zinc-800 text-zinc-400"
+              className="bg-linear-to-r from-accent-from to-accent-to bg-size-[100%_1px] bg-bottom-left bg-no-repeat pb-1 text-sm font-bold"
             >
               {tag}
             </li>
           ))}
         </ul>
-        {work.links.length > 0 ? (
-          <ul className="flex flex-wrap gap-2">
-            {work.links.map((link) => (
-              <li key={link.url}>
-                {link.label === 'App Store' ? (
-                  <AppStoreBadge href={link.url} />
-                ) : (
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 transition-colors duration-200 hover:border-zinc-400 hover:text-white"
-                  >
-                    {link.label} ↗
-                  </a>
-                )}
-              </li>
-            ))}
-          </ul>
+        {linkButtons.length > 0 || (work.url && !work.comingSoon) ? (
+          <div className="flex flex-wrap items-center gap-8">
+            {work.url && !work.comingSoon ? <ViewMoreLink href={work.url} label="Visit" external /> : null}
+            {linkButtons}
+          </div>
         ) : null}
+        <ViewMoreLink href={`/${lang}/works`} label="Works" />
       </div>
     </main>
     </>

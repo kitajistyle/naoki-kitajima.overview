@@ -21,7 +21,8 @@ export async function fetchPlayMetrics(): Promise<SourcePatch> {
   const packages = process.env.PLAY_APP_PACKAGES
     ? (JSON.parse(process.env.PLAY_APP_PACKAGES) as Record<string, string>)
     : null
-  if (!token || !bucket || !packages) return { apps: {} }
+  if (!process.env.GOOGLE_SERVICE_ACCOUNT_JSON || !bucket || !packages) return { apps: {} }
+  if (!token) throw new Error('サービスアカウントのアクセストークンを取得できません')
 
   const apps: SourcePatch['apps'] = {}
   const months = [monthStr(new Date()), monthStr(new Date(Date.now() - 32 * 86400000))]
@@ -29,6 +30,7 @@ export async function fetchPlayMetrics(): Promise<SourcePatch> {
   for (const [name, pkg] of Object.entries(packages)) {
     try {
       let total = 0
+      let found = false
       for (const ym of months) {
         const prefix = `stats/installs/installs_${pkg}_${ym}`
         const list = await gcsJson(
@@ -55,9 +57,11 @@ export async function fetchPlayMetrics(): Promise<SourcePatch> {
           if (pkgCol >= 0 && f[pkgCol] !== pkg) continue
           total += Number(f[installCol]) || 0
         }
+        found = true
         break // latest month found is enough
       }
-      if (total > 0) apps[name] = { ...apps[name], dl: total }
+      // A report was read, so even 0 installs is real data
+      if (found) apps[name] = { ...apps[name], dl: total }
     } catch {
       // no patch for this app
     }

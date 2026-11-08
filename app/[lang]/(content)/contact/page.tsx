@@ -1,7 +1,10 @@
 import type { Metadata } from 'next'
 import { getDictionary, hasLocale } from '../../dictionaries'
 import { notFound } from 'next/navigation'
-import { Scene } from '../../../components/ui/Scene'
+import { getProfile } from '../../../../lib/data'
+import { PageHeader } from '../../../components/ui/PageHeader'
+import { SocialIcon } from '../../../components/ui/SocialIcon'
+import { ArrowCircle } from '../../../components/ui/ArrowCircle'
 
 export async function generateMetadata({ params }: PageProps<'/[lang]/contact'>): Promise<Metadata> {
   const { lang } = await params
@@ -22,15 +25,29 @@ export default async function ContactPage({ params }: PageProps<'/[lang]/contact
   const { lang } = await params
   if (!hasLocale(lang)) notFound()
   const dict = await getDictionary(lang)
+  const { links } = getProfile(lang)
 
   return (
-    <>
-      <Scene name="contact" />
-      <main className="relative z-10 px-6 sm:px-12">
-        <div className="max-w-2xl mx-auto">
-          <h1 className="text-4xl font-black tracking-tight mb-12">{dict.nav.contact}</h1>
-        </div>
-      </main>
-    </>
+    <main>
+      <PageHeader title="Contact" sub={dict.nav.contact} lead={dict.contact.lead} />
+      <ul className="mx-auto max-w-300 px-8 md:px-16">
+        {links.map((link) => (
+          <li key={link.url} className="border-b border-white/10 first:border-t">
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-between gap-6 py-6 md:py-8"
+            >
+              <span className="flex items-center gap-4 text-xl font-bold tracking-[0.08em] md:text-3xl">
+                <SocialIcon label={link.label} className="text-lg text-white/60 md:text-2xl" />
+                {link.label}
+              </span>
+              <ArrowCircle />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </main>
   )
 }

@@ -85,6 +85,8 @@ export async function fetchRevenueCatMetrics(): Promise<SourcePatch> {
     fetchChart(key, project, 'customers_new', { start_date: '2020-01-01', end_date: iso(end) }),
   ])
 
+  if (!revenue && !actives && !customersNew) throw new Error('Charts API の呼び出しに失敗（API キー・プロジェクト ID を確認）')
+
   const patch: SourcePatch['apps'][string] = {}
   const apps: SourcePatch['apps'] = {}
 

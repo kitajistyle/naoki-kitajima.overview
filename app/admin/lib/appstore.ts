@@ -40,7 +40,10 @@ const fetchReport = async (token: string, vendor: string, frequency: 'DAILY' | '
     headers: { Authorization: `Bearer ${token}` },
     next: { revalidate: 3600 },
   })
-  if (!res.ok) return ''
+  // 404 = no report for that date (normal). Auth errors mean the config is wrong.
+  if (res.status === 401 || res.status === 403) throw new Error(`認証エラー（HTTP ${res.status}）`)
+  // null = report not available; '' or rows = fetched (no rows means 0 sales)
+  if (!res.ok) return null
   return gunzipSync(await res.arrayBuffer()).toString('utf8')
 }
 
@@ -102,16 +105,18 @@ export async function fetchAppStoreMetrics(): Promise<SourcePatch> {
     fetchReport(token, vendor, 'MONTHLY', monthStr(prev)),
   ])
 
-  const cur = totalsByApp(parseTsv(curTsv), appIds)
-  const prevM = totalsByApp(parseTsv(prevTsv), appIds)
   const apps: SourcePatch['apps'] = {}
-  for (const name of Object.keys(appIds)) {
-    const c = cur[name]
-    if (!c) continue
-    const p = prevM[name]
-    const total = c.dl + c.iap
-    const prevTotal = (p?.dl ?? 0) + (p?.iap ?? 0)
-    apps[name] = { dl: c.dl, iap: c.iap, delta: prevTotal > 0 ? ((total - prevTotal) / prevTotal) * 100 : 0 }
+  // A fetched report without a row for an app means that app had 0 that month
+  if (curTsv !== null) {
+    const cur = totalsByApp(parseTsv(curTsv), appIds)
+    const prevM = prevTsv !== null ? totalsByApp(parseTsv(prevTsv), appIds) : null
+    for (const name of Object.keys(appIds)) {
+      const c = cur[name] ?? { dl: 0, iap: 0 }
+      const total = c.dl + c.iap
+      const p = prevM?.[name]
+      const prevTotal = (p?.dl ?? 0) + (p?.iap ?? 0)
+      apps[name] = { dl: c.dl, iap: c.iap, ...(prevM && prevTotal > 0 ? { delta: ((total - prevTotal) / prevTotal) * 100 } : {}) }
+    }
   }
 
   // Daily iap series for the chart: one sales report per day, 6 at a time.
@@ -127,7 +132,7 @@ export async function fetchAppStoreMetrics(): Promise<SourcePatch> {
       }))
     )
     for (const { date, tsv } of batch) {
-      if (!tsv) continue
+      if (tsv === null) continue
       const totals = totalsByApp(parseTsv(tsv), appIds)
       const iap = Object.values(totals).reduce((s, t) => s + t.iap, 0)
       dailyMap.set(date, iap)

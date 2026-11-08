@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { hasLocale } from '../../../dictionaries'
 import { getBlogPosts, getBlogPostBySlug } from '../../../../../lib/data'
 import { notFound } from 'next/navigation'
-import { Scene } from '../../../../components/ui/Scene'
+import { ViewMoreLink } from '../../../../components/ui/ViewMoreLink'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kitajistyle.com'
 
@@ -76,34 +76,32 @@ export default async function BlogPostPage({ params }: PageProps<'/[lang]/blog/[
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Scene name="blog" />
-      <main className="relative z-10 px-6 sm:px-12">
-        <div className="max-w-2xl mx-auto">
-        <Link
-          href={`/${lang}/blog`}
-          className="text-xs tracking-widest uppercase text-zinc-500 hover:text-zinc-300 transition-colors duration-200 mb-10 inline-block"
-        >
-          ← Blog
-        </Link>
-        <time className="block text-xs tracking-widest text-zinc-500 uppercase mb-4">
-          {post.date}
-        </time>
-        <h1 className="text-3xl font-black tracking-tight mb-4">{post.title}</h1>
-        <div className="flex gap-2 mb-10">
-          {post.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-[10px] tracking-widest uppercase text-zinc-600 border border-zinc-800 px-2 py-0.5"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
+      <main>
+        <header className="mx-auto max-w-190 px-8 pt-36 pb-12 md:pt-48 md:pb-16">
+          <Link
+            href={`/${lang}/blog`}
+            className="text-xs font-bold tracking-[0.12em] text-white/60 transition-colors hover:text-white"
+          >
+            ← Blog
+          </Link>
+          <time dateTime={post.date} className="mt-10 block font-mono text-xs tracking-widest text-white/60">
+            {post.date.replaceAll('-', '.')}
+          </time>
+          <h1 className="mt-4 text-2xl leading-snug font-bold md:text-4xl md:leading-snug">{post.title}</h1>
+          <ul className="mt-6 flex flex-wrap gap-3 text-[10px] tracking-widest text-white/60 uppercase">
+            {post.tags.map((tag) => (
+              <li key={tag}>#{tag}</li>
+            ))}
+          </ul>
+          <span className="mt-10 block h-px bg-linear-to-r from-accent-from to-accent-to" />
+        </header>
         <div
-          className="blog-content flex flex-col gap-5 text-zinc-300 leading-relaxed"
+          className="blog-content mx-auto flex max-w-190 flex-col gap-5 px-8 leading-loose text-white/85"
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
-      </div>
+        <div className="mx-auto mt-20 max-w-190 px-8">
+          <ViewMoreLink href={`/${lang}/blog`} label="Blog" />
+        </div>
       </main>
     </>
   )

@@ -2,6 +2,9 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { hasLocale, getDictionary } from './dictionaries'
 import { Header } from '../components/ui/Header'
+import { Footer } from '../components/ui/Footer'
+import { FooterGate } from '../components/ui/FooterGate'
+import { getProfile } from '../../lib/data'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] })
@@ -17,11 +20,12 @@ export default async function LocaleLayout({
   const { lang } = await params
   if (!hasLocale(lang)) notFound()
   const dict = await getDictionary(lang)
+  const { links: socialLinks } = getProfile(lang)
 
   const navItems = [
     { label: dict.nav.home, href: `/${lang}` },
-    { label: dict.nav.works, href: `/${lang}/works` },
     { label: dict.nav.about, href: `/${lang}/about` },
+    { label: dict.nav.works, href: `/${lang}/works` },
     { label: dict.nav.blog, href: `/${lang}/blog` },
     { label: dict.nav.like, href: `/${lang}/like` },
     { label: dict.nav.contact, href: `/${lang}/contact` },
@@ -29,11 +33,14 @@ export default async function LocaleLayout({
 
   return (
     <html lang={lang} className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
-        <Header lang={lang} navItems={navItems} />
-        <div className="pt-16 flex-1 flex flex-col">
+      <body className="min-h-full flex flex-col tracking-[0.02em]">
+        <Header lang={lang} navItems={navItems} socialLinks={socialLinks} />
+        <div className="flex-1 flex flex-col">
           {children}
         </div>
+        <FooterGate>
+          <Footer lang={lang} navItems={navItems} socialLinks={socialLinks} />
+        </FooterGate>
       </body>
     </html>
   )

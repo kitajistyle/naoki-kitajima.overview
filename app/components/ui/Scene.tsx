@@ -6,10 +6,6 @@ import dynamic from 'next/dynamic'
 // `ssr: false` here (inside a Client Component) code-splits three.js out of
 // the initial bundle — dynamic imports from Server Components do not split.
 const scenes = {
-  works: dynamic(() => import('./WorksScene').then((m) => m.WorksScene), { ssr: false }),
-  blog: dynamic(() => import('./BlogScene').then((m) => m.BlogScene), { ssr: false }),
-  about: dynamic(() => import('./AboutScene').then((m) => m.AboutScene), { ssr: false }),
-  contact: dynamic(() => import('./ContactScene').then((m) => m.ContactScene), { ssr: false }),
   bboy: dynamic(() => import('./BboyScene').then((m) => m.BboyScene), {
     ssr: false,
     // BboyScene renders in-flow — reserve its height to avoid layout shift

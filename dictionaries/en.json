@@ -10,8 +10,19 @@
   "home": {
     "role": "Software Engineer / SRE",
     "tagline": "I live doing what I love.",
-    "cta_works": "View Works",
-    "cta_about": "About Me"
+    "hero_lines": [
+      "Shaping what I love",
+      "into something",
+      "more fun."
+    ],
+    "view_works": "View Works",
+    "view_more": "View More",
+    "view_detail": "View Detail",
+    "about_cta": "About Me",
+    "scroll": "Scroll",
+    "blog_lead": "Notes on SRE, infrastructure, and the things I learn along the way.",
+    "works_lead": "Products built out of love for street culture and good engineering.",
+    "like_lead": "Breaking, jams, cyphers — the culture that keeps me moving."
   },
   "about": {
     "skills": "Skills",
@@ -26,5 +37,8 @@
       "I started bboying in a college dance circle. I love dancing, but watching jams and events is just as fun. The breakdancing community has a warmth unlike anything else — newcomers are naturally welcomed into the circle. That's the vibe I keep coming back to."
     ],
     "cypher_label": "Cypher"
+  },
+  "contact": {
+    "lead": "Feel free to reach out on any of these platforms."
   }
 }

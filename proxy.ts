@@ -26,7 +26,8 @@ const adminProxy = async (request: NextRequest, pathname: string, isAdminHost: b
   }
 
   if (isAdminHost) {
-    const dest = pathname === '/' ? '/admin' : `/admin${pathname}`
+    // In-app links use /admin/... so they also work on the main domain
+    const dest = pathname === '/' ? '/admin' : pathname.startsWith('/admin') ? pathname : `/admin${pathname}`
     return NextResponse.rewrite(new URL(dest, request.url))
   }
 }

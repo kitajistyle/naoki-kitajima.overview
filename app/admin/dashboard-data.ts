@@ -28,18 +28,20 @@ export interface ShareItem {
   pct: number
 }
 
+// Metric fields are null when the source has not provided a value
 export interface TableRow extends DeltaBadge {
   name: string
   cat: string
   plat: string
   color: string
   initial: string
-  dl: string
-  dau: string
-  ret: string
-  ad: string
-  iap: string
-  total: string
+  dl: string | null
+  dau: string | null
+  ret: string | null
+  ad: string | null
+  iap: string | null
+  total: string | null
+  hasDelta: boolean
 }
 
 export interface AppCard extends DeltaBadge {
@@ -47,11 +49,12 @@ export interface AppCard extends DeltaBadge {
   plat: string
   color: string
   initial: string
-  total: string
+  total: string | null
   pct: number
-  dl: string
-  dau: string
-  ret: string
+  dl: string | null
+  dau: string | null
+  ret: string | null
+  hasDelta: boolean
 }
 
 export interface Bucket {
@@ -108,6 +111,12 @@ export interface DashboardView {
   devices: string
   deletions: string
   appOptions: AppOption[]
+  // Data availability — the UI hides sections whose data is missing
+  hasRevenue: boolean
+  hasChurn: boolean
+  hasRetention: boolean
+  // Table columns that at least one app has a value for
+  columns: { dl: boolean; dau: boolean; ret: boolean; rev: boolean; delta: boolean }
 }
 
 const BUCKET_COLORS = ['#2456E8', '#9DB5F5', '#F0A04B', '#C2410C']
@@ -144,8 +153,25 @@ export function buildDashboardView(
   const apps = APPS.map((a) => {
     const ad = a.ad * f
     const iap = a.iap * f
-    return { ...a, color: a.deployed ? a.color : '#9AA4B2', adV: ad, iapV: iap, totalV: ad + iap, dlV: a.dl * f, dauV: a.dau, d: a.delta === undefined ? undefined : a.delta * dm }
+    const r = a.reported ?? {}
+    return {
+      ...a,
+      color: a.deployed ? a.color : '#9AA4B2',
+      adV: ad,
+      iapV: iap,
+      totalV: ad + iap,
+      dlV: a.dl * f,
+      dauV: a.dau,
+      d: a.delta === undefined ? undefined : a.delta * dm,
+      // A fetched 0 counts as data; only unreported metrics are hidden
+      hasDl: r.dl === true,
+      hasDau: r.dau === true,
+      hasRev: r.ad === true || r.iap === true,
+    }
   })
+  const anyDl = apps.some((a) => a.hasDl)
+  const anyDau = apps.some((a) => a.hasDau)
+  const anyRev = apps.some((a) => a.hasRev)
   const sum = (k: 'adV' | 'iapV' | 'totalV' | 'dlV' | 'dauV') => apps.reduce((s, a) => s + a[k], 0)
   const totalRevV = sum('totalV')
   const adT = sum('adV')
@@ -155,22 +181,23 @@ export function buildDashboardView(
   const arpdau = dauT > 0 ? totalRevV / (dauT * period) : 0
 
   // Real delta only exists where a source computed it; otherwise show —.
+  // Metrics no source reported are left out (a reported 0 is shown)
   const kpis: Kpi[] = [
-    { label: '総ダウンロード数', value: num(dlT), ...dStyle(undefined) },
-    { label: '平均DAU（全アプリ）', value: num(dauT), ...dStyle(undefined) },
-    { label: '総収益', value: yen(totalRevV), ...dStyle(undefined) },
-    { label: 'ARPDAU', value: '¥' + arpdau.toFixed(1), ...dStyle(undefined) },
-  ]
+    anyDl && { label: '総ダウンロード数', value: num(dlT), ...dStyle(undefined) },
+    anyDau && { label: '平均DAU（全アプリ）', value: num(dauT), ...dStyle(undefined) },
+    anyRev && { label: '総収益', value: yen(totalRevV), ...dStyle(undefined) },
+    anyRev && anyDau && { label: 'ARPDAU', value: '¥' + arpdau.toFixed(1), ...dStyle(undefined) },
+  ].filter((k): k is Kpi => k !== false)
 
   const iosList = apps.filter((a) => a.plat.indexOf('iOS') >= 0 && typeof a.ret === 'number')
   const iosDau = iosList.reduce((s, a) => s + a.dau, 0)
   const avgRet = iosDau > 0 ? iosList.reduce((s, a) => s + (a.ret ?? 0) * a.dau, 0) / iosDau : undefined
   const spKpis: Kpi[] = [
-    { label: 'ダウンロード', value: num(dlT), ...dStyle(undefined) },
-    { label: '平均DAU', value: num(dauT), ...dStyle(undefined) },
-    { label: 'ARPDAU', value: '¥' + arpdau.toFixed(1), ...dStyle(undefined) },
-    { label: '保持率（7日後・iOSのみ）', value: avgRet === undefined ? UNKNOWN : avgRet.toFixed(1) + '%', ...dStyle(undefined) },
-  ]
+    anyDl && { label: 'ダウンロード', value: num(dlT), ...dStyle(undefined) },
+    anyDau && { label: '平均DAU', value: num(dauT), ...dStyle(undefined) },
+    anyRev && anyDau && { label: 'ARPDAU', value: '¥' + arpdau.toFixed(1), ...dStyle(undefined) },
+    avgRet !== undefined && { label: '保持率（7日後・iOSのみ）', value: avgRet.toFixed(1) + '%', ...dStyle(undefined) },
+  ].filter((k): k is Kpi => k !== false)
 
   const n = period === 90 ? 13 : period
   const step = period === 90 ? 7 : 1
@@ -222,7 +249,8 @@ export function buildDashboardView(
     iapH: ((r.iap / maxSp) * 100).toFixed(2),
   }))
 
-  const share: ShareItem[] = [...apps]
+  const share: ShareItem[] = apps
+    .filter((a) => a.hasRev)
     .sort((a, b) => b.totalV - a.totalV)
     .map((a) => ({
       name: a.name,
@@ -240,12 +268,13 @@ export function buildDashboardView(
       plat: a.plat,
       color: a.color,
       initial: a.name.slice(-1),
-      dl: num(a.dlV),
-      dau: num(a.dauV),
-      ret: a.ret === undefined ? UNKNOWN : a.ret + '%',
-      ad: yen(a.adV),
-      iap: yen(a.iapV),
-      total: yen(a.totalV),
+      dl: a.hasDl ? num(a.dlV) : null,
+      dau: a.hasDau ? num(a.dauV) : null,
+      ret: a.ret === undefined ? null : a.ret + '%',
+      ad: a.hasRev ? yen(a.adV) : null,
+      iap: a.hasRev ? yen(a.iapV) : null,
+      total: a.hasRev ? yen(a.totalV) : null,
+      hasDelta: a.d !== undefined,
       ...dStyle(a.d),
     }))
 
@@ -256,11 +285,12 @@ export function buildDashboardView(
       plat: a.plat,
       color: a.color,
       initial: a.name.slice(-1),
-      total: yen(a.totalV),
+      total: a.hasRev ? yen(a.totalV) : null,
       pct: totalRevV > 0 ? Math.round((a.totalV / totalRevV) * 100) : 0,
-      dl: num(a.dlV),
-      dau: num(a.dau),
-      ret: a.ret === undefined ? UNKNOWN : a.ret + '%',
+      dl: a.hasDl ? num(a.dlV) : null,
+      dau: a.hasDau ? num(a.dau) : null,
+      ret: a.ret === undefined ? null : a.ret + '%',
+      hasDelta: a.d !== undefined,
       ...dStyle(a.d),
     }))
 
@@ -287,11 +317,10 @@ export function buildDashboardView(
   const retVals: (number | undefined)[] = sel.retention
     ? [sel.retention.d1, sel.retention.d7, sel.retention.d28]
     : [undefined, undefined, undefined]
-  const retention: Retention[] = RET_LABELS.map((label, j) => ({
-    label,
-    pct: retVals[j] === undefined ? UNKNOWN : retVals[j].toFixed(1) + '%',
-    w: retVals[j] === undefined ? '0' : retVals[j].toFixed(1),
-  }))
+  const retention: Retention[] = RET_LABELS.flatMap((label, j) => {
+    const v = retVals[j]
+    return v === undefined ? [] : [{ label, pct: v.toFixed(1) + '%', w: v.toFixed(1) }]
+  })
 
   const start = new Date(end.getTime() - (period - 1) * 86400000)
   const fmt = (d: Date) => d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate()
@@ -308,7 +337,7 @@ export function buildDashboardView(
     kpis,
     spKpis,
     totalRev: yen(totalRevV),
-    revDelta: revD === undefined ? UNKNOWN + ' 前期間比' : (revD >= 0 ? '▲ ' : '▼ ') + Math.abs(revD).toFixed(1) + '% 前期間比',
+    revDelta: revD === undefined ? '' : (revD >= 0 ? '▲ ' : '▼ ') + Math.abs(revD).toFixed(1) + '% 前期間比',
     bars,
     spBars,
     barGapPc: period === 7 ? '14px' : period === 30 ? '4px' : '8px',
@@ -333,5 +362,15 @@ export function buildDashboardView(
     devices: sel.retention ? num(sel.retention.devices) : UNKNOWN,
     deletions: sel.retention ? num(sel.retention.deletions) : UNKNOWN,
     appOptions: apps.map((a) => ({ name: a.name, color: a.color })),
+    hasRevenue: anyRev || raw.daily !== undefined,
+    hasChurn,
+    hasRetention: sel.retention !== undefined && retention.length > 0,
+    columns: {
+      dl: anyDl,
+      dau: anyDau,
+      ret: apps.some((a) => a.ret !== undefined),
+      rev: anyRev,
+      delta: apps.some((a) => a.d !== undefined),
+    },
   }
 }
