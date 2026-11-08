@@ -41,8 +41,11 @@ export function Footer({ lang, navItems, socialLinks }: Props) {
         <div className="mt-6 h-px bg-linear-to-r from-accent-from to-accent-to" />
 
         <div className="mt-8 flex flex-col-reverse gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[10px] font-bold tracking-[0.12em] text-muted">
-            © {new Date().getFullYear()} KITAJI
+          <p className="flex gap-4 text-[10px] font-bold tracking-[0.12em] text-muted">
+            <span>© {new Date().getFullYear()} KITAJI</span>
+            <Link href={`/${lang}/privacy`} className="transition-colors hover:text-white">
+              Privacy Policy
+            </Link>
           </p>
           <ul className="-mx-2.5 flex">
             {socialLinks.map((link) => (

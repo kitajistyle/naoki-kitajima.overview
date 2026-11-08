@@ -1,0 +1,62 @@
+{
+  "updated": "2026-11-08",
+  "contact": "contact@kitajistyle.com",
+  "en": {
+    "lead": "How kitajistyle.com handles information.",
+    "sections": [
+      {
+        "heading": "Operator",
+        "body": "This site (kitajistyle.com) is a personal portfolio run by Kitaji (きたじー)."
+      },
+      {
+        "heading": "Information collected from visitors",
+        "body": "The public pages do not ask for personal information and do not use cookies or analytics tools. The hosting provider (Vercel) may keep standard access logs such as IP addresses for security and operation."
+      },
+      {
+        "heading": "Admin dashboard and Google sign-in",
+        "body": "The admin dashboard is for the site owner only. Signing in with Google reads the email address of the Google account solely to confirm that it is the owner, and keeps a session cookie while signed in. No other visitor data is collected through it."
+      },
+      {
+        "heading": "Google APIs (AdMob)",
+        "body": "With the owner's permission, the dashboard reads the owner's own AdMob reports (estimated earnings per app) through the AdMob API, read-only. The data is shown only to the owner, is not shared with third parties, and is not used for advertising. Use of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements."
+      },
+      {
+        "heading": "Embedded content",
+        "body": "Work pages embed the landing pages of the owner's apps. Those pages are governed by their own privacy policies."
+      },
+      {
+        "heading": "Contact",
+        "body": "For questions about this policy, contact the address below."
+      }
+    ]
+  },
+  "ja": {
+    "lead": "kitajistyle.com における情報の取り扱いについて。",
+    "sections": [
+      {
+        "heading": "運営者",
+        "body": "本サイト（kitajistyle.com）は、きたじー（KITAJI）が運営する個人のポートフォリオサイトです。"
+      },
+      {
+        "heading": "閲覧者の情報",
+        "body": "一般公開ページでは個人情報の入力を求めず、Cookie やアクセス解析ツールも使用していません。ホスティング事業者（Vercel）が、セキュリティと運用のために IP アドレスなどの標準的なアクセスログを保存する場合があります。"
+      },
+      {
+        "heading": "管理画面と Google ログイン",
+        "body": "管理画面はサイト運営者本人のみが使用します。Google ログインでは、本人確認のためだけに Google アカウントのメールアドレスを読み取り、ログイン中はセッション Cookie を保存します。それ以外の情報は取得しません。"
+      },
+      {
+        "heading": "Google API（AdMob）の利用",
+        "body": "運営者本人の許可にもとづき、AdMob API を通じて運営者自身の AdMob レポート（アプリごとの見積もり収益）を読み取り専用で取得します。取得したデータは運営者本人にのみ表示し、第三者への提供や広告目的での利用は行いません。Google API から受け取った情報の利用は、Limited Use の要件を含む Google API サービスのユーザーデータに関するポリシーに準拠します。"
+      },
+      {
+        "heading": "埋め込みコンテンツ",
+        "body": "作品ページでは、運営者が開発したアプリのランディングページを埋め込んで表示しています。埋め込み先のページには、それぞれのプライバシーポリシーが適用されます。"
+      },
+      {
+        "heading": "お問い合わせ",
+        "body": "本ポリシーに関するお問い合わせは、下記のメールアドレスまでご連絡ください。"
+      }
+    ]
+  }
+}

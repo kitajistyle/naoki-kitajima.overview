@@ -3,7 +3,7 @@ import { getBlogPosts, getWorks } from '../lib/data'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kitajistyle.com'
 const langs = ['en', 'ja'] as const
-const staticPaths = ['', '/about', '/blog', '/contact', '/like', '/works']
+const staticPaths = ['', '/about', '/blog', '/contact', '/like', '/privacy', '/works']
 
 const withLangAlternates = (path: string) => ({
   alternates: {

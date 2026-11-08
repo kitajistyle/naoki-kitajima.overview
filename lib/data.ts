@@ -2,6 +2,7 @@ import { cache } from 'react'
 import type { Locale } from '../app/[lang]/dictionaries'
 import worksData from '../data/works.json'
 import profileData from '../data/profile.json'
+import privacyData from '../data/privacy.json'
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
@@ -54,6 +55,19 @@ export const getProfile = (locale: Locale): Profile => ({
   links: profileData.links,
   skills: profileData.skills,
   ...profileData[locale],
+})
+
+export type PrivacyPolicy = {
+  updated: string
+  contact: string
+  lead: string
+  sections: { heading: string; body: string }[]
+}
+
+export const getPrivacyPolicy = (locale: Locale): PrivacyPolicy => ({
+  updated: privacyData.updated,
+  contact: privacyData.contact,
+  ...privacyData[locale],
 })
 
 export type BodyBlock =
