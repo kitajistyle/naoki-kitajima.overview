@@ -13,8 +13,17 @@ export const metadata: Metadata = {
 // ため /admin と同じ1時間キャッシュに揃える。
 export const revalidate = 3600
 
+// 空文字や壊れたJSONでもビルド（静的生成）を落とさず、Push対応アプリなしとして扱う
+const pushAppNames = (): string[] => {
+  try {
+    return Object.keys(JSON.parse(process.env.ADMIN_PUSH_ENDPOINTS || '{}') as Record<string, string>)
+  } catch {
+    return []
+  }
+}
+
 export default async function NotificationsPage() {
-  const pushApps = Object.keys(JSON.parse(process.env.ADMIN_PUSH_ENDPOINTS ?? '{}') as Record<string, string>)
+  const pushApps = pushAppNames()
   const apps = baseRaw().apps.map((a) => ({ name: a.name, deployed: a.deployed, pushKind: a.pushKind }))
 
   return (
