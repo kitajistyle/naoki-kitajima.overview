@@ -95,7 +95,6 @@ export default async function WorkDetailPage({ params }: PageProps<'/[lang]/work
             </Link>
             <h1 className="text-lg font-bold">{work.title}</h1>
           </div>
-          {linkButtons.length > 0 ? <div className="flex items-center gap-4">{linkButtons}</div> : null}
         </div>
         <iframe src={work.url} title={work.title} className="w-full flex-1 bg-white" />
       </main>
