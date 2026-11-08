@@ -81,7 +81,7 @@
       "Supabase",
       "Gemini"
     ],
-    "url": "/embeds/eat-log/index.html",
+    "url": "https://eatlog-site.vercel.app/",
     "image": "/images/works/eat-log.jpg",
     "embed": true,
     "comingSoon": true,
