@@ -24,7 +24,13 @@ const pushAppNames = (): string[] => {
 
 export default async function NotificationsPage() {
   const pushApps = pushAppNames()
-  const apps = baseRaw().apps.map((a) => ({ name: a.name, deployed: a.deployed, pushKind: a.pushKind }))
+  const apps = baseRaw().apps.map((a) => ({
+    name: a.name,
+    cat: a.cat,
+    color: a.deployed ? a.color : '#9AA4B2',
+    deployed: a.deployed,
+    pushKind: a.pushKind,
+  }))
 
   return (
     <NotificationsClient
