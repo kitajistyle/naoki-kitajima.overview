@@ -13,17 +13,23 @@ interface ChartSeriesMeta {
   display_name?: string
 }
 
+// values is a flat list of points: one per (cohort, measure). cohort is the
+// period start in epoch seconds; measure indexes into measures.
+interface ChartPoint {
+  cohort: number
+  measure: number
+  value: number
+}
+
 interface ChartData {
   resolution?: string
-  start_date?: number | string
-  values?: unknown[][]
+  values?: ChartPoint[]
   measures?: ChartSeriesMeta[]
 }
 
-const num = (v: unknown): number => {
-  if (typeof v === 'number') return v
-  if (v && typeof v === 'object' && 'value' in v) return Number((v as { value: unknown }).value) || 0
-  return 0
+interface SeriesPoint {
+  date: string
+  value: number
 }
 
 const fetchChart = async (key: string, project: string, chart: string, params: Record<string, string>): Promise<ChartData | null> => {
@@ -40,29 +46,22 @@ const fetchChart = async (key: string, project: string, chart: string, params: R
   }
 }
 
-// values[i] is a series; measures[i] describes it. Pick the money series when
-// several exist (revenue chart also carries a transaction-count series).
-const series = (d: ChartData, moneyOnly: boolean): number[] => {
-  const rows = d.values ?? []
-  let i = 0
+// Returns one measure's points ordered by date. With moneyOnly the money
+// measure is picked (the revenue chart also carries transaction and ad
+// impression counts).
+const series = (d: ChartData, moneyOnly: boolean): SeriesPoint[] => {
+  let measure = 0
   if (moneyOnly) {
     const found = (d.measures ?? []).findIndex((m) => m.unit === '$' || m.unit === '¥' || (m.unit ?? '').includes('JPY'))
-    if (found >= 0) i = found
+    if (found >= 0) measure = found
   }
-  return (rows[i] ?? []).map(num)
+  return (d.values ?? [])
+    .filter((p) => p.measure === measure)
+    .sort((a, b) => a.cohort - b.cohort)
+    .map((p) => ({ date: new Date(p.cohort * 1000).toISOString().slice(0, 10), value: Number(p.value) || 0 }))
 }
 
-// Chart data points are one value per period starting at start_date; for
-// resolution="day" index i maps to start_date + i days. start_date is epoch
-// (seconds or milliseconds) or an ISO string depending on the chart version.
-const seriesStartMs = (d: ChartData): number => {
-  const s = d.start_date
-  if (typeof s === 'number') return s < 1e12 ? s * 1000 : s
-  if (typeof s === 'string') return Date.parse(s)
-  return NaN
-}
-
-const sum = (xs: number[], from: number, to: number): number => xs.slice(from, to).reduce((a, b) => a + b, 0)
+const sum = (xs: SeriesPoint[], from: number, to: number): number => xs.slice(from, to).reduce((a, p) => a + p.value, 0)
 
 export async function fetchRevenueCatMetrics(): Promise<SourcePatch> {
   const key = process.env.RC_API_KEY
@@ -81,8 +80,7 @@ export async function fetchRevenueCatMetrics(): Promise<SourcePatch> {
       selectors: JSON.stringify({ revenue_type: 'proceeds' }),
     }),
     fetchChart(key, project, 'customers_active', { start_date: iso(start), end_date: iso(end) }),
-    // All-time new customers ≈ cumulative installs; summing works at any resolution.
-    fetchChart(key, project, 'customers_new', { start_date: '2020-01-01', end_date: iso(end) }),
+    fetchChart(key, project, 'customers_new', { start_date: iso(start), end_date: iso(end) }),
   ])
 
   if (!revenue && !actives && !customersNew) throw new Error('Charts API の呼び出しに失敗（API キー・プロジェクト ID を確認）')
@@ -90,9 +88,15 @@ export async function fetchRevenueCatMetrics(): Promise<SourcePatch> {
   const patch: SourcePatch['apps'][string] = {}
   const apps: SourcePatch['apps'] = {}
 
+  // When App Store Connect also covers this app, it is the record for
+  // downloads and proceeds (and already feeds the daily chart); taking them
+  // from RevenueCat too would override or double-count them.
+  const ascApps = process.env.ASC_APP_IDS ? (JSON.parse(process.env.ASC_APP_IDS) as Record<string, string>) : {}
+  const coveredByAsc = appName in ascApps
+
   // iap: last 30 daily proceeds; delta: vs previous 30 days.
   let daily: SourcePatch['daily']
-  if (revenue?.resolution === 'day') {
+  if (!coveredByAsc && revenue?.resolution === 'day') {
     const iapSeries = series(revenue, true)
     if (iapSeries.length >= 60) {
       const cur = sum(iapSeries, iapSeries.length - 30, iapSeries.length)
@@ -102,13 +106,8 @@ export async function fetchRevenueCatMetrics(): Promise<SourcePatch> {
     } else if (iapSeries.length >= 30) {
       patch.iap = sum(iapSeries, iapSeries.length - 30, iapSeries.length)
     }
-    const startMs = seriesStartMs(revenue)
-    if (!Number.isNaN(startMs) && iapSeries.length > 0) {
-      daily = iapSeries.map((iap, i) => ({
-        date: new Date(startMs + i * 86400000).toISOString().slice(0, 10),
-        ad: 0,
-        iap,
-      }))
+    if (iapSeries.length > 0) {
+      daily = iapSeries.map((p) => ({ date: p.date, ad: 0, iap: p.value }))
     }
   }
 
@@ -118,10 +117,11 @@ export async function fetchRevenueCatMetrics(): Promise<SourcePatch> {
     if (xs.length > 0) patch.dau = sum(xs, Math.max(0, xs.length - 30), xs.length) / Math.min(30, xs.length)
   }
 
-  // dl: all-time new customers (approximation of cumulative installs).
-  if (customersNew) {
+  // dl: new customers over the last 30 days (approximation of installs),
+  // matching the 30-day window the other sources report.
+  if (!coveredByAsc && customersNew) {
     const xs = series(customersNew, false)
-    if (xs.length > 0) patch.dl = Math.round(sum(xs, 0, xs.length))
+    if (xs.length > 0) patch.dl = Math.round(sum(xs, Math.max(0, xs.length - 30), xs.length))
   }
 
   if (Object.keys(patch).length > 0) apps[appName] = patch

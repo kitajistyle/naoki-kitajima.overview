@@ -6,9 +6,9 @@ const b64u = (s: string) => Buffer.from(s).toString('base64url')
 
 // Env: ASC_KEY_ID, ASC_ISSUER_ID, ASC_PRIVATE_KEY (.p8 contents),
 // ASC_VENDOR_NUMBER, ASC_APP_IDS as JSON {"<app name>": "<apple app id>"}.
-// Fetches sales reports: MONTHLY (this + previous month -> downloads, JPY
-// proceeds, delta) and DAILY for the last ~90 days -> daily iap series for the
-// revenue chart. Non-JPY proceeds are skipped.
+// Fetches DAILY sales reports for the last ~90 days -> per-app downloads and
+// JPY proceeds for the last 30 days, delta vs the 30 days before, and the
+// daily iap series for the revenue chart. Non-JPY proceeds are skipped.
 const jwt = (): string | null => {
   const { ASC_KEY_ID: kid, ASC_ISSUER_ID: iss, ASC_PRIVATE_KEY: key } = process.env
   if (!kid || !iss || !key) return null
@@ -23,10 +23,9 @@ const jwt = (): string | null => {
   return `${signingInput}.${signature}`
 }
 
-const monthStr = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
 const dayStr = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 
-const fetchReport = async (token: string, vendor: string, frequency: 'DAILY' | 'MONTHLY', reportDate: string) => {
+const fetchReport = async (token: string, vendor: string, frequency: 'DAILY', reportDate: string) => {
   const url =
     'https://api.appstoreconnect.apple.com/v1/salesReports?' +
     new URLSearchParams({
@@ -98,49 +97,53 @@ export async function fetchAppStoreMetrics(): Promise<SourcePatch> {
   const appIds = process.env.ASC_APP_IDS ? (JSON.parse(process.env.ASC_APP_IDS) as Record<string, string>) : null
   if (!token || !vendor || !appIds) return { apps: {} }
 
+  // One sales report per day, 6 at a time. Reports lag ~1-2 days so start
+  // from yesterday. Monthly reports only exist after the month closes, so the
+  // per-app 30-day totals are summed from the daily reports too.
   const now = new Date()
-  const prev = new Date(now.getFullYear(), now.getMonth() - 1, 1)
-  const [curTsv, prevTsv] = await Promise.all([
-    fetchReport(token, vendor, 'MONTHLY', monthStr(now)),
-    fetchReport(token, vendor, 'MONTHLY', monthStr(prev)),
-  ])
-
-  const apps: SourcePatch['apps'] = {}
-  // A fetched report without a row for an app means that app had 0 that month
-  if (curTsv !== null) {
-    const cur = totalsByApp(parseTsv(curTsv), appIds)
-    const prevM = prevTsv !== null ? totalsByApp(parseTsv(prevTsv), appIds) : null
-    for (const name of Object.keys(appIds)) {
-      const c = cur[name] ?? { dl: 0, iap: 0 }
-      const total = c.dl + c.iap
-      const p = prevM?.[name]
-      const prevTotal = (p?.dl ?? 0) + (p?.iap ?? 0)
-      apps[name] = { dl: c.dl, iap: c.iap, ...(prevM && prevTotal > 0 ? { delta: ((total - prevTotal) / prevTotal) * 100 } : {}) }
-    }
-  }
-
-  // Daily iap series for the chart: one sales report per day, 6 at a time.
-  // Reports lag ~1-2 days so start from yesterday; missing days are skipped.
-  const dailyMap = new Map<string, number>()
   const days = [...Array(90)].map((_, i) => new Date(now.getTime() - (i + 1) * 86400000))
+  const perDay: { date: string; totals: Record<string, { dl: number; iap: number }> | null }[] = []
   const CONCURRENCY = 6
   for (let i = 0; i < days.length; i += CONCURRENCY) {
     const batch = await Promise.all(
-      days.slice(i, i + CONCURRENCY).map(async (d) => ({
-        date: dayStr(d),
-        tsv: await fetchReport(token, vendor, 'DAILY', dayStr(d)),
-      }))
+      days.slice(i, i + CONCURRENCY).map(async (d) => {
+        const tsv = await fetchReport(token, vendor, 'DAILY', dayStr(d))
+        return { date: dayStr(d), totals: tsv === null ? null : totalsByApp(parseTsv(tsv), appIds) }
+      })
     )
-    for (const { date, tsv } of batch) {
-      if (tsv === null) continue
-      const totals = totalsByApp(parseTsv(tsv), appIds)
-      const iap = Object.values(totals).reduce((s, t) => s + t.iap, 0)
-      dailyMap.set(date, iap)
+    perDay.push(...batch)
+  }
+
+  // perDay is newest first. Days without a report (404 = no sales) count as 0.
+  const windowTotals = (from: number, to: number) => {
+    const out: Record<string, { dl: number; iap: number }> = {}
+    for (const { totals } of perDay.slice(from, to)) {
+      for (const [name, t] of Object.entries(totals ?? {})) {
+        const e = (out[name] ??= { dl: 0, iap: 0 })
+        e.dl += t.dl
+        e.iap += t.iap
+      }
+    }
+    return out
+  }
+  const cur = windowTotals(0, 30)
+  const prev = windowTotals(30, 60)
+
+  const apps: SourcePatch['apps'] = {}
+  if (perDay.some((d) => d.totals !== null)) {
+    for (const name of Object.keys(appIds)) {
+      const c = cur[name] ?? { dl: 0, iap: 0 }
+      const p = prev[name]
+      const total = c.dl + c.iap
+      const prevTotal = (p?.dl ?? 0) + (p?.iap ?? 0)
+      apps[name] = { dl: c.dl, iap: c.iap, ...(prevTotal > 0 ? { delta: ((total - prevTotal) / prevTotal) * 100 } : {}) }
     }
   }
-  const daily = [...dailyMap.entries()]
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([date, iap]) => ({ date, ad: 0, iap }))
+
+  const daily = perDay
+    .filter((d) => d.totals !== null)
+    .map(({ date, totals }) => ({ date, ad: 0, iap: Object.values(totals ?? {}).reduce((s, t) => s + t.iap, 0) }))
+    .sort((a, b) => a.date.localeCompare(b.date))
 
   return { apps, daily: daily.length > 0 ? daily : undefined }
 }

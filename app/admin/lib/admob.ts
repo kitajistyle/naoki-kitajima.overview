@@ -43,7 +43,7 @@ export async function fetchAdmobMetrics(): Promise<SourcePatch> {
         dateRange: { startDate: ymd(start), endDate: ymd(end) },
         dimensions: ['APP', 'DATE'],
         metrics: ['ESTIMATED_EARNINGS'],
-        dimensionFilters: [{ dimension: 'APP', matchesAnyOf: { values: Object.values(appIds) } }],
+        dimensionFilters: [{ dimension: 'APP', matchesAny: { values: Object.values(appIds) } }],
       },
     }),
     next: { revalidate: 3600 },
