@@ -5,13 +5,14 @@ type Props = {
   works: Work[]
   lang: string
   viewDetailLabel: string
+  availableLabel: string
   headingLevel?: 'h2' | 'h3'
 }
 
 // Alternating wide/narrow rows of two, echoing an editorial grid
 const rowColumns = ['md:grid-cols-[720fr_450fr]', 'md:grid-cols-[450fr_720fr]']
 
-export function WorksGrid({ works, lang, viewDetailLabel, headingLevel = 'h3' }: Props) {
+export function WorksGrid({ works, lang, viewDetailLabel, availableLabel, headingLevel = 'h3' }: Props) {
   const rows: Work[][] = []
   for (let i = 0; i < works.length; i += 2) rows.push(works.slice(i, i + 2))
 
@@ -24,7 +25,7 @@ export function WorksGrid({ works, lang, viewDetailLabel, headingLevel = 'h3' }:
           >
             {row.map((work) => (
               <li key={work.slug} className="h-full">
-                <WorkCard work={work} lang={lang} viewDetailLabel={viewDetailLabel} headingLevel={headingLevel} />
+                <WorkCard work={work} lang={lang} viewDetailLabel={viewDetailLabel} availableLabel={availableLabel} headingLevel={headingLevel} />
               </li>
             ))}
           </ul>

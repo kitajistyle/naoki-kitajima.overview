@@ -2,10 +2,11 @@
   {
     "slug": "cypher-map",
     "tags": [
-      "React",
+      "React Native",
+      "Expo",
       "TypeScript",
-      "Next.js",
-      "Go"
+      "Go",
+      "PostgreSQL"
     ],
     "url": "https://cyphermap.app/",
     "image": "/images/works/cypher-map.jpg",
@@ -14,16 +15,43 @@
     "links": [
       {
         "label": "App Store",
-        "url": "https://apps.apple.com/jp/app/cyphermap/id6792790877"
+        "url": "https://apps.apple.com/jp/app/id6792790877"
       }
     ],
     "en": {
-      "title": "Cypher Map",
-      "description": "A platform for Bboys and Bgirls to discover and share cyphers and jams happening across Japan and the world. Born from a love of street dance culture and a desire to connect dancers everywhere."
+      "title": "CypherMap",
+      "description": "A free app for street dancers, built around a map. Find practice spots across Japan, filtered by mirrors and floor type; open up your session so nearby dancers can join in; and check battles, cyphers, and workshops happening near you. Born from a love of street dance culture and a desire to connect dancers. Available on the App Store."
     },
     "ja": {
-      "title": "Cypher Map",
-      "description": "日本や世界各地で開催されているBboy/Bgirlのサイファーやジャムを探して共有できるプラットフォーム。ストリートダンスカルチャーへの愛と、世界中のダンサーをつなげたいという想いから生まれたプロダクト。"
+      "title": "CypherMap",
+      "description": "ストリートダンサーのための無料アプリ。全国の練習スポットを地図で探し、鏡の有無や床の素材で絞り込めるほか、「練習をひらく」で近くのダンサーと合流したり、近くのバトル・サイファー・ワークショップをチェックしたりできる。ストリートダンスカルチャーへの愛と、ダンサーをつなげたいという想いから生まれたプロダクト。App Store で公開中。"
+    }
+  },
+  {
+    "slug": "okusuri",
+    "tags": [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "SQLite"
+    ],
+    "url": "https://okusuri-biyori.vercel.app/",
+    "image": "/images/works/okusuri.jpg",
+    "embed": true,
+    "comingSoon": false,
+    "links": [
+      {
+        "label": "App Store",
+        "url": "https://apps.apple.com/jp/app/id6821864283"
+      }
+    ],
+    "en": {
+      "title": "Okusuri Biyori",
+      "description": "A medication app that keeps you from missing a dose. Marupi, a capsule character, checks in when it's time, and your medication notebook, alarms, and dose log live in one place. No sign-up, and all data stays on your device. Available on the App Store."
+    },
+    "ja": {
+      "title": "おくすりびより",
+      "description": "飲み忘れを防ぐおくすり管理アプリ。時間になるとカプセルのキャラクター「まるぴ」が話しかけ、お薬手帳・アラーム・飲んだ記録をひとつにまとめる。アカウント登録なし・データはすべて端末内に保存。App Store で公開中。"
     }
   },
   {
@@ -47,28 +75,6 @@
     "ja": {
       "title": "かんぱい！",
       "description": "近くの飲み会スポット探し、仲間集め、乾杯の記録、割り勘、パーティーゲームまで。飲み会をひとつのアプリで楽しくする。開発中。"
-    }
-  },
-  {
-    "slug": "okusuri",
-    "tags": [
-      "React Native",
-      "Expo",
-      "TypeScript",
-      "SQLite"
-    ],
-    "url": "https://okusuri-biyori.vercel.app/",
-    "image": "/images/works/okusuri.jpg",
-    "embed": true,
-    "comingSoon": true,
-    "links": [],
-    "en": {
-      "title": "Okusuri Biyori",
-      "description": "A medication app that keeps you from missing a dose. Marupi, a capsule character, checks in when it's time, and your medication notebook, alarms, and drug info live in one place. All data stays on your device. Currently in development."
-    },
-    "ja": {
-      "title": "おくすりびより",
-      "description": "飲み忘れを防ぐおくすり管理アプリ。時間になるとカプセルのキャラクター「まるぴ」が話しかけ、お薬手帳・アラーム・お薬の情報をひとつにまとめる。データはすべて端末内に保存。開発中。"
     }
   },
   {

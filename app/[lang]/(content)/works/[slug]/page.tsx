@@ -43,6 +43,7 @@ export default async function WorkDetailPage({ params }: PageProps<'/[lang]/work
   const work = getWorkBySlug(lang, slug)
   if (!work) notFound()
   const dict = await getDictionary(lang)
+  const appStoreUrl = work.links.find((link) => link.label === 'App Store')?.url
 
   const jsonLd = [
     {
@@ -51,6 +52,7 @@ export default async function WorkDetailPage({ params }: PageProps<'/[lang]/work
       name: work.title,
       description: work.description,
       ...(work.url ? { url: new URL(work.url, siteUrl).href } : {}),
+      ...(appStoreUrl ? { operatingSystem: 'iOS', downloadUrl: appStoreUrl } : {}),
       author: {
         '@type': 'Person',
         name: 'きたじー',

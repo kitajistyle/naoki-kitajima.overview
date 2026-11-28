@@ -8,6 +8,7 @@ import { SectionHeading } from '../components/ui/SectionHeading'
 import { WorksGrid } from '../components/ui/WorksGrid'
 import { PostList } from '../components/ui/PostList'
 import { SocialIcon } from '../components/ui/SocialIcon'
+import profileData from '../../data/profile.json'
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -16,12 +17,7 @@ const jsonLd = {
   alternateName: ['Kitaji', 'KITAJI', 'kitajistyle'],
   jobTitle: 'Software Engineer / SRE',
   url: 'https://kitajistyle.com',
-  sameAs: [
-    'https://github.com/kitajistyle',
-    'https://x.com/kitajistyIe',
-    'https://zenn.dev/kitajistyle',
-    'https://linkedin.com/in/kitajistyle',
-  ],
+  sameAs: profileData.links.map((link) => link.url),
 }
 
 export async function generateMetadata({ params }: PageProps<'/[lang]'>): Promise<Metadata> {
@@ -120,7 +116,7 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
           <SectionHeading title="Works" lead={home.works_lead} />
         </div>
         <div className="mx-auto mt-12 max-w-332 px-8 md:px-16">
-          <WorksGrid works={works} lang={lang} viewDetailLabel={home.view_detail} />
+          <WorksGrid works={works} lang={lang} viewDetailLabel={home.view_detail} availableLabel={home.available} />
         </div>
         <div className="mt-20 flex justify-center">
           <ViewMoreLink href={`/${lang}/works`} label={home.view_more} />

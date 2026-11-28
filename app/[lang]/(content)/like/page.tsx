@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/like'>): P
   const { lang } = await params
   const isJa = lang === 'ja'
   return {
-    title: isJa ? 'お気に入り' : 'Like',
+    title: isJa ? '好きなこと' : 'Like',
     description: isJa
       ? 'きたじー（KITAJI）の好きなこと。Bboy / ブレイクダンス、コーヒー・バリスタ。'
       : 'Things Kitaji (きたじー) loves — Bboy / Breakdancing, Coffee & Barista.',

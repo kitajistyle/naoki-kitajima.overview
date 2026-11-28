@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/contact'>)
   return {
     title: isJa ? 'SNS' : 'Contact',
     description: isJa
-      ? 'きたじー（KITAJI）へのSNS。'
+      ? 'きたじー（KITAJI）の各SNS。お気軽にご連絡ください。'
       : 'Get in touch with Kitaji (きたじー).',
     alternates: {
       canonical: `/${lang}/contact`,
